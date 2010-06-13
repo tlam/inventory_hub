@@ -1,5 +1,7 @@
 from django.db import models
 
+from stocks.models import Stock, Warehouse
+
 class Quotation(models.Model):
     invoice_no = models.IntegerField() # Starts at 1
     date = models.DateField()
@@ -9,4 +11,4 @@ class Quotation(models.Model):
     stocks = models.ManyToMany(Stock)
     quantity = models.IntegerField()
     discount = models.FloatField()
-    clerk_name = # Fk to User
+    #clerk_name = # Fk to User

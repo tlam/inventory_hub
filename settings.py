@@ -90,6 +90,10 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.admin',
+    'communications',
+    'entries',
+    'geography',
     'stocks',
+    'suppliers',
     'south',
 )

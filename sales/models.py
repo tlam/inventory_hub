@@ -1,5 +1,7 @@
 from django.db import models
 
+from stocks.models import Warehouse
+
 class CashSale(models.Model):
     invoice_no = models.IntegerField() # CHN starts at N=1
     date = models.DateField()

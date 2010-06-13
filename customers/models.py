@@ -1,14 +1,5 @@
 from django.db import models
 
-class City(models.Model):
-    name = models.CharField(max=100)
-
-class Country(models.Model):
-    name = models.CharField(max=100)
-
-class Phone(models.Model):
-    number = models.CharField(max=12)
-    type = # home, work, mobile, home fax, work fax, skype_name
 
 class Customer(models.Model):
     cutomer_no = models.CharField(max=) # LLL-FFF-N, 
