@@ -1,0 +1,8 @@
+<h2><a href="{% url home:index %}">Inventory Hub</a></h2>
+
+{% if user.is_anonymous %}
+  <a href="{% url hub-users:login %}">Login</a>
+{% else %}
+  Hello {{ user }}
+  <a href="{% url hub-users:logout %}">Logout</a>
+{% endif %}

@@ -1,5 +1,6 @@
 from django.db import models
 
+from customers.models import Customer
 from stocks.models import Stock, Warehouse
 
 class Quotation(models.Model):
@@ -7,8 +8,8 @@ class Quotation(models.Model):
     date = models.DateField()
     warehouse = models.ForeignKey(Warehouse)
     customer = models.ForeignKey(Customer)
-    remarks = models.CharField(max=255)
-    stocks = models.ManyToMany(Stock)
+    remarks = models.CharField(max_length=255)
+    stocks = models.ManyToManyField(Stock)
     quantity = models.IntegerField()
     discount = models.FloatField()
     #clerk_name = # Fk to User

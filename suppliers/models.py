@@ -2,17 +2,11 @@ from django.db import models
 
 from communications.models import Phone
 from geography.models import City, Country
+from utils.constants import PRICE_CHOICES
 
 
 class Supplier(models.Model):
-    PRICE_CHOICES = (
-        ('R', 'R'),
-        ('W', 'W'),
-        ('D', 'D'),
-        ('S', 'S'),
-    )
-
-    supplier_no = models.CharField(max_length=100)  # CCCCCC-N, 
+    supplier_no = models.CharField(max_length=100)  # CCCCCC-N,
     company_name = models.CharField(max_length=100, blank=True)
     creditors_code = models.CharField(max_length=20, blank=True)  # Local creditors or Foreign creditors
     price_type = models.CharField(max_length=1, choices=PRICE_CHOICES)

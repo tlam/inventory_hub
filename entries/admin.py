@@ -1,5 +1,5 @@
 from django.contrib import admin
 
-from entries.models ImportEntry
+from entries.models import ImportEntry
 
 admin.site.register(ImportEntry)

@@ -12,4 +12,6 @@ urlpatterns = patterns('',
     # (r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
     url(r'^admin/', include(admin.site.urls), name='admin'),
+    url(r'^', include('home.urls', namespace='home'), name='home'),
+    url(r'^', include('hub_users.urls', namespace='hub-users'), name='hub-users'),
 )
