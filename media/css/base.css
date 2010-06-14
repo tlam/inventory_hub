@@ -1,0 +1,43 @@
+body {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 0.95em;
+  text-align: center;
+}
+
+a {
+  color: #4183C4;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+#content, #header, #footer {
+  margin: 0 auto;
+  overflow: auto;
+  text-align: left;
+  width: 1000px;
+}
+
+#home {
+  float: left;
+}
+
+#account-nav {
+  border: 1px solid #CCC;
+  float: right;
+  padding: 0.3em;
+}
+
+#navigation {
+  clear: right;
+  float: right;
+  margin: 0.5em;
+}
+
+.messages {
+  color: red;
+  list-style-type: none;
+  padding-left: 0;
+}

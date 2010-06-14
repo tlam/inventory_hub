@@ -1,0 +1,14 @@
+.fieldWrapper {
+  margin-bottom: 0.5em;
+}
+
+.fieldWrapper label {
+  display: inline-block;
+  width: 8em;
+}
+
+.fieldWrapper .errorlist {
+  color: red;
+  list-style-type: none;
+  margin: 0.2em 0 0.2em 5.7em;
+}

@@ -1,8 +1,15 @@
-<h2><a href="{% url home:index %}">Inventory Hub</a></h2>
+<div id="home">
+  <h2><a href="{% url home:index %}">Inventory Hub</a></h2>
+</div>
 
-{% if user.is_anonymous %}
-  <a href="{% url hub-users:login %}">Login</a>
-{% else %}
-  Hello {{ user }}
+{% if not user.is_anonymous %}
+<div id="account-nav">
+  <b>{{ user }}</b> |
   <a href="{% url hub-users:logout %}">Logout</a>
+</div>
+
+<div id="navigation">
+  <a href="{% url stocks:index %}">Stocks</a> |
+  <a href="{% url stocks:index %}">Stocks</a>
+</div>
 {% endif %}

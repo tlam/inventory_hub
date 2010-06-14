@@ -1,0 +1,14 @@
+{% extends "stocks/base.html" %}
+
+{% block stocks-breadcrumb-extra %}
+&gt; Create
+{% endblock %}
+
+{% block stocks-content %}
+<form action="" method="post">
+  {% include "stocks/_form.html" %}
+  <p>
+    <input type="submit" value="Create" />
+  </p>
+</form>
+{% endblock %}

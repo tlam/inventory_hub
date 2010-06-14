@@ -1,5 +1,7 @@
 from django.db import models
 
+from customers.models import Customer
+from quotations.models import Quotation
 from stocks.models import Warehouse
 
 class CashSale(models.Model):

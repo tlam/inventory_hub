@@ -7,7 +7,7 @@
   {% include "includes/messages.html" %}
   {% for field in form %}
   <div class="fieldWrapper">
-    {{ field.label_tag }}: {{ field }}
+    <span>{{ field.label_tag }}:</span> {{ field }}
     {{ field.errors }}
   </div>
   {% endfor %}

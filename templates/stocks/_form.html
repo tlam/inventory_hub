@@ -1,0 +1,84 @@
+<div class="fieldWrapper">
+  <label for="id_item_code">Item Code:</label>
+  {{ form.item_code }}
+  {{ form.item_code.errors }}
+</div>
+
+<div class="fieldWrapper">
+  <label for="id_description">Description:</label>
+  {{ form.description }}
+  {{ form.description.errors }}
+</div>
+
+<div class="fieldWrapper">
+  <label for="id_category">Category:</label>
+  {{ form.category }}
+  <a href="{% url stocks:categories:create %}">Add</a>
+  {{ form.category.errors }}
+</div>
+
+<div class="fieldWrapper">
+  <label for="id_retail_price">Retail price:</label>
+  {{ form.retail_price }}
+  {{ form.retail_price.errors }}
+  per
+  {{ form.retail_unit }}
+  {{ form.retail_unit.errors }}
+</div>
+
+<div class="fieldWrapper">
+  <label for="id_wholesale_price">Wholesale price:</label>
+  {{ form.wholesale_price }}
+  {{ form.wholesale_price.errors }}
+  per
+  {{ form.wholesale_unit }}
+  {{ form.wholesale_unit.errors }}
+</div>
+
+<div class="fieldWrapper">
+  <label for="id_dealer_price">Dealer price:</label>
+  {{ form.dealer_price }}
+  {{ form.delaer_price.errors }}
+  per
+  {{ form.dealer_unit }}
+  {{ form.dealer_unit.errors }}
+</div>
+
+<div class="fieldWrapper">
+  <label for="id_special_price">Special price:</label>
+  {{ form.special_price }}
+  {{ form.special_price.errors }}
+  per
+  {{ form.special_unit }}
+  {{ form.special_unit.errors }}
+</div>
+
+<div class="fieldWrapper">
+  <label for="id_pieces_per_box">Pieces per box:</label>
+  {{ form.pieces_per_box }}
+  {{ form.pieces_per_box.errors }}
+</div>
+
+<div class="fieldWrapper">
+  <label for="id_exempt_flag">Exempt flag:</label>
+  {{ form.exempt_flag }}
+  {{ form.exempt_flag.errors }}
+</div>
+
+<div class="fieldWrapper">
+  <label for="id_nonstock_flag">Nonstock flag:</label>
+  {{ form.nonstock_flag }}
+  {{ form.nonstock_flag.errors }}
+</div>
+
+<div class="fieldWrapper">
+  <label for="id_country">Country:</label>
+  {{ form.country }}
+  {{ form.country.errors }}
+</div>
+
+<div class="fieldWrapper">
+  <label for="id_supplier">Supplier:</label>
+  {{ form.supplier }}
+  {{ form.supplier.errors }}
+</div>

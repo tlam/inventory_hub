@@ -1,0 +1,12 @@
+.title-combo {
+  overflow: auto;
+}
+
+.title, .create-link {
+  float: left;
+}
+
+.create-link {
+  margin-left: 1em;
+  margin-top: 1.3em;
+}

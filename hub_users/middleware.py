@@ -7,6 +7,7 @@ class RequireLoginMiddleware(object):
         self.path_exceptions = [
             reverse('admin:index'),
             reverse('hub-users:login'),
+            settings.MEDIA_URL,
         ]
 
     def process_view(self, request, view_func, view_args, view_kwargs):
