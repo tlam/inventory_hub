@@ -1,0 +1,14 @@
+{% extends "suppliers/base.html" %}
+
+{% block suppliers-breadcrumb-extra %}
+&gt; Create
+{% endblock %}
+
+{% block suppliers-content %}
+<form action="" method="post">
+  {% include "suppliers/_form.html" %}
+  <p>
+    <input type="submit" value="Create" />
+  </p>
+</form>
+{% endblock %}

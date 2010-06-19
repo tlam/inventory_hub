@@ -15,7 +15,9 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls), name='admin'),
     url(r'^', include('home.urls', namespace='home'), name='home'),
     url(r'^', include('hub_users.urls', namespace='hub-users'), name='hub-users'),
+    url(r'^geography/', include('geography.urls', namespace='geography'), name='geography'),
     url(r'^stocks/', include('stocks.urls', namespace='stocks'), name='stocks'),
+    url(r'^suppliers/', include('suppliers.urls', namespace='suppliers'), name='suppliers'),
 )
 
 if settings.DEBUG:

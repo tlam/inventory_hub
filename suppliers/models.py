@@ -18,5 +18,8 @@ class Supplier(models.Model):
     first_name = models.CharField(max_length=50, blank=True)
     last_name = models.CharField(max_length=100, blank=True)
     vat_flag = models.BooleanField(default=False)
-    vat_registration_number = models.IntegerField()  # 8 digit max
-    business_registration_number = models.CharField(max_length=9)
+    vat_registration_number = models.IntegerField(blank=True)  # 8 digit max
+    business_registration_number = models.CharField(max_length=9, blank=True)
+
+    def __unicode__(self):
+        return u'%s' % self.company_name

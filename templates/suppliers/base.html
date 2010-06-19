@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block sub-title %} - Suppliers{% endblock %}
+
+{% block content %}
+
+<a href="{% url home:index %}">Home</a> &gt; 
+{% block suppliers-breadcrumb %}
+<a href="{% url suppliers:index %}">Suppliers</a>
+{% endblock %}
+{% block suppliers-breadcrumb-extra %}
+{% endblock %}
+
+<div class="title-combo">
+  <h3 class="title">Suppliers</h3>
+  <div class="create-link">
+    <a href="{% url suppliers:create %}">Create</a>
+  </div>
+</div>
+
+{% block suppliers-content %}
+{% endblock %}
+
+{% endblock %}

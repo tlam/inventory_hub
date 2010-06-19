@@ -13,7 +13,6 @@
 <div class="fieldWrapper">
   <label for="id_category">Category:</label>
   {{ form.category }}
-  <a href="{% url stocks:categories:create %}">Add</a>
   {{ form.category.errors }}
 </div>
 
@@ -80,5 +79,6 @@
 <div class="fieldWrapper">
   <label for="id_supplier">Supplier:</label>
   {{ form.supplier }}
+  <a href="{% url suppliers:create %}">Add</a>
   {{ form.supplier.errors }}
 </div>

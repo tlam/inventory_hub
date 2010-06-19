@@ -19,3 +19,6 @@ class Customer(models.Model):
     vat_registration_number = models.IntegerField()  # 8 digit max
     business_registration_number = models.CharField(max_length=9)
     discount_percent = models.FloatField()
+
+    def __unicode__(self):
+        return u'%s %s' % (self.first_name, self.last_name)
