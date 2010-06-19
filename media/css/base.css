@@ -41,3 +41,10 @@ a:hover {
   list-style-type: none;
   padding-left: 0;
 }
+
+/** Overwrite the jquery ui autocomplete css **/
+ul.ui-autocomplete {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 0.95em;
+  text-align: left;
+}

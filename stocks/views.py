@@ -1,7 +1,10 @@
+from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from django.template import RequestContext
+from django.utils import simplejson
 
 from stocks.forms import StockForm
+from stocks.models import Category
 
 
 def index(request):
@@ -37,3 +40,11 @@ def update(request):
         data,
         context_instance=RequestContext(request),
     )
+
+
+def search_category(request):
+    category = request.GET.get('term', '')
+    categories = Category.objects.filter(name__icontains=category)
+    categories = categories.values_list('name', flat=True).order_by('name')
+    data = simplejson.dumps(list(categories))
+    return HttpResponse(data, mimetype="application/javascript")
