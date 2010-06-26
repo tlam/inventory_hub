@@ -109,6 +109,7 @@ INSTALLED_APPS = (
     'geography',
     'hub_users',
     'quotations',
+    'sales',
     'stocks',
     'suppliers',
     'south',

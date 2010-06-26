@@ -1,14 +1,14 @@
-{% extends "stocks/base.html" %}
+{% extends "customers/base.html" %}
 
-{% block stocks-breadcrumb-extra %}
+{% block customers-breadcrumb-extra %}
 &gt; Update
 {% endblock %}
 
-{% block stocks-content %}
+{% block customers-content %}
 <h3>Update</h3>
 
 <form action="" method="post">
-  {% include "stocks/_form.html" %}
+  {% include "customers/_form.html" %}
   <p>
     <input type="submit" value="Update" />
   </p>

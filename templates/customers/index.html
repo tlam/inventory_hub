@@ -1,0 +1,18 @@
+{% extends "customers/base.html" %}
+
+{% block customers-breadcrumb %}
+Customers
+{% endblock %}
+
+{% block customers-content %}
+
+<h3>All Customers</h3>
+{% if customers %}
+<ol>
+{% for customer in customers %}
+  <li><a href="{% url customers:update customer.pk %}">{{ customer }}</a></li>
+{% endfor %}
+</ol>
+{% endif %}
+
+{% endblock %}

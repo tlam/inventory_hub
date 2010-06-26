@@ -5,5 +5,14 @@ Stocks
 {% endblock %}
 
 {% block stocks-content %}
+
 <h3>All Stocks</h3>
+{% if stocks %}
+<ol>
+{% for stock in stocks %}
+  <li><a href="{% url stocks:update stock.pk %}">{{ stock }}</a></li>
+{% endfor %}
+</ol>
+{% endif %}
+
 {% endblock %}

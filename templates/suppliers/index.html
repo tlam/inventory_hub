@@ -10,7 +10,7 @@ Suppliers
 {% if suppliers %}
 <ol>
 {% for supplier in suppliers %}
-  <li>{{ supplier }}</li>
+  <li><a href="{% url suppliers:update supplier.pk %}">{{ supplier }}</a></li>
 {% endfor %}
 </ol>
 {% endif %}

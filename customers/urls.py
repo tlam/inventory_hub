@@ -1,8 +1,7 @@
 from django.conf.urls.defaults import *
  
-urlpatterns = patterns('suppliers.views',
+urlpatterns = patterns('customers.views',
     url(r'^$', 'index', name='index'),
     url(r'^create/$', 'create', name='create'),
-    url(r'^update/(?P<supplier_id>\d+)/$', 'update', name='update'),
+    url(r'^update/(?P<customer_id>\d+)/$', 'update', name='update'),
 )
-

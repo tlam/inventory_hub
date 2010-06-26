@@ -1,0 +1,14 @@
+{% extends "customers/base.html" %}
+
+{% block customers-breadcrumb-extra %}
+&gt; Create
+{% endblock %}
+
+{% block customers-content %}
+<form action="" method="post">
+  {% include "customers/_form.html" %}
+  <p>
+    <input type="submit" value="Create" />
+  </p>
+</form>
+{% endblock %}

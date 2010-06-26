@@ -5,7 +5,7 @@ from utils.constants import PRICE_CHOICES
 
 
 class Customer(models.Model):
-    cutomer_no = models.CharField(max_length=100, blank=True)  # LLL-FFF-N, 
+    cutomer_no = models.CharField(max_length=100)  # LLL-FFF-N, 
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=100)
     company_name = models.CharField(max_length=100, blank=True)
@@ -16,11 +16,11 @@ class Customer(models.Model):
     home_phone = models.CharField(max_length=50, blank=True)
     work_phone = models.CharField(max_length=50, blank=True)
     cell_phone = models.CharField(max_length=50, blank=True)
-    email = models.CharField(max_length=100)
+    email = models.CharField(max_length=100, blank=True)
     vat_flag = models.BooleanField(default=False)
-    vat_registration_number = models.IntegerField()  # 8 digit max
-    business_registration_number = models.CharField(max_length=9)
-    discount_percent = models.FloatField()
+    vat_registration_number = models.IntegerField(default=0, blank=True)  # 8 digit max
+    business_registration_number = models.CharField(max_length=9, blank=True)
+    discount_percent = models.FloatField(default=0, blank=True)
 
     def __unicode__(self):
         return u'%s %s' % (self.first_name, self.last_name)

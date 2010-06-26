@@ -51,3 +51,6 @@ class Stock(models.Model):
     nonstock_flag = models.BooleanField(default=False)
     country = models.ForeignKey(Country, null=True, blank=True)
     supplier = models.ForeignKey(Supplier, null=True, blank=True)
+
+    def __unicode__(self):
+         return u'%s - %s' % (self.item_code, self.description)

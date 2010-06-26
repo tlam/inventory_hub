@@ -1,6 +1,18 @@
-{% extends "base.html" %}
+{% extends "suppliers/base.html" %}
 
-{% block content %}
+{% block suppliers-breadcrumb-extra %}
+&gt; Update
+{% endblock %}
+
+{% block suppliers-content %}
 <h3>Update</h3>
+
+<form action="" method="post">
+  {% include "suppliers/_form.html" %}
+  <p>
+    <input type="submit" value="Update" />
+  </p>
+  {% include "includes/messages.html" %}
+</form>
 
 {% endblock %}
