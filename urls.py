@@ -1,3 +1,4 @@
+from django import template
 from django.conf import settings
 from django.conf.urls.defaults import *
 from django.contrib import admin
@@ -19,6 +20,9 @@ urlpatterns = patterns('',
     url(r'^stocks/', include('stocks.urls', namespace='stocks'), name='stocks'),
     url(r'^suppliers/', include('suppliers.urls', namespace='suppliers'), name='suppliers'),
 )
+
+# Load custom template tags and filters in all templates
+template.add_to_builtins('utils.templatetags.extras')
 
 if settings.DEBUG:
     from django.views.static import serve

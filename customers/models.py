@@ -1,8 +1,8 @@
 from django.db import models
 
-from communications.models import Phone
 from geography.models import City, Country
 from utils.constants import PRICE_CHOICES
+
 
 class Customer(models.Model):
     cutomer_no = models.CharField(max_length=100, blank=True)  # LLL-FFF-N, 
@@ -13,7 +13,9 @@ class Customer(models.Model):
     address = models.CharField(max_length=255)
     city = models.ForeignKey(City)
     country = models.ForeignKey(Country)
-    phone = models.ManyToManyField(Phone)
+    home_phone = models.CharField(max_length=50, blank=True)
+    work_phone = models.CharField(max_length=50, blank=True)
+    cell_phone = models.CharField(max_length=50, blank=True)
     email = models.CharField(max_length=100)
     vat_flag = models.BooleanField(default=False)
     vat_registration_number = models.IntegerField()  # 8 digit max

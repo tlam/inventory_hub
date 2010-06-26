@@ -1,6 +1,5 @@
 from django.db import models
 
-from communications.models import Phone
 from geography.models import City, Country
 from utils.constants import PRICE_CHOICES
 
@@ -14,7 +13,7 @@ class Supplier(models.Model):
     city = models.ForeignKey(City)
     country = models.ForeignKey(Country)
     postal_code = models.CharField(max_length=6, blank=True)
-    phone = models.ManyToManyField(Phone, null=True)
+    phone = models.CharField(max_length=50, blank=True)
     first_name = models.CharField(max_length=50, blank=True)
     last_name = models.CharField(max_length=100, blank=True)
     vat_flag = models.BooleanField(default=False)

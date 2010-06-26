@@ -104,7 +104,6 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.admin',
-    'communications',
     'customers',
     'entries',
     'geography',
@@ -113,4 +112,5 @@ INSTALLED_APPS = (
     'stocks',
     'suppliers',
     'south',
+    'utils',
 )
