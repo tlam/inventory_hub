@@ -54,3 +54,12 @@ class Stock(models.Model):
 
     def __unicode__(self):
          return u'%s - %s' % (self.item_code, self.description)
+
+
+class StockItem(models.Model):
+    stock = models.ForeignKey('stocks.Stock')
+    quantity = models.IntegerField(default=0, blank=True)
+    discount = models.FloatField(default=0, blank=True)
+    quotation = models.ForeignKey('quotations.Quotation', blank=True, null=True)
+    cash_sale = models.ForeignKey('sales.CashSale', blank=True, null=True)
+    credit_sale = models.ForeignKey('sales.CreditSale', blank=True, null=True)

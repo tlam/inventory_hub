@@ -13,9 +13,6 @@ class Sale(models.Model):
     customer = models.ForeignKey(Customer)
     remarks = models.CharField(max_length=255, blank=True)
     recquisition_number = models.CharField(max_length=255, blank=True)
-    stocks = models.ManyToManyField(Stock)
-    quantity = models.IntegerField(default=0, blank=True)
-    discount = models.FloatField(default=0, blank=True)
     #clerk_name = # Fk to User
 
     class Meta:
