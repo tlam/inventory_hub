@@ -1,18 +1,21 @@
 <div class="fieldWrapper">
   <label for="id_item_code">Item Code:</label>
   {{ form.item_code }}
+  {% required_field form.item_code %}
   {{ form.item_code.errors }}
 </div>
 
 <div class="fieldWrapper">
   <label for="id_description">Description:</label>
   {{ form.description }}
+  {% required_field form.description %}
   {{ form.description.errors }}
 </div>
 
 <div class="fieldWrapper">
   <label for="id_category">Category:</label>
   {{ form.category }}
+  {% required_field form.category %}
   {{ form.category.errors }}
 </div>
 

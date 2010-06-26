@@ -37,9 +37,16 @@ a:hover {
 }
 
 .messages {
-  color: red;
   list-style-type: none;
   padding-left: 0;
+}
+
+.messages .warning {
+  color: red;
+}
+
+.messages .success {
+  color: green;
 }
 
 /** Overwrite the jquery ui autocomplete css **/

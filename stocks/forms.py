@@ -11,8 +11,8 @@ class CategoryForm(ModelForm):
 
 
 class StockForm(ModelForm):
-    category = forms.CharField(max_length=100)
-    country = forms.CharField(max_length=100)
+    category = forms.CharField(max_length=100, required=False)
+    country = forms.CharField(max_length=100, required=False)
 
     class Meta:
         model = Stock

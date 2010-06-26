@@ -1,11 +1,17 @@
+from django.contrib import messages
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 
 from suppliers.forms import SupplierForm
+from suppliers.models import Supplier
+
 
 def index(request):
-    data = {}
+    suppliers = Supplier.objects.all()
+    data = {
+        'suppliers': suppliers,
+    }
 
     return render_to_response(
         'suppliers/index.html',
@@ -13,9 +19,13 @@ def index(request):
         context_instance=RequestContext(request),
     )
 
+
 def create(request):
     if request.method == 'POST':
         form = SupplierForm(request.POST)
+        if form.is_valid():
+            #form.save()
+            messages.success(request, 'New supplier created')
     else:
         form = SupplierForm()
 

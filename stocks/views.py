@@ -19,6 +19,8 @@ def index(request):
 def create(request):
     if request.method == 'POST':
         form = StockForm(request.POST)
+        if form.is_valid():
+            form.save()
     else:
         form = StockForm()
 

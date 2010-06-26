@@ -6,4 +6,12 @@ Suppliers
 
 {% block suppliers-content %}
 <h3>All Suppliers</h3>
+
+{% if suppliers %}
+<ol>
+{% for supplier in suppliers %}
+  <li>{{ supplier }}</li>
+{% endfor %}
+</ol>
+{% endif %}
 {% endblock %}
