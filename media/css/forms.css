@@ -1,3 +1,9 @@
+.errorlist {
+  color: red;
+  list-style-type: none;
+  padding-left: 0;
+}
+
 .fieldWrapper {
   margin-bottom: 0.5em;
 }
@@ -8,7 +14,6 @@
 }
 
 .fieldWrapper .errorlist {
-  color: red;
-  list-style-type: none;
-  margin: 0.2em 0 0.2em 5.7em;
+  margin: 0.2em 0 0.2em 8.1em;
 }
+

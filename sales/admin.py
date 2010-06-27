@@ -6,6 +6,7 @@ from stocks.models import StockItem
 
 class StockItemInline(admin.TabularInline):
     model = StockItem
+    extra = 1
 
 
 class SaleAdmin(admin.ModelAdmin):
@@ -14,4 +15,4 @@ class SaleAdmin(admin.ModelAdmin):
     ]
 
 admin.site.register(CashSale, SaleAdmin)
-admin.site.register(CreditSale)
+admin.site.register(CreditSale, SaleAdmin)

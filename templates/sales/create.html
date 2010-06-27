@@ -1,11 +1,12 @@
 {% extends "sales/base.html" %}
 
 {% block sales-breadcrumb-extra %}
-&gt; Create Cash Sale
+&gt; <a href="{% url sales:customer sale_type %}">Add Customer</a>
+&gt; Create {{ sale_type|capfirst }} Sale
 {% endblock %}
 
 {% block sales-content %}
-<h3>Cash Sales</h3>
+<h3>{{ sale_type|capfirst }} Sales</h3>
 
 <form action="" method="post">
   {% include "sales/_form.html" %}

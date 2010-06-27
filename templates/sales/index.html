@@ -12,4 +12,22 @@ Sales
   <li><a href="{% url sales:customer 'credit' %}">Create Credit Sale</a></li>
 </ol>
 
+{% if cash_sales %}
+  <h4>Cash Sales</h4>
+  <ol>
+  {% for sale in cash_sales %}
+    <li><a href="{% url sales:update 'cash' sale.pk %}">{{ sale.date }} - {{ sale }}</a></li>
+  {% endfor %}
+  </ol>
+{% endif %}
+
+{% if credit_sales %}
+  <h4>Credit Sales</h4>
+  <ol>
+  {% for sale in credit_sales %}
+    <li><a href="{% url sales:update 'credit' sale.pk %}">{{ sale.date }} - {{ sale }}</a></li>
+  {% endfor %}
+  </ol>
+{% endif %}
+
 {% endblock %}

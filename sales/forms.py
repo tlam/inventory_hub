@@ -12,3 +12,10 @@ class CashSaleForm(ModelForm):
 class CreditSaleForm(ModelForm):
     class Meta:
         model = CreditSale
+
+
+def sale_form(sale_type, *args, **kwargs):
+    if sale_type == 'cash':
+        return CashSaleForm(*args, **kwargs)
+    else:
+        return CreditSaleForm(*args, **kwargs)

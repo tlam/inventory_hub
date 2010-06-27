@@ -24,7 +24,6 @@
   <label for="id_customer">Customer:</label>
   {{ form.customer }}
   {% required_field form.customer %}
-  <a href="{% url customers:create %}">Add</a>
   {{ form.customer.errors }}
 </div>
 

@@ -1,16 +1,23 @@
 from django.contrib import messages
+from django.forms.models import inlineformset_factory
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render_to_response
 from django.template import RequestContext
 
 from customers.forms import CustomerForm
 from customers.models import Customer
-from sales.forms import CashSaleForm, CreditSaleForm
+from sales.forms import sale_form
 from sales.models import CashSale, CreditSale
+from stocks.models import StockItem
 
 
 def index(request):
+    cash_sales = CashSale.objects.all()
+    credit_sales = CreditSale.objects.all()
+
     data = {
+        'cash_sales': cash_sales,
+        'credit_sales': credit_sales,
     }
 
     return render_to_response(
@@ -27,8 +34,7 @@ def customer(request, sale_type):
         form = CustomerForm(request.POST)
         if form.is_valid():
             customer = form.save()
-            # redirect to create sales page
-            #return redirect('customers:update', customer.pk)
+            return redirect('sales:create', sale_type, customer.pk)
     else:
         form = CustomerForm()
 
@@ -49,15 +55,16 @@ def create(request, sale_type, customer_id):
     customer = get_object_or_404(Customer, pk=customer_id)
 
     if request.method == 'POST':
-        form = CashSaleForm(request.POST)
+        form = sale_form(sale_type, request.POST)
         if form.is_valid():
             sale = form.save()
-            return redirect('sales:update-cash-sale', sale.pk)
+            return redirect('sales:update', sale_type, sale.pk)
     else:
-        form = CashSaleForm(initial={'customer': customer.pk})
+        form = sale_form(sale_type, initial={'customer': customer.pk})
 
     data = {
         'form': form,
+        'sale_type': sale_type,
     }
 
     return render_to_response(
@@ -67,43 +74,39 @@ def create(request, sale_type, customer_id):
     )
     
 
-def create_cash_sale(request):
-    if request.method == 'POST':
-        form = CashSaleForm(request.POST)
-        if form.is_valid():
-            sale = form.save()
-            return redirect('sales:update-cash-sale', sale.pk)
+def update(request, sale_type, sale_id):
+
+    if sale_type == 'cash':
+        instance = CashSale
     else:
-        form = CashSaleForm()
+        instance = CreditSale
 
-    data = {
-        'form': form,
-    }
-
-    return render_to_response(
-        'sales/create_cash_sale.html',
-        data,
-        context_instance=RequestContext(request),
-    )
-
-
-def update_cash_sale(request, sale_id):
-    sale = get_object_or_404(Sale, pk=sale_id)
+    sale = get_object_or_404(instance, pk=sale_id)
+    StockItemFormSet = inlineformset_factory(instance, StockItem, extra=1, fields = ('stock', 'quantity', 'discount',))
 
     if request.method == 'POST':
-        form = CashSaleForm(request.POST, instance=sale)
-        if form.is_valid():
+        form = sale_form(sale_type, request.POST, instance=sale)
+        formset = StockItemFormSet(request.POST, instance=sale)
+        if form.is_valid() and formset.is_valid():
             form.save()
-            messages.success(request, 'Cash sale updated')
+            formset.save()
+            messages.success(request, '%s sale updated' % sale_type)
+            """
+            Redirecting will force an update of the current page and
+            add an extra row
+            """
+            return redirect('sales:update', sale_type, sale_id)
     else:
-        form = CashSaleForm(instance=supplier)
-    
+        formset = StockItemFormSet(instance=sale)
+        form = sale_form(sale_type, instance=sale)
+
     data = {
         'form': form,
+        'formset': formset,
     }
 
     return render_to_response(
-        'sales/update_cash_sale.html',
+        'sales/update.html',
         data,
         context_instance=RequestContext(request),
     )

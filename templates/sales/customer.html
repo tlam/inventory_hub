@@ -7,9 +7,10 @@
 {% block sales-content %}
 <h3>Find existing cutomer</h3>
 
+AJAX search and generate link for the following
 <ol>
 {% for customer in customers %}
-  <a href="{% url sales:create sale_type customer.pk %}">{{ customer }}</a>
+  <li><a href="{% url sales:create sale_type customer.pk %}">{{ customer }}</a></li>
 {% endfor %}
 </ol>
 
@@ -22,5 +23,6 @@
     <input type="submit" value="Create" />
   </p>
   {% include "includes/messages.html" %}
+  {{ form.non_field_errors }}
 </form>
 {% endblock %}

@@ -22,5 +22,8 @@ class Customer(models.Model):
     business_registration_number = models.CharField(max_length=9, blank=True)
     discount_percent = models.FloatField(default=0, blank=True)
 
+    class Meta:
+        unique_together = (('first_name', 'last_name'),)
+
     def __unicode__(self):
         return u'%s %s' % (self.first_name, self.last_name)

@@ -61,5 +61,5 @@ class StockItem(models.Model):
     quantity = models.IntegerField(default=0, blank=True)
     discount = models.FloatField(default=0, blank=True)
     quotation = models.ForeignKey('quotations.Quotation', blank=True, null=True)
-    cash_sale = models.ForeignKey('sales.CashSale', blank=True, null=True)
-    credit_sale = models.ForeignKey('sales.CreditSale', blank=True, null=True)
+    cash_sale = models.ForeignKey('sales.CashSale', blank=True, null=True, related_name='cash_sale')
+    credit_sale = models.ForeignKey('sales.CreditSale', blank=True, null=True, related_name='credit_sale')
