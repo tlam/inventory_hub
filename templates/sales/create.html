@@ -1,0 +1,17 @@
+{% extends "sales/base.html" %}
+
+{% block sales-breadcrumb-extra %}
+&gt; Create Cash Sale
+{% endblock %}
+
+{% block sales-content %}
+<h3>Cash Sales</h3>
+
+<form action="" method="post">
+  {% include "sales/_form.html" %}
+  <p>
+    <input type="submit" value="Create" />
+  </p>
+  {% include "includes/messages.html" %}
+</form>
+{% endblock %}

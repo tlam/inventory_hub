@@ -1,0 +1,43 @@
+<div class="fieldWrapper">
+  <label for="id_invoice_no">Invoice number:</label>
+  {{ form.invoice_no }}
+  {% required_field form.invoice_no %}
+  {{ form.invoice_no.errors }}
+</div>
+
+<div class="fieldWrapper">
+  <label for="id_date">Date:</label>
+  {{ form.date }}
+  {% required_field form.date %}
+  {{ form.date.errors }}
+</div>
+
+<div class="fieldWrapper">
+  <label for="id_warehouse">Warehouse:</label>
+  {{ form.warehouse }}
+  {% required_field form.warehouse %}
+  <a href="">Add</a>
+  {{ form.warehouse.errors }}
+</div>
+
+<div class="fieldWrapper">
+  <label for="id_customer">Customer:</label>
+  {{ form.customer }}
+  {% required_field form.customer %}
+  <a href="{% url customers:create %}">Add</a>
+  {{ form.customer.errors }}
+</div>
+
+<div class="fieldWrapper">
+  <label for="id_remarks">Remarks:</label>
+  {{ form.remarks }}
+  {% required_field form.remarks %}
+  {{ form.remarks.errors }}
+</div>
+
+<div class="fieldWrapper">
+  <label for="id_recquisition_number">Recquisition number:</label>
+  {{ form.recquisition_number }}
+  {% required_field form.recquisition_number %}
+  {{ form.recquisition_number.errors }}
+</div>

@@ -8,7 +8,7 @@ from stocks.models import Stock, Warehouse
 class Sale(models.Model):
     invoice_no = models.IntegerField() # CHN starts at N=1
     date = models.DateField()
-    quotation = models.ForeignKey(Quotation)
+    #quotation = models.ForeignKey(Quotation)
     warehouse = models.ForeignKey(Warehouse)
     customer = models.ForeignKey(Customer)
     remarks = models.CharField(max_length=255, blank=True)

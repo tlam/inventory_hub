@@ -6,6 +6,7 @@ from django.template import RequestContext
 from customers.forms import CustomerForm
 from customers.models import Customer
 
+
 def index(request):
     customers = Customer.objects.all()
 
@@ -25,7 +26,7 @@ def create(request):
         form = CustomerForm(request.POST)
         if form.is_valid():
             customer = form.save()
-            return redirect('customers:update', customers.pk)
+            return redirect('customers:update', customer.pk)
     else:
         form = CustomerForm()
 

@@ -1,0 +1,26 @@
+{% extends "sales/base.html" %}
+
+{% block sales-breadcrumb-extra %}
+&gt; Add customer
+{% endblock %}
+
+{% block sales-content %}
+<h3>Find existing cutomer</h3>
+
+<ol>
+{% for customer in customers %}
+  <a href="{% url sales:create sale_type customer.pk %}">{{ customer }}</a>
+{% endfor %}
+</ol>
+
+<p>or</p>
+
+<h3>Create a new customer</h3>
+<form action="" method="post">
+  {% include "customers/_form.html" %}
+  <p>
+    <input type="submit" value="Create" />
+  </p>
+  {% include "includes/messages.html" %}
+</form>
+{% endblock %}

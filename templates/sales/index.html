@@ -1,0 +1,15 @@
+{% extends "sales/base.html" %}
+
+{% block sales-breadcrumb %}
+Sales
+{% endblock %}
+
+{% block sales-content %}
+<h3>All Sales</h3>
+
+<ol>
+  <li><a href="{% url sales:customer 'cash' %}">Create Cash Sale</a></li>
+  <li><a href="{% url sales:customer 'credit' %}">Create Credit Sale</a></li>
+</ol>
+
+{% endblock %}

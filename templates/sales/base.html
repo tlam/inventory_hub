@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block sub-title %} - Sales{% endblock %}
+
+{% block content %}
+
+<a href="{% url home:index %}">Home</a> &gt; 
+{% block sales-breadcrumb %}
+<a href="{% url sales:index %}">Sales</a>
+{% endblock %}
+{% block sales-breadcrumb-extra %}
+{% endblock %}
+
+{% block sales-content %}
+{% endblock %}
+
+{% endblock %}

@@ -11,6 +11,7 @@ urlpatterns = patterns('',
     url(r'^', include('hub_users.urls', namespace='hub-users'), name='hub-users'),
     url(r'^customers/', include('customers.urls', namespace='customers'), name='customers'),
     url(r'^geography/', include('geography.urls', namespace='geography'), name='geography'),
+    url(r'^sales/', include('sales.urls', namespace='sales'), name='sales'),
     url(r'^stocks/', include('stocks.urls', namespace='stocks'), name='stocks'),
     url(r'^suppliers/', include('suppliers.urls', namespace='suppliers'), name='suppliers'),
 )
