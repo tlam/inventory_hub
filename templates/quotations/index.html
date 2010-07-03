@@ -1,0 +1,12 @@
+{% extends "quotations/base.html" %}
+
+{% block quotations-breadcrumb %}
+Quotations
+{% endblock %}
+
+{% block quotations-content %}
+<h3>All Quotations</h3>
+
+<a href="{% url quotations:customer %}">Create Quotation</a>
+
+{% endblock %}

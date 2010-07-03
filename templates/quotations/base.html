@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block sub-title %} - Quotations{% endblock %}
+
+{% block content %}
+
+<a href="{% url home:index %}">Home</a> &gt; 
+{% block sales-breadcrumb %}
+<a href="{% url quotations:index %}">Quotations</a>
+{% endblock %}
+{% block quotations-breadcrumb-extra %}
+{% endblock %}
+
+{% block quotations-content %}
+{% endblock %}
+
+{% endblock %}
