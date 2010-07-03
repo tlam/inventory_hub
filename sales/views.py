@@ -75,7 +75,6 @@ def create(request, sale_type, customer_id):
     
 
 def update(request, sale_type, sale_id):
-
     if sale_type == 'cash':
         instance = CashSale
     else:

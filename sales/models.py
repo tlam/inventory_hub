@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.db import models
 
 from customers.models import Customer
@@ -14,6 +16,8 @@ class Sale(models.Model):
     remarks = models.CharField(max_length=255, blank=True)
     recquisition_number = models.CharField(max_length=255, blank=True)
     #clerk_name = # Fk to User
+    created_at = models.DateTimeField(auto_now_add=True, default=datetime.now())
+    updated_at = models.DateTimeField(auto_now=True, default=datetime.now())
 
     class Meta:
         abstract = True

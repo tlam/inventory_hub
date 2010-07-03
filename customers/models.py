@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.db import models
 
 from geography.models import City, Country
@@ -21,6 +23,8 @@ class Customer(models.Model):
     vat_registration_number = models.IntegerField(default=0, blank=True)  # 8 digit max
     business_registration_number = models.CharField(max_length=9, blank=True)
     discount_percent = models.FloatField(default=0, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True, default=datetime.now())
+    updated_at = models.DateTimeField(auto_now=True, default=datetime.now())
 
     class Meta:
         unique_together = (('first_name', 'last_name'),)

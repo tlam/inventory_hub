@@ -9,4 +9,10 @@ Quotations
 
 <a href="{% url quotations:customer %}">Create Quotation</a>
 
+<ol>
+{% for quotation in quotations %}
+  <li><a href="{% url quotations:update quotation.id %}">{{ quotation }}</a></li>
+{% endfor %}
+</ol>
+
 {% endblock %}

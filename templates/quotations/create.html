@@ -1,0 +1,18 @@
+{% extends "quotations/base.html" %}
+
+{% block quotations-breadcrumb-extra %}
+&gt; <a href="{% url quotations:customer %}">Add Customer</a>
+&gt; Create Quotation
+{% endblock %}
+
+{% block quotations-content %}
+<h3>Quotations</h3>
+
+<form action="" method="post">
+  {% include "quotations/_form.html" %}
+  <p>
+    <input type="submit" value="Create" />
+  </p>
+  {% include "includes/messages.html" %}
+</form>
+{% endblock %}

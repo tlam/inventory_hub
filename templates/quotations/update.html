@@ -1,0 +1,35 @@
+{% extends "quotations/base.html" %}
+
+{% block quotations-breadcrumb-extra %}
+&gt; Update
+{% endblock %}
+
+{% block quotations-content %}
+<h3>Update</h3>
+
+<form action="" method="post">
+  {{ formset.management_form }}
+  {% include "quotations/_form.html" %}
+  <table>
+    <tr>
+      <th>Stock</th>
+      <th>Quantity</th>
+      <th>Discount</th>
+      <th>Delete</th>
+    </tr>
+  {% for form in formset.forms %}
+    <tr>
+    {% for field in form %}
+      <td>{{ field }}</td>
+    {% endfor %}
+    </tr>
+  {% endfor %}
+  </table>
+  <p>
+    <input type="submit" value="Update" />
+  </p>
+  {% include "includes/messages.html" %}
+</form>
+
+
+{% endblock %}

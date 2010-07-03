@@ -1,0 +1,28 @@
+{% extends "quotations/base.html" %}
+
+{% block quotations-breadcrumb-extra %}
+&gt; Add customer
+{% endblock %}
+
+{% block quotations-content %}
+<h3>Find existing cutomer</h3>
+
+AJAX search and generate link for the following
+<ol>
+{% for customer in customers %}
+  <li><a href="{% url quotations:create customer.pk %}">{{ customer }}</a></li>
+{% endfor %}
+</ol>
+
+<p>or</p>
+
+<h3>Create a new customer</h3>
+<form action="" method="post">
+  {% include "customers/_form.html" %}
+  <p>
+    <input type="submit" value="Create" />
+  </p>
+  {% include "includes/messages.html" %}
+  {{ form.non_field_errors }}
+</form>
+{% endblock %}
