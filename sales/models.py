@@ -1,5 +1,6 @@
 from datetime import datetime
 
+from django.contrib.auth.models import User
 from django.db import models
 
 from customers.models import Customer
@@ -25,9 +26,18 @@ class Sale(models.Model):
     def __unicode__(self):
         return u'%s' % self.customer
 
+    def info(self):
+        return {
+            'invoice_no': self.invoice_no,
+            'date': self.date.isoformat(),
+            'warehouse': self.warehouse.__unicode__(),
+            'customer': self.customer.__unicode__(),
+            'remarks': self.remarks,
+            'recquisition_number': self.recquisition_number,
+        }
+
 class CashSale(Sale):
     pass
 
 class CreditSale(Sale):
     pass
-

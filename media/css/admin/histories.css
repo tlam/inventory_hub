@@ -1,0 +1,4 @@
+input#id_past, input#id_present {
+  height: 2em;
+  width: 100em;
+}

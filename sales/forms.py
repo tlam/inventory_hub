@@ -5,16 +5,16 @@ from sales.models import CashSale, CreditSale
 from utils.widgets import CalendarField
 
 
-class CashSaleForm(ModelForm):
+class BaseSaleForm(ModelForm):
     date = CalendarField()
 
+
+class CashSaleForm(BaseSaleForm):
     class Meta:
         model = CashSale
 
 
-class CreditSaleForm(ModelForm):
-    date = CalendarField()
-
+class CreditSaleForm(BaseSaleForm):
     class Meta:
         model = CreditSale
 

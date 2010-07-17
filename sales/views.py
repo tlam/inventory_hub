@@ -6,6 +6,7 @@ from django.template import RequestContext
 
 from customers.forms import CustomerForm
 from customers.models import Customer
+from histories.models import History
 from sales.forms import sale_form
 from sales.models import CashSale, CreditSale
 from stocks.models import StockItem
@@ -80,14 +81,16 @@ def update(request, sale_type, sale_id):
     else:
         instance = CreditSale
 
-    sale = get_object_or_404(instance, pk=sale_id)
+    sale = get_object_or_404(instance, id=sale_id)
     StockItemFormSet = inlineformset_factory(instance, StockItem, extra=1, fields = ('stock', 'quantity', 'discount',))
 
     if request.method == 'POST':
         form = sale_form(sale_type, request.POST, instance=sale)
         formset = StockItemFormSet(request.POST, instance=sale)
         if form.is_valid() and formset.is_valid():
-            form.save()
+            past_sale = instance.objects.get(id=sale_id)
+            updated_sale = form.save()
+            History.updated_history(past_sale, updated_sale, request.user)
             formset.save()
             messages.success(request, '%s sale updated' % sale_type)
             """
