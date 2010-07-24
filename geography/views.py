@@ -7,6 +7,9 @@ from geography.models import City, Country
 
 
 def search_city(request):
+    """
+    AJAX call to autocomplete city name
+    """
     city = request.GET.get('term', '')
     cities = City.objects.filter(name__icontains=city)
     cities = cities.values_list('name', flat=True).order_by('name')
@@ -15,6 +18,9 @@ def search_city(request):
 
 
 def search_country(request):
+    """
+    AJAX call to autocomplete country name
+    """
     country = request.GET.get('term', '')
     countries = Country.objects.filter(name__icontains=country)
     countries = countries.values_list('name', flat=True).order_by('name')

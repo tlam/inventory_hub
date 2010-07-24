@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render_to_response
 from django.template import RequestContext
 
+from histories.models import History
 from suppliers.forms import SupplierForm
 from suppliers.models import Supplier
 
@@ -25,6 +26,8 @@ def create(request):
         form = SupplierForm(request.POST)
         if form.is_valid():
             supplier = form.save()
+            History.created_history(supplier, request.user)
+            messages.success(request, 'Supplier created')
             return redirect('suppliers:update', supplier.pk)
     else:
         form = SupplierForm()
@@ -40,7 +43,7 @@ def create(request):
     )
 
 def update(request, supplier_id):
-    supplier = get_object_or_404(Supplier, pk=supplier_id)
+    supplier = get_object_or_404(Supplier, id=supplier_id)
     initial_data = {
         'city': supplier.city.name,
         'country': supplier.country.name,
@@ -49,7 +52,9 @@ def update(request, supplier_id):
     if request.method == 'POST':
         form = SupplierForm(request.POST, instance=supplier)
         if form.is_valid():
-            form.save()
+            past_supplier = Supplier.objects.get(id=supplier_id)
+            updated_supplier = form.save()
+            History.updated_history(past_supplier, updated_supplier, request.user)
             messages.success(request, 'Supplier updated')
     else:
         form = SupplierForm(initial=initial_data, instance=supplier)

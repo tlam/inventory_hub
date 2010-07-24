@@ -22,3 +22,21 @@ class Supplier(models.Model):
 
     def __unicode__(self):
         return u'%s' % self.company_name
+
+    def info(self):
+        return {
+            'supplier_no': self.supplier_no,
+            'company_name': self.company_name,
+            'creditors_code': self.creditors_code,
+            'price_type': self.price_type,
+            'address': self.address,
+            'city': self.city.name,
+            'country': self.country.name,
+            'postal_code': self.postal_code,
+            'phone': self.phone,
+            'first_name': self.first_name,
+            'last_name': self.last_name,
+            'vat_flag': self.vat_flag,
+            'vat_registration_number': self.vat_registration_number,
+            'business_registration_number': self.business_registration_number,
+        }

@@ -5,6 +5,7 @@ from django.template import RequestContext
 
 from customers.forms import CustomerForm
 from customers.models import Customer
+from histories.models import History
 
 
 def index(request):
@@ -26,6 +27,7 @@ def create(request):
         form = CustomerForm(request.POST)
         if form.is_valid():
             customer = form.save()
+            History.created_history(customer, request.user)
             return redirect('customers:update', customer.pk)
     else:
         form = CustomerForm()
@@ -51,7 +53,9 @@ def update(request, customer_id):
     if request.method == 'POST':
         form = CustomerForm(request.POST, instance=customer)
         if form.is_valid():
-            form.save()
+            past_customer = Customer.objects.get(id=customer_id)
+            updated_customer = form.save()
+            History.updated_history(past_customer, updated_customer, request.user)
             messages.success(request, 'Customer updated')
     else:
         form = CustomerForm(initial=initial_data, instance=customer)

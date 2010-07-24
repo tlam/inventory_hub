@@ -4,6 +4,7 @@ from django.shortcuts import get_object_or_404, redirect, render_to_response
 from django.template import RequestContext
 from django.utils import simplejson
 
+from histories.models import History
 from stocks.forms import StockForm
 from stocks.models import Category, Stock
 
@@ -26,6 +27,7 @@ def create(request):
         form = StockForm(request.POST)
         if form.is_valid():
             stock = form.save()
+            History.created_history(stock, request.user)
             return redirect('stocks:update', stock.pk)
     else:
         form = StockForm()
@@ -41,7 +43,7 @@ def create(request):
     )
 
 def update(request, stock_id):
-    stock = get_object_or_404(Stock, pk=stock_id)
+    stock = get_object_or_404(Stock, id=stock_id)
     initial_data = {
         'category': stock.category.name,
         'country': stock.country.name,
@@ -50,7 +52,9 @@ def update(request, stock_id):
     if request.method == 'POST':
         form = StockForm(request.POST, instance=stock)
         if form.is_valid():
-            form.save()
+            past_stock = Stock.objects.get(id=stock_id)
+            updated_stock = form.save()
+            History.updated_history(past_stock, updated_stock, request.user)
             messages.success(request, 'Supplier updated')
     else:
         form = StockForm(initial=initial_data, instance=stock)
@@ -67,6 +71,9 @@ def update(request, stock_id):
 
 
 def search_category(request):
+    """
+    AJAX autocomplete of category name.
+    """
     category = request.GET.get('term', '')
     categories = Category.objects.filter(name__icontains=category)
     categories = categories.values_list('name', flat=True).order_by('name')

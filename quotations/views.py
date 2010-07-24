@@ -5,6 +5,7 @@ from django.template import RequestContext
 
 from customers.forms import CustomerForm
 from customers.models import Customer
+from histories.models import History
 from quotations.forms import QuotationForm
 from quotations.models import Quotation
 from stocks.models import StockItem
@@ -31,6 +32,7 @@ def customer(request):
         form = CustomerForm(request.POST)
         if form.is_valid():
             customer = form.save()
+            History.created_history(customer, request.user)
             return redirect('quotations:create', customer.pk)
     else:
         form = CustomerForm()
@@ -54,6 +56,7 @@ def create(request, customer_id):
         form = QuotationForm(request.POST)
         if form.is_valid():
             quotation = form.save()
+            History.created_history(quotation, request.user)
             return redirect('quotations:update', quotation.pk)
     else:
         form = QuotationForm(initial={'customer': customer_id})
@@ -77,8 +80,10 @@ def update(request, quotation_id):
         form = QuotationForm(request.POST, instance=quotation)
         formset = StockItemFormSet(request.POST, instance=quotation)
         if form.is_valid() and formset.is_valid():
-            form.save()
-            formset.save()
+            past_quotation = Quotation.objects.get(id=quotation_id)
+            updated_quotation = form.save()
+            History.updated_history(past_quotation, updated_quotation, request.user)
+            print formset.save()
             messages.success(request, 'Quotation updated.')
             """
             Redirecting will force an update of the current page and

@@ -16,13 +16,23 @@ class History(models.Model):
     model_name = models.CharField(max_length=50)
     model_id = models.IntegerField()
     user = models.ForeignKey(User)
-    past = models.CharField(max_length=255, blank=True)
-    present = models.CharField(max_length=255, blank=True)
+    past = models.TextField(blank=True)
+    present = models.TextField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True, default=datetime.now())
+
+    class Meta:
+        verbose_name_plural = 'Histories'
 
     @staticmethod
     def created_history(present, user):
         print 'created_history'
+        History.objects.create(
+            action_type='C',
+            model_name=present.__class__.__name__,
+            model_id=present.id,
+            user=user,
+            present=present.info(),
+        )
 
     @staticmethod
     def updated_history(past, present, user):

@@ -15,3 +15,6 @@ class ImportEntry(models.Model):
     quantity = models.IntegerField()
     cost_price = models.DecimalField(max_digits=20, decimal_places=2)
     amount = models.DecimalField(max_digits=20, decimal_places=2) # quantity * cost_price
+
+    class Meta:
+        verbose_name_plural = 'Import entries'

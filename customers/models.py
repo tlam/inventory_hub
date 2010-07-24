@@ -7,7 +7,7 @@ from utils.constants import PRICE_CHOICES
 
 
 class Customer(models.Model):
-    cutomer_no = models.CharField(max_length=100)  # LLL-FFF-N, 
+    customer_no = models.CharField(max_length=100)  # LLL-FFF-N, 
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=100)
     company_name = models.CharField(max_length=100, blank=True)
@@ -31,3 +31,23 @@ class Customer(models.Model):
 
     def __unicode__(self):
         return u'%s %s' % (self.first_name, self.last_name)
+
+    def info(self):
+        return {
+            'customer_no': self.customer_no,
+            'first_name': self.first_name,
+            'last_name': self.last_name,
+            'company_name': self.company_name,
+            'price_type': self.price_type,
+            'address': self.address,
+            'city': self.city.name,
+            'country': self.country.name,
+            'home_phone': self.home_phone,
+            'work_phone': self.work_phone,
+            'cell_phone': self.cell_phone,
+            'email': self.email,
+            'vat_flag': self.vat_flag,
+            'vat_registration_number': self.vat_registration_number,
+            'business_registration_number': self.business_registration_number,
+            'discount_percent': self.discount_percent,
+        }

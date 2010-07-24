@@ -10,5 +10,6 @@ class HistoryAdmin(admin.ModelAdmin):
         }
 
     list_display = ('model_name', 'action_type', 'user', 'created_at',)
+    readonly_fields = ('created_at',)
 
 admin.site.register(History, HistoryAdmin)

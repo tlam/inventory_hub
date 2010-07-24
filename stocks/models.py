@@ -55,6 +55,36 @@ class Stock(models.Model):
     def __unicode__(self):
          return u'%s - %s' % (self.item_code, self.description)
 
+    def info(self):
+        if self.supplier:
+            supplier_name = self.supplier.name
+        else:
+            supplier_name = ''
+
+        if self.country:
+            country_name = self.country.name
+        else:
+            country_name = ''
+
+        return {
+            'item_code': self.item_code,
+            'description': self.description,
+            'category': self.category.name,
+            'retail_price': '%.2f' % self.retail_price,
+            'retail_unit': self.retail_unit,
+            'wholesale_price': '%.2f' % self.wholesale_price,
+            'wholesale_unit': self.wholesale_unit,
+            'dealer_price': '%.2f' % self.dealer_price,
+            'dealer_unit': self.dealer_unit,
+            'special_price': '%.2f' % self.special_price,
+            'special_unit': self.special_unit,
+            'pieces_per_box': self.pieces_per_box,
+            'exempt_flag': self.exempt_flag,
+            'nonstock_flag': self.nonstock_flag,
+            'country': country_name,
+            'supplier': supplier_name,
+        }
+
 
 class StockItem(models.Model):
     stock = models.ForeignKey('stocks.Stock')
@@ -63,3 +93,10 @@ class StockItem(models.Model):
     quotation = models.ForeignKey('quotations.Quotation', blank=True, null=True)
     cash_sale = models.ForeignKey('sales.CashSale', blank=True, null=True, related_name='cash_sale')
     credit_sale = models.ForeignKey('sales.CreditSale', blank=True, null=True, related_name='credit_sale')
+
+    def info(self):
+        return {
+            'stock': self.stock.__unicode__(),
+            'quantity': self.quantity,
+            'discount': self.discount,
+        }

@@ -35,6 +35,7 @@ def customer(request, sale_type):
         form = CustomerForm(request.POST)
         if form.is_valid():
             customer = form.save()
+            History.created_history(customer, request.user)
             return redirect('sales:create', sale_type, customer.pk)
     else:
         form = CustomerForm()
@@ -59,6 +60,7 @@ def create(request, sale_type, customer_id):
         form = sale_form(sale_type, request.POST)
         if form.is_valid():
             sale = form.save()
+            History.created_history(sale, request.user)
             return redirect('sales:update', sale_type, sale.pk)
     else:
         form = sale_form(sale_type, initial={'customer': customer.pk})
