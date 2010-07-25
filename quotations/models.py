@@ -3,13 +3,12 @@ from datetime import datetime
 from django.db import models
 
 from customers.models import Customer
-from stocks.models import Warehouse
 
 
 class Quotation(models.Model):
     invoice_no = models.IntegerField() # Starts at 1
     date = models.DateField()
-    warehouse = models.ForeignKey(Warehouse)
+    warehouse = models.ForeignKey('stocks.Warehouse')
     customer = models.ForeignKey(Customer)
     remarks = models.CharField(max_length=255, blank=True)
     created_at = models.DateTimeField(auto_now_add=True, default=datetime.now())

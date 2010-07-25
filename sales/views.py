@@ -91,9 +91,12 @@ def update(request, sale_type, sale_id):
         formset = StockItemFormSet(request.POST, instance=sale)
         if form.is_valid() and formset.is_valid():
             past_sale = instance.objects.get(id=sale_id)
+            past_items = StockItem.objects.items_for(past_sale)
             updated_sale = form.save()
             History.updated_history(past_sale, updated_sale, request.user)
             formset.save()
+            updated_items = StockItem.objects.items_for(updated_sale)
+            History.updated_history(past_items, updated_items, request.user)
             messages.success(request, '%s sale updated' % sale_type)
             """
             Redirecting will force an update of the current page and

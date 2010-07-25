@@ -1,6 +1,7 @@
 from django.db import models
 
 from geography.models import Country
+from sales.models import CashSale, CreditSale
 from suppliers.models import Supplier
 
 class Category(models.Model):
@@ -86,6 +87,22 @@ class Stock(models.Model):
         }
 
 
+class StockItemManager(models.Manager):
+    def items_for(self, sale):
+        if isinstance(sale, CashSale):
+            return StockItem.objects.filter(cash_sale=sale)
+        else:
+            return StockItem.objects.filter(credit_sale=sale)
+
+        '''
+        history_dict = {}
+ 
+        for item in stock_items:
+            history_dict[item.id] = item.info()
+
+        return history_dict
+        '''
+
 class StockItem(models.Model):
     stock = models.ForeignKey('stocks.Stock')
     quantity = models.IntegerField(default=0, blank=True)
@@ -93,6 +110,7 @@ class StockItem(models.Model):
     quotation = models.ForeignKey('quotations.Quotation', blank=True, null=True)
     cash_sale = models.ForeignKey('sales.CashSale', blank=True, null=True, related_name='cash_sale')
     credit_sale = models.ForeignKey('sales.CreditSale', blank=True, null=True, related_name='credit_sale')
+    objects = StockItemManager()
 
     def info(self):
         return {
