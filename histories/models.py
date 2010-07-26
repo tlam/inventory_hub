@@ -36,43 +36,36 @@ class History(models.Model):
 
     @staticmethod
     def updated_history(past, present, user):
-        if isinstance(past, models.query.QuerySet):
-            past_data = {}
-            present_data = {}
-            for item in past:
-                past_data[item.id] = item.info()
-            present_data = {}
-            for item in present:
-                present_data[item.id] = item.info()
+        past_data = past.info()
+        present_data = present.info()
+        if not past_data == present_data:
+            History.objects.create(
+                action_type='U',
+                model_name=present.__class__.__name__,
+                model_id=present.id,
+                user=user,
+                past=past_data,
+                present=present_data,
+            )
 
-            if not past_data and present_data:
-                action_type = 'C'
-            elif past_data and present_data:
-                action_type = 'U'
-            else:
-                action_type = 'D'
-
-            if not past_data == present_data:
-                History.objects.create(
-                    action_type=action_type,
-                    model_name='StockItem',
-                    model_id=0,
-                    user=user,
-                    past=past_data,
-                    present=present_data,
-                )
+    @staticmethod
+    def updated_list_history(past, present, user):
+        if len(past) < len(present):
+            action_type = 'C'
+        elif len(past) > len(present):
+            action_type = 'D'
         else:
-            past_data = past.info()
-            present_data = present.info()
-            if not past_data == present_data:
-                History.objects.create(
-                    action_type='U',
-                    model_name=present.__class__.__name__,
-                    model_id=present.id,
-                    user=user,
-                    past=past_data,
-                    present=present_data,
-                )
+            action_type = 'U'
+
+        if not past == present:
+            History.objects.create(
+                action_type=action_type,
+                model_name='StockItem',
+                model_id=0,
+                user=user,
+                past=past,
+                present=present,
+            )
 
     @staticmethod
     def deleted_history(past, user):

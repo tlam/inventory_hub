@@ -81,9 +81,12 @@ def update(request, quotation_id):
         formset = StockItemFormSet(request.POST, instance=quotation)
         if form.is_valid() and formset.is_valid():
             past_quotation = Quotation.objects.get(id=quotation_id)
+            past_items = StockItem.objects.items_info(past_quotation)
             updated_quotation = form.save()
             History.updated_history(past_quotation, updated_quotation, request.user)
-            print formset.save()
+            formset.save()
+            updated_items = StockItem.objects.items_info(updated_quotation)
+            History.updated_list_history(past_items, updated_items, request.user)
             messages.success(request, 'Quotation updated.')
             """
             Redirecting will force an update of the current page and

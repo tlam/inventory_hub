@@ -4,6 +4,7 @@ from geography.models import Country
 from sales.models import CashSale, CreditSale
 from suppliers.models import Supplier
 
+
 class Category(models.Model):
     name = models.CharField(max_length=100, default='', unique=True)
     description = models.CharField(max_length=255, blank=True)
@@ -14,11 +15,13 @@ class Category(models.Model):
     def __unicode__(self):
         return self.name
 
+
 class Warehouse(models.Model):
     name = models.CharField(max_length=100, default='', unique=True)
 
     def __unicode__(self):
         return self.name
+
 
 class Price(models.Model):
     MEASUREMENT_CHOICES = (
@@ -88,20 +91,21 @@ class Stock(models.Model):
 
 
 class StockItemManager(models.Manager):
-    def items_for(self, sale):
-        if isinstance(sale, CashSale):
-            return StockItem.objects.filter(cash_sale=sale)
+    def items_for(self, generic_object):
+        if isinstance(generic_object, CashSale):
+            return StockItem.objects.filter(cash_sale=generic_object)
+        elif isinstance(generic_object, CreditSale):
+            return StockItem.objects.filter(credit_sale=generic_object)
         else:
-            return StockItem.objects.filter(credit_sale=sale)
+            return StockItem.objects.filter(quotation=generic_object)
 
-        '''
+    def items_info(self, sale):
+        stock_items = self.items_for(sale)
         history_dict = {}
- 
         for item in stock_items:
             history_dict[item.id] = item.info()
-
         return history_dict
-        '''
+
 
 class StockItem(models.Model):
     stock = models.ForeignKey('stocks.Stock')
@@ -113,8 +117,19 @@ class StockItem(models.Model):
     objects = StockItemManager()
 
     def info(self):
-        return {
+        data = {
             'stock': self.stock.__unicode__(),
             'quantity': self.quantity,
             'discount': self.discount,
         }
+
+        if self.quotation:
+            data['quotation'] = self.quotation.__unicode__()
+
+        if self.cash_sale:
+            data['cash_sale'] = self.cash_sale.__unicode__()
+
+        if self.credit_sale:
+            data['credit_sale'] = self.credit_sale.__unicode__()
+
+        return data
