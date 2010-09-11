@@ -119,3 +119,8 @@ INSTALLED_APPS = (
 )
 
 AUTH_PROFILE_MODULE = 'hub_users.HubUser'
+
+try:
+    from production_settings import *
+except:
+    pass
