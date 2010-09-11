@@ -1,7 +1,9 @@
 from django.db import models
 
-from stocks.models import Stock, Warehouse
+from stocks.models import Stock
 from suppliers.models import Supplier
+from warehouses.models import Warehouse
+
 
 class ImportEntry(models.Model):
     reference_no = models.IntegerField() # automatic

@@ -115,6 +115,7 @@ INSTALLED_APPS = (
     'suppliers',
     'south',
     'utils',
+    'warehouses',
 )
 
 AUTH_PROFILE_MODULE = 'hub_users.HubUser'

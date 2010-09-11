@@ -5,12 +5,12 @@ from django.db import models
 
 from customers.models import Customer
 from quotations.models import Quotation
-
+from warehouses.models import Warehouse
 
 class Sale(models.Model):
     invoice_no = models.IntegerField() # CHN starts at N=1
     date = models.DateField()
-    warehouse = models.ForeignKey('stocks.Warehouse')
+    warehouse = models.ForeignKey(Warehouse)
     customer = models.ForeignKey(Customer)
     remarks = models.CharField(max_length=255, blank=True)
     recquisition_number = models.CharField(max_length=255, blank=True)

@@ -16,13 +16,6 @@ class Category(models.Model):
         return self.name
 
 
-class Warehouse(models.Model):
-    name = models.CharField(max_length=100, default='', unique=True)
-
-    def __unicode__(self):
-        return self.name
-
-
 class Price(models.Model):
     MEASUREMENT_CHOICES = (
         ('sf', 'Square Feet'),
