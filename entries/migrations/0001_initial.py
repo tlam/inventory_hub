@@ -13,7 +13,7 @@ class Migration(SchemaMigration):
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('reference_no', self.gf('django.db.models.fields.IntegerField')()),
             ('date', self.gf('django.db.models.fields.DateField')()),
-            ('warehouse', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['stocks.Warehouse'])),
+            ('warehouse', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['warehouses.Warehouse'])),
             ('supplier', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['suppliers.Supplier'])),
             ('invoice_no', self.gf('django.db.models.fields.CharField')(max_length=100)),
             ('retail_price', self.gf('django.db.models.fields.DecimalField')(max_digits=20, decimal_places=2)),
@@ -56,7 +56,7 @@ class Migration(SchemaMigration):
             'retail_price': ('django.db.models.fields.DecimalField', [], {'max_digits': '20', 'decimal_places': '2'}),
             'stocks': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['stocks.Stock']", 'symmetrical': 'False'}),
             'supplier': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['suppliers.Supplier']"}),
-            'warehouse': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['stocks.Warehouse']"})
+            'warehouse': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['warehouses.Warehouse']"})
         },
         'geography.city': {
             'Meta': {'object_name': 'City'},
@@ -94,11 +94,6 @@ class Migration(SchemaMigration):
             'wholesale_price': ('django.db.models.fields.DecimalField', [], {'default': '0', 'max_digits': '20', 'decimal_places': '2'}),
             'wholesale_unit': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '2', 'blank': 'True'})
         },
-        'stocks.warehouse': {
-            'Meta': {'object_name': 'Warehouse'},
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'default': "''", 'unique': 'True', 'max_length': '100'})
-        },
         'suppliers.supplier': {
             'Meta': {'object_name': 'Supplier'},
             'address': ('django.db.models.fields.CharField', [], {'max_length': '255', 'blank': 'True'}),
@@ -116,6 +111,11 @@ class Migration(SchemaMigration):
             'supplier_no': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'vat_flag': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'vat_registration_number': ('django.db.models.fields.IntegerField', [], {'default': '0', 'blank': 'True'})
+        },
+        'warehouses.warehouse': {
+            'Meta': {'object_name': 'Warehouse'},
+            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'name': ('django.db.models.fields.CharField', [], {'default': "''", 'unique': 'True', 'max_length': '100'})
         }
     }
 
