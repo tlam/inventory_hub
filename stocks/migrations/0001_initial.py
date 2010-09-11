@@ -16,13 +16,6 @@ class Migration(SchemaMigration):
         ))
         db.send_create_signal('stocks', ['Category'])
 
-        # Adding model 'Warehouse'
-        db.create_table('stocks_warehouse', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('name', self.gf('django.db.models.fields.CharField')(default='', unique=True, max_length=100)),
-        ))
-        db.send_create_signal('stocks', ['Warehouse'])
-
         # Adding model 'Price'
         db.create_table('stocks_price', (
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
@@ -71,9 +64,6 @@ class Migration(SchemaMigration):
         # Deleting model 'Category'
         db.delete_table('stocks_category')
 
-        # Deleting model 'Warehouse'
-        db.delete_table('stocks_warehouse')
-
         # Deleting model 'Price'
         db.delete_table('stocks_price')
 
@@ -93,7 +83,7 @@ class Migration(SchemaMigration):
             'city': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['geography.City']"}),
             'company_name': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'}),
             'country': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['geography.Country']"}),
-            'created_at': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2010, 9, 11, 10, 41, 26, 416768)', 'auto_now_add': 'True', 'blank': 'True'}),
+            'created_at': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2010, 9, 11, 10, 56, 16, 341159)', 'auto_now_add': 'True', 'blank': 'True'}),
             'customer_no': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'discount_percent': ('django.db.models.fields.FloatField', [], {'default': '0', 'blank': 'True'}),
             'email': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'}),
@@ -102,7 +92,7 @@ class Migration(SchemaMigration):
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'last_name': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'price_type': ('django.db.models.fields.CharField', [], {'max_length': '2'}),
-            'updated_at': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2010, 9, 11, 10, 41, 26, 416810)', 'auto_now': 'True', 'blank': 'True'}),
+            'updated_at': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2010, 9, 11, 10, 56, 16, 341202)', 'auto_now': 'True', 'blank': 'True'}),
             'vat_flag': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'vat_registration_number': ('django.db.models.fields.IntegerField', [], {'default': '0', 'blank': 'True'}),
             'work_phone': ('django.db.models.fields.CharField', [], {'max_length': '50', 'blank': 'True'})
@@ -119,38 +109,38 @@ class Migration(SchemaMigration):
         },
         'quotations.quotation': {
             'Meta': {'object_name': 'Quotation'},
-            'created_at': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2010, 9, 11, 10, 41, 26, 419257)', 'auto_now_add': 'True', 'blank': 'True'}),
+            'created_at': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2010, 9, 11, 10, 56, 16, 343829)', 'auto_now_add': 'True', 'blank': 'True'}),
             'customer': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['customers.Customer']"}),
             'date': ('django.db.models.fields.DateField', [], {}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'invoice_no': ('django.db.models.fields.IntegerField', [], {}),
             'remarks': ('django.db.models.fields.CharField', [], {'max_length': '255', 'blank': 'True'}),
-            'updated_at': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2010, 9, 11, 10, 41, 26, 419306)', 'auto_now': 'True', 'blank': 'True'}),
-            'warehouse': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['stocks.Warehouse']"})
+            'updated_at': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2010, 9, 11, 10, 56, 16, 343880)', 'auto_now': 'True', 'blank': 'True'}),
+            'warehouse': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['warehouses.Warehouse']"})
         },
         'sales.cashsale': {
             'Meta': {'object_name': 'CashSale'},
-            'created_at': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2010, 9, 11, 10, 41, 26, 420356)', 'auto_now_add': 'True', 'blank': 'True'}),
+            'created_at': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2010, 9, 11, 10, 56, 16, 345142)', 'auto_now_add': 'True', 'blank': 'True'}),
             'customer': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['customers.Customer']"}),
             'date': ('django.db.models.fields.DateField', [], {}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'invoice_no': ('django.db.models.fields.IntegerField', [], {}),
             'recquisition_number': ('django.db.models.fields.CharField', [], {'max_length': '255', 'blank': 'True'}),
             'remarks': ('django.db.models.fields.CharField', [], {'max_length': '255', 'blank': 'True'}),
-            'updated_at': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2010, 9, 11, 10, 41, 26, 420403)', 'auto_now': 'True', 'blank': 'True'}),
-            'warehouse': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['stocks.Warehouse']"})
+            'updated_at': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2010, 9, 11, 10, 56, 16, 345184)', 'auto_now': 'True', 'blank': 'True'}),
+            'warehouse': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['warehouses.Warehouse']"})
         },
         'sales.creditsale': {
             'Meta': {'object_name': 'CreditSale'},
-            'created_at': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2010, 9, 11, 10, 41, 26, 420356)', 'auto_now_add': 'True', 'blank': 'True'}),
+            'created_at': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2010, 9, 11, 10, 56, 16, 345142)', 'auto_now_add': 'True', 'blank': 'True'}),
             'customer': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['customers.Customer']"}),
             'date': ('django.db.models.fields.DateField', [], {}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'invoice_no': ('django.db.models.fields.IntegerField', [], {}),
             'recquisition_number': ('django.db.models.fields.CharField', [], {'max_length': '255', 'blank': 'True'}),
             'remarks': ('django.db.models.fields.CharField', [], {'max_length': '255', 'blank': 'True'}),
-            'updated_at': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2010, 9, 11, 10, 41, 26, 420403)', 'auto_now': 'True', 'blank': 'True'}),
-            'warehouse': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['stocks.Warehouse']"})
+            'updated_at': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2010, 9, 11, 10, 56, 16, 345184)', 'auto_now': 'True', 'blank': 'True'}),
+            'warehouse': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['warehouses.Warehouse']"})
         },
         'stocks.category': {
             'Meta': {'object_name': 'Category'},
@@ -194,11 +184,6 @@ class Migration(SchemaMigration):
             'quotation': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['quotations.Quotation']", 'null': 'True', 'blank': 'True'}),
             'stock': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['stocks.Stock']"})
         },
-        'stocks.warehouse': {
-            'Meta': {'object_name': 'Warehouse'},
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'default': "''", 'unique': 'True', 'max_length': '100'})
-        },
         'suppliers.supplier': {
             'Meta': {'object_name': 'Supplier'},
             'address': ('django.db.models.fields.CharField', [], {'max_length': '255', 'blank': 'True'}),
@@ -216,6 +201,11 @@ class Migration(SchemaMigration):
             'supplier_no': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'vat_flag': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'vat_registration_number': ('django.db.models.fields.IntegerField', [], {'default': '0', 'blank': 'True'})
+        },
+        'warehouses.warehouse': {
+            'Meta': {'object_name': 'Warehouse'},
+            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'name': ('django.db.models.fields.CharField', [], {'default': "''", 'unique': 'True', 'max_length': '100'})
         }
     }
 
