@@ -43,12 +43,6 @@ class Migration(SchemaMigration):
 
 
     models = {
-        'communications.phone': {
-            'Meta': {'object_name': 'Phone'},
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'number': ('django.db.models.fields.CharField', [], {'max_length': '20'}),
-            'phone_type': ('django.db.models.fields.CharField', [], {'max_length': '2'})
-        },
         'entries.importentry': {
             'Meta': {'object_name': 'ImportEntry'},
             'amount': ('django.db.models.fields.DecimalField', [], {'max_digits': '20', 'decimal_places': '2'}),
@@ -67,60 +61,61 @@ class Migration(SchemaMigration):
         'geography.city': {
             'Meta': {'object_name': 'City'},
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
+            'name': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '100'})
         },
         'geography.country': {
             'Meta': {'object_name': 'Country'},
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
+            'name': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '100'})
         },
         'stocks.category': {
             'Meta': {'object_name': 'Category'},
-            'description': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
+            'description': ('django.db.models.fields.CharField', [], {'max_length': '255', 'blank': 'True'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '100'})
-        },
-        'stocks.price': {
-            'Meta': {'object_name': 'Price'},
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'retail_price': ('django.db.models.fields.DecimalField', [], {'default': '0', 'max_digits': '20', 'decimal_places': '2'})
+            'name': ('django.db.models.fields.CharField', [], {'default': "''", 'unique': 'True', 'max_length': '100'})
         },
         'stocks.stock': {
             'Meta': {'object_name': 'Stock'},
             'category': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['stocks.Category']"}),
-            'dealer_price': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'dealer'", 'to': "orm['stocks.Price']"}),
+            'country': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['geography.Country']", 'null': 'True', 'blank': 'True'}),
+            'dealer_price': ('django.db.models.fields.DecimalField', [], {'default': '0', 'max_digits': '20', 'decimal_places': '2'}),
+            'dealer_unit': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '2', 'blank': 'True'}),
             'description': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '255'}),
-            'exempt_flag': ('django.db.models.fields.BooleanField', [], {'default': 'False', 'blank': 'True'}),
+            'exempt_flag': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'item_code': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '50'}),
-            'nonstock_flag': ('django.db.models.fields.BooleanField', [], {'default': 'False', 'blank': 'True'}),
+            'nonstock_flag': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'pieces_per_box': ('django.db.models.fields.IntegerField', [], {'default': '0', 'null': 'True', 'blank': 'True'}),
-            'retail_price': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'retail'", 'to': "orm['stocks.Price']"}),
-            'special_price': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'special'", 'to': "orm['stocks.Price']"}),
-            'wholesale_price': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'wholesale'", 'to': "orm['stocks.Price']"})
+            'retail_price': ('django.db.models.fields.DecimalField', [], {'default': '0', 'max_digits': '20', 'decimal_places': '2'}),
+            'retail_unit': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '2', 'blank': 'True'}),
+            'special_price': ('django.db.models.fields.DecimalField', [], {'default': '0', 'max_digits': '20', 'decimal_places': '2'}),
+            'special_unit': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '2', 'blank': 'True'}),
+            'supplier': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['suppliers.Supplier']", 'null': 'True', 'blank': 'True'}),
+            'wholesale_price': ('django.db.models.fields.DecimalField', [], {'default': '0', 'max_digits': '20', 'decimal_places': '2'}),
+            'wholesale_unit': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '2', 'blank': 'True'})
         },
         'stocks.warehouse': {
             'Meta': {'object_name': 'Warehouse'},
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '100'})
+            'name': ('django.db.models.fields.CharField', [], {'default': "''", 'unique': 'True', 'max_length': '100'})
         },
         'suppliers.supplier': {
             'Meta': {'object_name': 'Supplier'},
             'address': ('django.db.models.fields.CharField', [], {'max_length': '255', 'blank': 'True'}),
-            'business_registration_number': ('django.db.models.fields.CharField', [], {'max_length': '9'}),
+            'business_registration_number': ('django.db.models.fields.CharField', [], {'max_length': '9', 'blank': 'True'}),
             'city': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['geography.City']"}),
-            'company_name': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'}),
+            'company_name': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'country': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['geography.Country']"}),
             'creditors_code': ('django.db.models.fields.CharField', [], {'max_length': '20', 'blank': 'True'}),
             'first_name': ('django.db.models.fields.CharField', [], {'max_length': '50', 'blank': 'True'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'last_name': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'}),
-            'phone': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['communications.Phone']", 'null': 'True', 'symmetrical': 'False'}),
+            'phone': ('django.db.models.fields.CharField', [], {'max_length': '50', 'blank': 'True'}),
             'postal_code': ('django.db.models.fields.CharField', [], {'max_length': '6', 'blank': 'True'}),
             'price_type': ('django.db.models.fields.CharField', [], {'max_length': '1'}),
             'supplier_no': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'vat_flag': ('django.db.models.fields.BooleanField', [], {'default': 'False', 'blank': 'True'}),
-            'vat_registration_number': ('django.db.models.fields.IntegerField', [], {})
+            'vat_flag': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
+            'vat_registration_number': ('django.db.models.fields.IntegerField', [], {'default': '0', 'blank': 'True'})
         }
     }
 
