@@ -1,6 +1,7 @@
 import json
 
 from django.contrib import messages
+from django.db.models import Max
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render_to_response
 from django.template import RequestContext
@@ -75,6 +76,13 @@ def update(request, customer_id):
 def customer_number_ajax(request):
     first_name = request.GET.get('first_name', '')
     last_name = request.GET.get('last_name', '')
-    value = '%s/%s/%i' %  (first_name[:3].upper(), last_name[:3].upper(), 2)
+    # TODO: need pass customer id or 0
+    try:
+        customer = Customer.objects.get(first_name=first_name, last_name=last_name)
+        customer_id = customer.pk
+    except Customer.DoesNotExist:
+        max_id = Customer.objects.aggregate(Max('id'))
+        customer_id = max_id.get('id__max', 0) + 1
+    value = '%s/%s/%i' %  (first_name[:3].upper(), last_name[:3].upper(), customer_id)
     data = json.dumps(value)
     return HttpResponse(data, mimetype="application/javascript")
