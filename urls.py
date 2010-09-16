@@ -15,6 +15,7 @@ urlpatterns = patterns('',
     url(r'^sales/', include('sales.urls', namespace='sales'), name='sales'),
     url(r'^stocks/', include('stocks.urls', namespace='stocks'), name='stocks'),
     url(r'^suppliers/', include('suppliers.urls', namespace='suppliers'), name='suppliers'),
+    url(r'^warehouses/', include('warehouses.urls', namespace='warehouses'), name='warehouses'),
 )
 
 # Load custom template tags and filters in all templates

@@ -1,3 +1,5 @@
+import simplejson
+
 from django.contrib import messages
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render_to_response
@@ -69,3 +71,11 @@ def update(request, customer_id):
         data,
         context_instance=RequestContext(request),
     )
+
+
+def customer_number_ajax(request):
+    first_name = request.GET.get('first_name', '')
+    last_name = request.GET.get('last_name', '')
+    value = '%s/%s/%i' %  (first_name[:3].upper(), last_name[:3].upper(), 2)
+    data = simplejson.dumps(value)
+    return HttpResponse(data, mimetype="application/javascript")

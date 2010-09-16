@@ -1,0 +1,5 @@
+<select name="warehouse" id="id_warehouse">
+{% for warehouse in warehouses %}
+  <option value="{{ warehouse.id }}" {% if warehouse.name == new_warehouse %}selected{% endif %}>{{ warehouse }}</option>
+{% endfor %}
+</select>

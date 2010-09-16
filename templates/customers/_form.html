@@ -1,6 +1,6 @@
 {{ form.non_field_errors }}
 {% for field in form %}
-  <div class="fieldWrapper">
+  <div class="fieldWrapper {% if field.name == 'first_name' or field.name == 'last_name' %}customer-name{% endif %}">
     <label for="id_{{ field.html_name }}">{{ field.label }}:</label>{{ field }}
     {% required_field field %}
     {{ field.errors }}

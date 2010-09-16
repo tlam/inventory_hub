@@ -1,6 +1,6 @@
 PRICE_CHOICES = (
-    ('R', 'R'),
-    ('W', 'W'),
-    ('D', 'D'),
-    ('S', 'S'),
+    ('R', 'Retail'),
+    ('W', 'Wholesale'),
+    ('D', 'Dealer'),
+    ('S', 'Special'),
 )

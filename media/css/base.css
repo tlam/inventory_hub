@@ -15,7 +15,7 @@ a:hover {
 
 #content, #header, #footer {
   margin: 0 auto;
-  overflow: auto;
+  overflow: hidden;
   text-align: left;
   width: 1000px;
 }
@@ -54,4 +54,9 @@ ul.ui-autocomplete {
   font-family: Helvetica, Arial, sans-serif;
   font-size: 0.95em;
   text-align: left;
+}
+
+.link {
+  color: #4183C4;
+  cursor: pointer;
 }
