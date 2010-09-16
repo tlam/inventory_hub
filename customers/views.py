@@ -1,4 +1,4 @@
-import simplejson
+import json
 
 from django.contrib import messages
 from django.http import HttpResponse
@@ -49,7 +49,6 @@ def update(request, customer_id):
     customer = get_object_or_404(Customer, pk=customer_id)
     initial_data = {
         'city': customer.city.name,
-        'country': customer.country.name,
     }
 
     if request.method == 'POST':
@@ -77,5 +76,5 @@ def customer_number_ajax(request):
     first_name = request.GET.get('first_name', '')
     last_name = request.GET.get('last_name', '')
     value = '%s/%s/%i' %  (first_name[:3].upper(), last_name[:3].upper(), 2)
-    data = simplejson.dumps(value)
+    data = json.dumps(value)
     return HttpResponse(data, mimetype="application/javascript")
