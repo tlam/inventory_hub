@@ -1,0 +1,17 @@
+{% extends "suppliers/foreign/base.html" %}
+
+{% block foreign-suppliers-breadcrumb %}
+<a href="{% url suppliers:index %}">Foreign Suppliers</a>
+{% endblock %}
+{% block foreign-suppliers-breadcrumb-extra %}
+&gt; Create
+{% endblock %}
+
+{% block foreign-suppliers-content %}
+<form action="" method="post">
+  {% include "suppliers/_form.html" %}
+  <p>
+    <input type="submit" value="Create" />
+  </p>
+</form>
+{% endblock %}

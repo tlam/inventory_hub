@@ -2,7 +2,7 @@ from django.db import models
 
 from geography.models import Country
 from sales.models import CashSale, CreditSale
-from suppliers.models import ForeignSupplier, LocalSupplier, Supplier
+from suppliers.models import ForeignSupplier, LocalSupplier
 
 
 class Category(models.Model):
@@ -48,7 +48,6 @@ class Stock(models.Model):
     exempt_flag = models.BooleanField(default=False)
     nonstock_flag = models.BooleanField(default=False)
     country = models.ForeignKey(Country, null=True, blank=True)
-    supplier = models.ForeignKey(Supplier, null=True, blank=True)
     foreign_supplier = models.ForeignKey(ForeignSupplier, null=True, blank=True)
     local_supplier = models.ForeignKey(LocalSupplier, null=True, blank=True)
 

@@ -5,13 +5,10 @@ Suppliers
 {% endblock %}
 
 {% block suppliers-content %}
-<h3>All Suppliers</h3>
 
-{% if suppliers %}
 <ol>
-{% for supplier in suppliers %}
-  <li><a href="{% url suppliers:update supplier.pk %}">{{ supplier }}</a></li>
-{% endfor %}
+  <li><a href="{% url suppliers:index-foreign %}">Foreign Suppliers</a></li>
+  <li><a href="">Local Suppliers</a></li>
 </ol>
-{% endif %}
+
 {% endblock %}

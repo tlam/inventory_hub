@@ -1,7 +1,14 @@
 {% for field in form %}
   <div class="fieldWrapper">
-    <label for="id_{{ field.html_name }}">{{ field.label }}:</label>{{ field }}
-    {% required_field field %}
+    <label for="id_{{ field.html_name }}">{{ field.label }}:</label>
+    {% if field.name == 'country' %}
+      <span id="countries-ajax-output">{{ field }}</span>
+      {% required_field field %}
+      <span id="add-country" class="link">Add Country</span>
+    {% else %}
+      {{ field }}
+      {% required_field field %}
+    {% endif %}
     {{ field.errors }}
   </div>
 {% endfor %}

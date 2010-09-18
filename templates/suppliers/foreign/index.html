@@ -1,0 +1,16 @@
+{% extends "suppliers/foreign/base.html" %}
+
+{% block foreign-suppliers-breadcrumb %}
+Foreign Suppliers
+{% endblock %}
+
+{% block foreign-suppliers-content %}
+<h3>Foreign Suppliers</h3>
+{% if foreign_suppliers %}
+<ol>
+{% for supplier in foreign_suppliers %}
+  <li><a href="{% url suppliers:update-foreign supplier.pk %}">{{ supplier }}</a></li>
+{% endfor %}
+</ol>
+{% endif %}
+{% endblock %}

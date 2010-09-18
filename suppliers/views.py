@@ -4,15 +4,12 @@ from django.shortcuts import get_object_or_404, redirect, render_to_response
 from django.template import RequestContext
 
 from histories.models import History
-from suppliers.forms import SupplierForm
-from suppliers.models import Supplier
+from suppliers.forms import ForeignSupplierForm, LocalSupplierForm
+from suppliers.models import LocalSupplier, ForeignSupplier
 
 
 def index(request):
-    suppliers = Supplier.objects.all()
-    data = {
-        'suppliers': suppliers,
-    }
+    data = {}
 
     return render_to_response(
         'suppliers/index.html',
@@ -21,50 +18,63 @@ def index(request):
     )
 
 
-def create(request):
+def index_foreign(request):
+    foreign_suppliers = ForeignSupplier.objects.all()
+    data = {
+        'foreign_suppliers': foreign_suppliers,
+    }
+
+    return render_to_response(
+        'suppliers/foreign/index.html',
+        data,
+        context_instance=RequestContext(request),
+    )
+
+
+def create_foreign(request):
     if request.method == 'POST':
-        form = SupplierForm(request.POST)
+        form = ForeignSupplierForm(request.POST)
         if form.is_valid():
-            supplier = form.save()
-            History.created_history(supplier, request.user)
-            messages.success(request, 'Supplier created')
-            return redirect('suppliers:update', supplier.pk)
+            foreign_supplier = form.save()
+            History.created_history(foreign_supplier, request.user)
+            messages.success(request, 'Foreign Supplier created.')
+            return redirect('suppliers:update-foreign', foreign_supplier.pk)
     else:
-        form = SupplierForm()
+        form = ForeignSupplierForm()
 
     data = {
         'form': form,
     }
 
     return render_to_response(
-        'suppliers/create.html',
+        'suppliers/foreign/create.html',
         data,
         context_instance=RequestContext(request),
     )
 
-def update(request, supplier_id):
-    supplier = get_object_or_404(Supplier, id=supplier_id)
+
+def update_foreign(request, supplier_id):
+    foreign_supplier = get_object_or_404(ForeignSupplier, id=supplier_id)
     initial_data = {
-        'city': supplier.city.name,
-        'country': supplier.country.name,
+        'city': foreign_supplier.city.name,
     }
 
     if request.method == 'POST':
-        form = SupplierForm(request.POST, instance=supplier)
+        form = ForeignSupplierForm(request.POST, instance=foreign_supplier)
         if form.is_valid():
-            past_supplier = Supplier.objects.get(id=supplier_id)
+            past_supplier = ForeignSupplier.objects.get(id=supplier_id)
             updated_supplier = form.save()
             History.updated_history(past_supplier, updated_supplier, request.user)
-            messages.success(request, 'Supplier updated')
+            messages.success(request, 'Foreign Supplier updated')
     else:
-        form = SupplierForm(initial=initial_data, instance=supplier)
+        form = ForeignSupplierForm(initial=initial_data, instance=foreign_supplier)
     
     data = {
         'form': form,
     }
 
     return render_to_response(
-        'suppliers/update.html',
+        'suppliers/foreign/update.html',
         data,
         context_instance=RequestContext(request),
     )

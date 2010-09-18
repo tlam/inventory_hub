@@ -1,5 +1,6 @@
 from django.contrib import admin
 
-from suppliers.models import Supplier
+from suppliers.models import ForeignSupplier, LocalSupplier
 
-admin.site.register(Supplier)
+admin.site.register(ForeignSupplier)
+admin.site.register(LocalSupplier)

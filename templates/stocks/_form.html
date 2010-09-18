@@ -83,22 +83,15 @@
 </div>
 
 <div class="fieldWrapper">
-  <label for="id_supplier">Supplier:</label>
-  {{ form.supplier }}
-  <a href="{% url suppliers:create %}">Add</a>
-  {{ form.supplier.errors }}
-</div>
-
-<div class="fieldWrapper">
   <label for="id_foreign_supplier">Foreign Supplier:</label>
   {{ form.foreign_supplier }}
-  <a href="{% url suppliers:create %}">Add</a>
+  <a href="{% url suppliers:create-foreign %}">Add</a>
   {{ form.foreign_supplier.errors }}
 </div>
 
 <div class="fieldWrapper">
   <label for="id_local_supplier">Local Supplier:</label>
   {{ form.local_supplier }}
-  <a href="{% url suppliers:create %}">Add</a>
+  <a href="{% url suppliers:create-foreign %}">Add</a>
   {{ form.local_supplier.errors }}
 </div>
