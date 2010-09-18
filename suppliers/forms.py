@@ -25,4 +25,4 @@ class ForeignSupplierForm(BaseSupplierForm):
 
 class LocalSupplierForm(BaseSupplierForm):
     class Meta:
-        model = ForeignSupplier
+        model = LocalSupplier

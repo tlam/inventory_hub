@@ -50,7 +50,9 @@ class LocalSupplier(BaseSupplier):
             'vat_registration_number': self.vat_registration_number,
             'business_registration_number': self.business_registration_number,
         }
-        return super.info().update(local_info)
+        base_info = super(self.__class__, self).info()
+        base_info.update(local_info)
+        return base_info
 
 
 class ForeignSupplier(BaseSupplier):

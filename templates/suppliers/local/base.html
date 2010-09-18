@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block sub-title %} - Local Suppliers{% endblock %}
+
+{% block content %}
+
+<a href="{% url home:index %}">Home</a> &gt; 
+{% block local-suppliers-breadcrumb %}
+<a href="{% url suppliers:index-foreign %}">Local Suppliers</a>
+{% endblock %}
+{% block local-suppliers-breadcrumb-extra %}
+{% endblock %}
+
+<div class="title-combo">
+  <h3 class="title">Local Suppliers</h3>
+  <div class="create-link">
+    <a href="{% url suppliers:create-local %}">Create</a>
+  </div>
+</div>
+
+{% block local-suppliers-content %}
+{% endblock %}
+
+{% endblock %}

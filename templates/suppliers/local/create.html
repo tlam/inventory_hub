@@ -1,0 +1,17 @@
+{% extends "suppliers/local/base.html" %}
+
+{% block local-suppliers-breadcrumb %}
+<a href="{% url suppliers:index %}">Local Suppliers</a>
+{% endblock %}
+{% block local-suppliers-breadcrumb-extra %}
+&gt; Create
+{% endblock %}
+
+{% block local-suppliers-content %}
+<form action="" method="post">
+  {% include "suppliers/_form.html" %}
+  <p>
+    <input type="submit" value="Create" />
+  </p>
+</form>
+{% endblock %}

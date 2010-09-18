@@ -1,0 +1,15 @@
+{% extends "suppliers/local/base.html" %}
+
+{% block local-suppliers-breadcrumb %}
+Local Suppliers
+{% endblock %}
+
+{% block local-suppliers-content %}
+{% if local_suppliers %}
+<ol>
+{% for supplier in local_suppliers %}
+  <li><a href="{% url suppliers:update-local supplier.pk %}">{{ supplier }}</a></li>
+{% endfor %}
+</ol>
+{% endif %}
+{% endblock %}

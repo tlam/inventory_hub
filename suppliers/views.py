@@ -78,3 +78,65 @@ def update_foreign(request, supplier_id):
         data,
         context_instance=RequestContext(request),
     )
+
+
+def index_local(request):
+    local_suppliers = LocalSupplier.objects.all()
+    data = {
+        'local_suppliers': local_suppliers,
+    }
+
+    return render_to_response(
+        'suppliers/local/index.html',
+        data,
+        context_instance=RequestContext(request),
+    )
+
+
+def create_local(request):
+    if request.method == 'POST':
+        form = LocalSupplierForm(request.POST)
+        if form.is_valid():
+            local_supplier = form.save()
+            History.created_history(local_supplier, request.user)
+            messages.success(request, 'Local Supplier created.')
+            return redirect('suppliers:update-local', local_supplier.pk)
+    else:
+        form = LocalSupplierForm()
+
+    data = {
+        'form': form,
+    }
+
+    return render_to_response(
+        'suppliers/local/create.html',
+        data,
+        context_instance=RequestContext(request),
+    )
+
+
+def update_local(request, supplier_id):
+    local_supplier = get_object_or_404(LocalSupplier, id=supplier_id)
+    initial_data = {
+        'city': local_supplier.city.name,
+    }
+
+    if request.method == 'POST':
+        form = LocalSupplierForm(request.POST, instance=local_supplier)
+        if form.is_valid():
+            past_supplier = LocalSupplier.objects.get(id=supplier_id)
+            updated_supplier = form.save()
+            History.updated_history(past_supplier, updated_supplier, request.user)
+            messages.success(request, 'Local Supplier updated')
+    else:
+        form = LocalSupplierForm(initial=initial_data, instance=local_supplier)
+    
+    data = {
+        'form': form,
+    }
+
+    return render_to_response(
+        'suppliers/local/update.html',
+        data,
+        context_instance=RequestContext(request),
+    )

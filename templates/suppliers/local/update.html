@@ -1,0 +1,17 @@
+{% extends "suppliers/local/base.html" %}
+
+{% block local-suppliers-breadcrumb-extra %}
+&gt; Update
+{% endblock %}
+
+{% block local-suppliers-content %}
+<h3>Update</h3>
+
+<form action="" method="post">
+  {% include "suppliers/_form.html" %}
+  <p>
+    <input type="submit" value="Update" />
+  </p>
+</form>
+
+{% endblock %}
