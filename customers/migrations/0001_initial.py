@@ -42,7 +42,7 @@ class Migration(SchemaMigration):
         db.delete_table('customers_customer')
 
         # Removing unique constraint on 'Customer', fields ['first_name', 'last_name']
-        db.delete_unique('customers_customer', ['first_name', 'last_name'])
+        #db.delete_unique('customers_customer', ['first_name', 'last_name'])
 
 
     models = {

@@ -31,6 +31,7 @@ def create(request):
         if form.is_valid():
             customer = form.save()
             History.created_history(customer, request.user)
+            messages.success(request, 'Customer created.')
             return redirect('customers:update', customer.pk)
     else:
         form = CustomerForm()
@@ -58,7 +59,7 @@ def update(request, customer_id):
             past_customer = Customer.objects.get(id=customer_id)
             updated_customer = form.save()
             History.updated_history(past_customer, updated_customer, request.user)
-            messages.success(request, 'Customer updated')
+            messages.success(request, 'Customer updated.')
     else:
         form = CustomerForm(initial=initial_data, instance=customer)
 
@@ -82,7 +83,10 @@ def customer_number_ajax(request):
         customer_id = customer.pk
     except Customer.DoesNotExist:
         max_id = Customer.objects.aggregate(Max('id'))
-        customer_id = max_id.get('id__max', 0) + 1
+        max_id = max_id.get('id__max', 0)
+        if not max_id:
+            max_id = 0
+        customer_id = max_id + 1
     value = '%s/%s/%i' %  (first_name[:3].upper(), last_name[:3].upper(), customer_id)
     data = json.dumps(value)
     return HttpResponse(data, mimetype="application/javascript")

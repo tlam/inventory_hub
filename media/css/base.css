@@ -36,9 +36,20 @@ a:hover {
   margin: 0.5em;
 }
 
+#message-box {
+  clear: both;
+}
+
 .messages {
   list-style-type: none;
   padding-left: 0;
+}
+
+.messages .single {
+  -moz-border-radius: 8px;
+  border-radius: 8px;
+  background-color: #FFF1A8;
+  padding: 0.2em 0.8em;
 }
 
 .messages .warning {

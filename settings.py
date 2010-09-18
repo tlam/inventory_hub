@@ -97,6 +97,7 @@ TEMPLATE_DIRS = (
     os.path.join(SITE_ROOT, 'templates'),
 )
 
+# Order of apps matter during South migration, place the standalone apps first
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -104,18 +105,18 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.admin',
-    'customers',
-    'entries',
     'geography',
-    'histories',
-    'hub_users',
+    'warehouses',
+    'suppliers',
+    'customers',
     'quotations',
     'sales',
     'stocks',
-    'suppliers',
+    'entries',
+    'histories',
+    'hub_users',
     'south',
     'utils',
-    'warehouses',
 )
 
 AUTH_PROFILE_MODULE = 'hub_users.HubUser'

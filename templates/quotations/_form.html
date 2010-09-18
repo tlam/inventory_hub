@@ -2,9 +2,7 @@
   <div class="fieldWrapper">
     <label for="id_{{ field.html_name }}">{{ field.label }}:</label>
     {% if field.name == 'warehouse' %}
-      <span id="warehouses-ajax-output">
-        {{ field }}
-      </span>
+      <span id="warehouses-ajax-output">{{ field }}</span>
       {% required_field field %}
       <span id="add-warehouse" class="link">Add Warehouse</span>
     {% else %}

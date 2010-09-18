@@ -57,6 +57,7 @@ def create(request, customer_id):
         if form.is_valid():
             quotation = form.save()
             History.created_history(quotation, request.user)
+            messages.success(request, 'Quotation created.')
             return redirect('quotations:update', quotation.pk)
     else:
         form = QuotationForm(initial={'customer': customer_id})

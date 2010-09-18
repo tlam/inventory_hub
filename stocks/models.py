@@ -25,6 +25,7 @@ class Price(models.Model):
     retail_price = models.DecimalField(max_digits=20, decimal_places=2, default=0)
     measurement = models.CharField(max_length=2, choices=MEASUREMENT_CHOICES, default='')
 
+
 class Stock(models.Model):
     UNIT_CHOICES = (
         ('sf', 'Square Feet'),
