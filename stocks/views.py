@@ -28,6 +28,7 @@ def create(request):
         if form.is_valid():
             stock = form.save()
             History.created_history(stock, request.user)
+            messages.success(request, 'Stock created.')
             return redirect('stocks:update', stock.pk)
     else:
         form = StockForm()
@@ -44,10 +45,6 @@ def create(request):
 
 def update(request, stock_id):
     stock = get_object_or_404(Stock, id=stock_id)
-    initial_data = {
-        'category': stock.category.name,
-        'country': stock.country.name,
-    }
 
     if request.method == 'POST':
         form = StockForm(request.POST, instance=stock)
@@ -55,9 +52,9 @@ def update(request, stock_id):
             past_stock = Stock.objects.get(id=stock_id)
             updated_stock = form.save()
             History.updated_history(past_stock, updated_stock, request.user)
-            messages.success(request, 'Supplier updated')
+            messages.success(request, 'Stock updated.')
     else:
-        form = StockForm(initial=initial_data, instance=stock)
+        form = StockForm(instance=stock)
 
     data = {
         'form': form,

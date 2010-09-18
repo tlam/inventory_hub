@@ -14,8 +14,8 @@ def add_country_ajax(request):
         Country.objects.get_or_create(name=new_country)
 
     data = {
-        'new_country': new_country,
         'countries': Country.objects.order_by('name'),
+        'new_country': new_country,
     }
 
     return render_to_response(

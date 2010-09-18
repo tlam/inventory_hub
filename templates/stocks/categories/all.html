@@ -1,0 +1,5 @@
+<select name="category" id="id_category">
+{% for category in categories %}
+  <option value="{{ category.id }}" {% if category.name == new_category %}selected{% endif %}>{{ category }}</option>
+{% endfor %}
+</select>

@@ -14,8 +14,9 @@
 
 <div class="fieldWrapper">
   <label for="id_category">Category:</label>
-  {{ form.category }}
+  <span id="categories-ajax-output">{{ form.category }}</span>
   {% required_field form.category %}
+  <span id="add-category" class="link">Add Category</span>
   {{ form.category.errors }}
 </div>
 
@@ -75,7 +76,9 @@
 
 <div class="fieldWrapper">
   <label for="id_country">Country:</label>
-  {{ form.country }}
+  <span id="countries-ajax-output">{{ form.country }}</span>
+  {% required_field form.country %}
+  <span id="add-country" class="link">Add Country</span>
   {{ form.country.errors }}
 </div>
 
@@ -84,4 +87,18 @@
   {{ form.supplier }}
   <a href="{% url suppliers:create %}">Add</a>
   {{ form.supplier.errors }}
+</div>
+
+<div class="fieldWrapper">
+  <label for="id_foreign_supplier">Foreign Supplier:</label>
+  {{ form.foreign_supplier }}
+  <a href="{% url suppliers:create %}">Add</a>
+  {{ form.foreign_supplier.errors }}
+</div>
+
+<div class="fieldWrapper">
+  <label for="id_local_supplier">Local Supplier:</label>
+  {{ form.local_supplier }}
+  <a href="{% url suppliers:create %}">Add</a>
+  {{ form.local_supplier.errors }}
 </div>
