@@ -13,7 +13,7 @@ class Sale(models.Model):
     warehouse = models.ForeignKey(Warehouse)
     customer = models.ForeignKey(Customer)
     remarks = models.CharField(max_length=255, blank=True)
-    recquisition_number = models.CharField(max_length=255, blank=True)
+    requisition_number = models.CharField(max_length=255, blank=True)
     created_at = models.DateTimeField(auto_now_add=True, default=datetime.now())
     updated_at = models.DateTimeField(auto_now=True, default=datetime.now())
 
@@ -30,7 +30,7 @@ class Sale(models.Model):
             'warehouse': self.warehouse.__unicode__(),
             'customer': self.customer.__unicode__(),
             'remarks': self.remarks,
-            'recquisition_number': self.recquisition_number,
+            'requisition_number': self.requisition_number,
         }
 
 class CashSale(Sale):

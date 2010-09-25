@@ -12,7 +12,8 @@ class Customer(models.Model):
     last_name = models.CharField(max_length=100)
     company_name = models.CharField(max_length=100, blank=True)
     price_type = models.CharField(max_length=2, choices=PRICE_CHOICES)
-    address = models.CharField(max_length=255)
+    unit_number = models.CharField(max_length=50, blank=True, verbose_name='House/Appt No')
+    street = models.CharField(max_length=255)
     city = models.ForeignKey(City)
     country = models.ForeignKey(Country)
     home_phone = models.CharField(max_length=50, blank=True)
@@ -38,7 +39,7 @@ class Customer(models.Model):
             'last_name': self.last_name,
             'company_name': self.company_name,
             'price_type': self.price_type,
-            'address': self.address,
+            'street': self.street,
             'city': self.city.name,
             'country': self.country.name,
             'home_phone': self.home_phone,
