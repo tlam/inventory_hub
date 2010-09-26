@@ -71,3 +71,9 @@ ul.ui-autocomplete {
   color: #4183C4;
   cursor: pointer;
 }
+
+#search-bar {
+  float: left;
+  margin-left: 6em;
+  margin-top: 2em;
+}

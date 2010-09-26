@@ -1,0 +1,14 @@
+.title-combo {
+  overflow: hidden;
+}
+
+.title-combo h3, .title-combo div {
+  float: left;
+}
+
+.title-combo div {
+  font-size: small;
+  font-style: italic;
+  margin-top: 1.6em;
+  margin-left: 0.5em;
+}

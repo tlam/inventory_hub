@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="title-combo">
+  <h3>Search {{ app_name }}</h3>
+  <div>
+    - {{ results|length }} result{{ results|length|pluralize }}
+  </div>
+</div>
+
+<ol>
+{% for item in results %}
+  <li><a href="{{ item.get_absolute_url }}">{{ item }}</a></li>
+{% endfor %}
+</ol>
+{% endblock %}

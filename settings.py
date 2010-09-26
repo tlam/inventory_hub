@@ -75,6 +75,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.i18n",
     "django.core.context_processors.media",
     "django.contrib.messages.context_processors.messages",
+    'home.context_processors.site_wide',
     'hub_users.context_processors.current_user',
 )
 

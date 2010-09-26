@@ -8,6 +8,19 @@
   <a href="{% url hub-users:logout %}">Log out</a>
 </div>
 
+<div id="search-bar">
+  <form action="{% url home:search %}" method="get">
+    <select name="current-app">
+      <option value="">---</option>
+      {% for val, name in app_choices %}
+      <option value="{{ val }}" {% if app_name == val %}selected{% endif %}>{{ name }}</option>
+      {% endfor %}
+    </select>
+    <input type="text" name="q" />
+    <input type="submit" value="Search" />
+  </form>
+</div>
+
 <div id="navigation">
   <a href="{% url customers:index %}">Customers</a> |
   <a href="{% url quotations:index %}">Quotations</a> |

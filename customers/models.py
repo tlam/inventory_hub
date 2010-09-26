@@ -13,7 +13,7 @@ class Customer(models.Model):
     company_name = models.CharField(max_length=100, blank=True)
     price_type = models.CharField(max_length=2, choices=PRICE_CHOICES)
     unit_number = models.CharField(max_length=50, blank=True, verbose_name='House/Appt No')
-    street = models.CharField(max_length=255)
+    street = models.CharField(max_length=255, blank=True)
     city = models.ForeignKey(City)
     country = models.ForeignKey(Country)
     home_phone = models.CharField(max_length=50, blank=True)
@@ -31,6 +31,10 @@ class Customer(models.Model):
 
     def __unicode__(self):
         return u'%s %s' % (self.first_name, self.last_name)
+
+    @models.permalink
+    def get_absolute_url(self):
+        return ('customers:update', [self.id])
 
     def info(self):
         return {
