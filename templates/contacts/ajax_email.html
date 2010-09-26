@@ -1,0 +1,20 @@
+<table>
+{% for i in num_emails %}
+  <tr id="email_set-{{ i }}">
+    <td class="address">
+      <input id="id_email_set-{{ i }}-address" type="text" name="email_set-{{ i }}-address" maxlength="75" />
+    </td>
+    <td class="type">
+      <select name="email_set-{{ i }}-type" id="id_email_set-{{ i }}-type">
+        <option value="" selected="selected">---</option>
+        <option value="H">Home</option>
+        <option value="W">Work</option>
+      </select>
+    </td>
+    <td class="delete">
+      <input type="button" value="Remove" id="id_email_set-{{ i }}-remove" class="remove-email" />
+    </td>
+  </tr>
+{% endfor %}
+</table>
+<input type="hidden" id="num-emails" value="{{ num_emails|length }}" />
