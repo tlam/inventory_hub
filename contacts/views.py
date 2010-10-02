@@ -106,6 +106,10 @@ def post_emails(post_list):
 
     email_dict = sorted(unsorted_email_dict.items())
 
+    # Validate emails to True if none entered
+    if not email_dict:
+        emails_valid = True
+
     return emails_valid, email_dict
 
 

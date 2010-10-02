@@ -85,12 +85,10 @@
   {{ form.cell_phone.errors }}
 </div>
 
-<div class="fieldWrapper">
-  <label for="id_{{ form.email.html_name }}">{{ form.email.label }}:</label>
-  {{ form.email }}
-  {% required_field form.email %}
-  {{ form.email.errors }}
-</div>
+<fieldset class="emails">
+  <legend>Emails</legend>
+  {% include "contacts/emails.html" %}
+</fieldset>
 
 <div class="fieldWrapper">
   <label for="id_{{ form.vat_registration_number.html_name }}">{{ form.vat_registration_number.label }}:</label>
@@ -112,8 +110,3 @@
   {% required_field form.discount_percent %}
   {{ form.discount_percent.errors }}
 </div>
-
-<fieldset class="emails">
-  <legend>Emails</legend>
-  {% include "contacts/emails.html" %}
-</fieldset>
