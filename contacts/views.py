@@ -1,7 +1,10 @@
+import re
+
 from django.shortcuts import redirect, render_to_response
 from django.template import RequestContext
 
 from contacts.forms import ContactForm
+from contacts.models import Email
 
 
 def add(request):
@@ -38,6 +41,20 @@ def ajax_email(request):
     )
 
 
+def ajax_add_email(request):
+    last_id = int(request.GET.get('last_id', 0))
+    last_id += 1
+    data = {
+        'i': last_id,
+    }
+
+    return render_to_response(
+        'contacts/ajax_add_email.html',
+        data,
+        context_instance=RequestContext(request),
+    )
+
+
 def ajax_remove_email(request):
     removed_id = int(request.POST.get('removed_id', 0))
     num = int(request.POST.get('num_emails', 0))
@@ -51,3 +68,46 @@ def ajax_remove_email(request):
         data,
         context_instance=RequestContext(request),
     )
+
+
+def post_emails(post_list):
+    email_dict = {}
+    for element_id, name in post_list:
+        m = re.search('\d+', element_id)
+        if m:
+            row_id = m.group(0)
+            if not row_id in email_dict:
+                email_dict[row_id] = {}
+
+            address_match = re.search('\d+-address', element_id)
+            type_match = re.search('\d+-type', element_id)
+
+            if address_match:
+                address_dict = {'address': name[0]}
+                email_dict[row_id].update(address_dict)
+            elif type_match:
+                type_dict = {'type': name[0]}
+                email_dict[row_id].update(type_dict)
+
+    emails_valid = True
+    unsorted_email_dict = {}
+
+    # Remove blank entries
+    for row_id, email in email_dict.items():
+        if email['address'] or email['type']:
+            unsorted_email_dict[row_id] = email
+
+        if not email['address'] or not email['type']:
+            emails_valid = False
+
+    email_dict = sorted(unsorted_email_dict.items())
+
+    return emails_valid, email_dict
+
+
+def create_emails(customer, email_dict):
+    for row_id, email in email_dict:
+        address = email['address']
+        email_type = email['type']
+        Email.objects.create(customer=customer, address=address, email_type=email_type)
+

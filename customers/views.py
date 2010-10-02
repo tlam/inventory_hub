@@ -6,6 +6,7 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render_to_response
 from django.template import RequestContext
 
+from contacts.views import create_emails, post_emails
 from customers.forms import CustomerForm
 from customers.models import Customer
 from histories.models import History
@@ -27,16 +28,21 @@ def index(request):
 
 def create(request):
     if request.method == 'POST':
+        post_list = request.POST.lists()
+        emails_valid, email_dict = post_emails(post_list)
         form = CustomerForm(request.POST)
-        if form.is_valid():
+        if form.is_valid() and emails_valid:
             customer = form.save()
             History.created_history(customer, request.user)
             messages.success(request, 'Customer created.')
+            create_emails(customer, email_dict)
             return redirect('customers:update', customer.pk)
     else:
+        email_dict = {}
         form = CustomerForm()
 
     data = {
+        'email_dict': email_dict,
         'form': form,
     }
 

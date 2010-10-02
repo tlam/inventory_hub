@@ -6,7 +6,7 @@ from geography.models import City, Country
 
 
 class CustomerForm(ModelForm):
-    city = forms.CharField(max_length=100)
+    city = forms.CharField(max_length=100, required=False)
 
     class Meta:
         model = Customer

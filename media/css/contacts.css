@@ -1,0 +1,12 @@
+fieldset.emails {
+  width: 29em;
+}
+
+.emails td.address input {
+  width: 17em;
+}
+
+table td.warning {
+  color: red;
+  font-size: 0.8em;
+}

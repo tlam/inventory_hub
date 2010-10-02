@@ -14,8 +14,8 @@ class Customer(models.Model):
     price_type = models.CharField(max_length=2, choices=PRICE_CHOICES)
     unit_number = models.CharField(max_length=50, blank=True, verbose_name='House/Appt No')
     street = models.CharField(max_length=255, blank=True)
-    city = models.ForeignKey(City)
-    country = models.ForeignKey(Country)
+    city = models.ForeignKey(City, null=True, blank=True)
+    country = models.ForeignKey(Country, null=True, blank=True)
     home_phone = models.CharField(max_length=50, blank=True)
     work_phone = models.CharField(max_length=50, blank=True)
     cell_phone = models.CharField(max_length=50, blank=True)
@@ -37,6 +37,16 @@ class Customer(models.Model):
         return ('customers:update', [self.id])
 
     def info(self):
+        if self.city:
+            city = self.city.name
+        else:
+            city = ''
+
+        if self.country:
+            country = self.country.name
+        else:
+            country = ''
+
         return {
             'customer_no': self.customer_no,
             'first_name': self.first_name,
@@ -44,8 +54,8 @@ class Customer(models.Model):
             'company_name': self.company_name,
             'price_type': self.price_type,
             'street': self.street,
-            'city': self.city.name,
-            'country': self.country.name,
+            'city': city,
+            'country': country,
             'home_phone': self.home_phone,
             'work_phone': self.work_phone,
             'cell_phone': self.cell_phone,

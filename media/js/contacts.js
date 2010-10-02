@@ -1,10 +1,13 @@
 $(document).ready(function() {
     $("#add-email").click(function() {
-        var data = {
-            "num_emails": $("#num-emails").val(),
+        var last_child_id = $("table tr:last-child").attr("id");
+        last_child_id = last_child_id.match(/(\d+)/)[1];
+        var ajax_add_email_url = $("#ajax-add-email-url").val();
+        var input_data = {
+            "last_id": last_child_id,
         };
-        var ajax_email_url = $("#ajax-email-url").val();
-        $("#email-output").load(ajax_email_url, data, function() {
+        $.get(ajax_add_email_url, input_data, function(data) {
+            $("table tr:last-child").after(data);
         });
     });
 
@@ -12,17 +15,5 @@ $(document).ready(function() {
         var removed_id = $(this).attr("id");
         removed_id = removed_id.match(/(\d+)/)[1];
         $("#email_set-" + removed_id).remove();
-        var num_emails = $("#num-emails").val();
-        num_emails -= 1;
-        $("#num-emails").val(num_emails);
-/*
-        var data = {
-            "num_emails": $("#num-emails").val(),
-            "removed_id": removed_id,
-        };
-        var ajax_remove_email_url = $("#ajax-remove-email-url").val();
-        $("#email-output").load(ajax_remove_email_url, data, function() {
-        });
-*/
     });
 });

@@ -1,0 +1,42 @@
+<table>
+{% if email_dict %}
+  {% for i, email in email_dict %}
+  <tr id="email_set-{{ i }}">
+    <td class="address">
+      <input id="id_email_set-{{ i }}-address" type="text" name="email_set-{{ i }}-address" maxlength="75" value="{{ email.address }}"/>
+    </td>
+    <td class="type">
+      <select name="email_set-{{ i }}-type" id="id_email_set-{{ i }}-type">
+        <option value="" selected="selected">---</option>
+        <option value="H" {% if email.type == 'H' %}selected{% endif %}>Home</option>
+        <option value="W" {% if email.type == 'W' %}selected{% endif %}>Work</option>
+      </select>
+    </td>
+    <td class="warning">
+      {% if not email.address %}Email address required{% endif %}
+      {% if not email.type %}Email type required{% endif %}
+    </td>
+  </tr>
+  {% endfor %}
+{% else %}
+  <tr id="email_set-0">
+    <td class="address">
+      <input id="id_email_set-0-address" type="text" name="email_set-0-address" maxlength="75" />
+    </td>
+    <td class="type">
+      <select name="email_set-0-type" id="id_email_set-0-type">
+        <option value="" selected="selected">---</option>
+        <option value="H">Home</option>
+        <option value="W">Work</option>
+      </select>
+    </td>
+  </tr>
+{% endif %}
+</table>
+
+  <div>
+    <input type="hidden" id="ajax-add-email-url" value="{% url contacts:ajax-add-email %}" />
+    <input type="hidden" id="ajax-email-url" value="{% url contacts:ajax-email %}" />
+    <input type="hidden" id="ajax-remove-email-url" value="{% url contacts:ajax-remove-email %}" />
+    <input type="button" id="add-email" value="Add Another Email" />
+  </div>
