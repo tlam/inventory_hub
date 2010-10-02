@@ -81,23 +81,27 @@ def post_emails(post_list):
 
             address_match = re.search('\d+-address', element_id)
             type_match = re.search('\d+-type', element_id)
+            email_id = re.search('\d+-id', element_id)
 
             if address_match:
                 address_dict = {'address': name[0]}
                 email_dict[row_id].update(address_dict)
             elif type_match:
-                type_dict = {'type': name[0]}
+                type_dict = {'email_type': name[0]}
                 email_dict[row_id].update(type_dict)
+            elif email_id:
+                id_dict = {'id': name[0]}
+                email_dict[row_id].update(id_dict)
 
     emails_valid = True
     unsorted_email_dict = {}
 
     # Remove blank entries
     for row_id, email in email_dict.items():
-        if email['address'] or email['type']:
+        if email['address'] or email['email_type']:
             unsorted_email_dict[row_id] = email
 
-        if not email['address'] or not email['type']:
+        if not email['address'] or not email['email_type']:
             emails_valid = False
 
     email_dict = sorted(unsorted_email_dict.items())
@@ -108,6 +112,13 @@ def post_emails(post_list):
 def create_emails(customer, email_dict):
     for row_id, email in email_dict:
         address = email['address']
-        email_type = email['type']
-        Email.objects.create(customer=customer, address=address, email_type=email_type)
+        email_type = email['email_type']
+        email_id = int(email.get('id', 0))
+        if email_id:
+            existing_email = Email.objects.get(id=email_id)
+            existing_email.address = address
+            existing_email.email_type = email_type
+            existing_email.save()
+        else:
+            Email.objects.create(customer=customer, address=address, email_type=email_type)
 

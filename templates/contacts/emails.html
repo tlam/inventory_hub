@@ -8,13 +8,14 @@
     <td class="type">
       <select name="email_set-{{ i }}-type" id="id_email_set-{{ i }}-type">
         <option value="" selected="selected">---</option>
-        <option value="H" {% if email.type == 'H' %}selected{% endif %}>Home</option>
-        <option value="W" {% if email.type == 'W' %}selected{% endif %}>Work</option>
+        <option value="H" {% if email.email_type == 'H' %}selected{% endif %}>Home</option>
+        <option value="W" {% if email.email_type == 'W' %}selected{% endif %}>Work</option>
       </select>
     </td>
     <td class="warning">
       {% if not email.address %}Email address required{% endif %}
-      {% if not email.type %}Email type required{% endif %}
+      {% if not email.email_type %}Email type required{% endif %}
+      <input type="hidden" name="customer_email-{{ forloop.revcounter0 }}-id" value="{{ email.id }}" />
     </td>
   </tr>
   {% endfor %}
@@ -25,7 +26,14 @@
       <td class="address">
         <input id="id_email_set-{{ forloop.revcounter0 }}-address" type="text" name="email_set-{{ forloop.revcounter0 }}-address" maxlength="75" value="{{ email.address }}"/>
       </td>
-      <td class="type">{{ email.email_type }}</td>
+      <td class="type">
+        <select name="email_set-{{ forloop.revcounter0 }}-type" id="id_email_set-{{ forloop.revcounter0 }}-type">
+          <option value="" selected="selected">---</option>
+          <option value="H" {% if email.email_type == 'H' %}selected{% endif %}>Home</option>
+          <option value="W" {% if email.email_type == 'W' %}selected{% endif %}>Work</option>
+        </select>
+
+      </td>
       <input type="hidden" name="customer_email-{{ forloop.revcounter0 }}-id" value="{{ email.id }}" />
     </tr>
     {% endfor %}
@@ -41,6 +49,10 @@
         <option value="W">Work</option>
       </select>
     </td>
+    <td class="warning">
+      <input type="hidden" name="customer_email-0-id" value="0" />
+    </td>
+
   </tr> 
   {% endif %}
 {% endif %}

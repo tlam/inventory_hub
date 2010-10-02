@@ -55,23 +55,36 @@ def create(request):
 
 def update(request, customer_id):
     customer = get_object_or_404(Customer, pk=customer_id)
-    emails = customer.customer_email.all()
+    emails = customer.customer_email.order_by('address')
+    email_dict = {}
+    i = 0
+    for email in emails:
+        email_dict[i] = email
+        i += 1
+
+    if email_dict:
+        email_dict = email_dict.items()
+    
     # translate QueryObject to Python dict?
     initial_data = {
         'city': customer.city.name,
     }
 
     if request.method == 'POST':
+        post_list = request.POST.lists()
+        emails_valid, email_dict = post_emails(post_list)
         form = CustomerForm(request.POST, instance=customer)
-        if form.is_valid():
+        if form.is_valid() and emails_valid:
             past_customer = Customer.objects.get(id=customer_id)
             updated_customer = form.save()
             History.updated_history(past_customer, updated_customer, request.user)
             messages.success(request, 'Customer updated.')
+            create_emails(past_customer, email_dict)
     else:
         form = CustomerForm(initial=initial_data, instance=customer)
 
     data = {
+        'email_dict': email_dict,
         'emails': emails,
         'form': form,
     }
