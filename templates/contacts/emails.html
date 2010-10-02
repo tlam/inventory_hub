@@ -19,6 +19,17 @@
   </tr>
   {% endfor %}
 {% else %}
+  {% if emailsz %}
+    {% for email in emails %}
+    <tr id="email_set-{{ forloop.revcounter0 }}">
+      <td class="address">
+        <input id="id_email_set-{{ forloop.revcounter0 }}-address" type="text" name="email_set-{{ forloop.revcounter0 }}-address" maxlength="75" value="{{ email.address }}"/>
+      </td>
+      <td class="type">{{ email.email_type }}</td>
+      <input type="hidden" name="customer_email-{{ forloop.revcounter0 }}-id" value="{{ email.id }}" />
+    </tr>
+    {% endfor %}
+  {% else %}
   <tr id="email_set-0">
     <td class="address">
       <input id="id_email_set-0-address" type="text" name="email_set-0-address" maxlength="75" />
@@ -30,7 +41,8 @@
         <option value="W">Work</option>
       </select>
     </td>
-  </tr>
+  </tr> 
+  {% endif %}
 {% endif %}
 </table>
 

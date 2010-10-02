@@ -55,6 +55,8 @@ def create(request):
 
 def update(request, customer_id):
     customer = get_object_or_404(Customer, pk=customer_id)
+    emails = customer.customer_email.all()
+    # translate QueryObject to Python dict?
     initial_data = {
         'city': customer.city.name,
     }
@@ -70,6 +72,7 @@ def update(request, customer_id):
         form = CustomerForm(initial=initial_data, instance=customer)
 
     data = {
+        'emails': emails,
         'form': form,
     }
 
