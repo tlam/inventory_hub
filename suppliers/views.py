@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render_to_response
 from django.template import RequestContext
+from django.utils.html import escape
 
 from histories.models import History
 from suppliers.forms import ForeignSupplierForm, LocalSupplierForm
@@ -38,6 +39,17 @@ def create_foreign(request):
             foreign_supplier = form.save()
             History.created_history(foreign_supplier, request.user)
             messages.success(request, 'Foreign Supplier created.')
+            if '_popup' in request.GET:
+                popup_data = {
+                    'obj': escape(foreign_supplier),
+                    'pk_value': escape(foreign_supplier.id),
+                }
+                return render_to_response(
+                    'home/close_popup.html',
+                    popup_data,
+                    context_instance=RequestContext(request),
+                )
+
             return redirect('suppliers:update-foreign', foreign_supplier.pk)
     else:
         form = ForeignSupplierForm()
@@ -100,6 +112,16 @@ def create_local(request):
             local_supplier = form.save()
             History.created_history(local_supplier, request.user)
             messages.success(request, 'Local Supplier created.')
+            if '_popup' in request.GET:
+                popup_data = {
+                    'obj': escape(local_supplier),
+                    'pk_value': escape(local_supplier.id),
+                }
+                return render_to_response(
+                    'home/close_popup.html',
+                    popup_data,
+                    context_instance=RequestContext(request),
+                )
             return redirect('suppliers:update-local', local_supplier.pk)
     else:
         form = LocalSupplierForm()

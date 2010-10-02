@@ -50,12 +50,12 @@ class Stock(models.Model):
 
     def info(self):
         if self.foreign_supplier:
-            foreign_supplier_name = self.foreign_supplier.name
+            foreign_supplier_name = self.foreign_supplier
         else:
             foreign_supplier_name = ''
 
         if self.local_supplier:
-            local_supplier_name = self.local_supplier.name
+            local_supplier_name = self.local_supplier
         else:
             local_supplier_name = ''
 

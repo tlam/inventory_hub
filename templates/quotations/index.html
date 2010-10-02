@@ -5,10 +5,6 @@ Quotations
 {% endblock %}
 
 {% block quotations-content %}
-<h3>All Quotations</h3>
-
-<a href="{% url quotations:customer %}">Create Quotation</a>
-
 <ol>
 {% for quotation in quotations %}
   <li><a href="{% url quotations:update quotation.id %}">{{ quotation }}</a></li>
