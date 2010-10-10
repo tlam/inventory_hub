@@ -5,6 +5,7 @@ class City(models.Model):
     name = models.CharField(max_length=100, unique=True)
 
     class Meta:
+        ordering = ['name']
         verbose_name_plural = 'Cities'
 
     def __unicode__(self):
@@ -15,6 +16,7 @@ class Country(models.Model):
     name = models.CharField(max_length=100, unique=True)
 
     class Meta:
+        ordering = ['name']
         verbose_name_plural = 'Countries'
 
     def __unicode__(self):

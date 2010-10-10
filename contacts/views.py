@@ -13,6 +13,7 @@ def ajax_add_email(request):
     last_id = int(request.GET.get('last_id', 0))
     last_id += 1
     data = {
+        'email_choices': Email.EMAIL_CHOICES,
         'i': last_id,
     }
 
@@ -37,7 +38,7 @@ def ajax_remove_email(request):
 def post_emails(post_list):
     email_dict = {}
     for element_id, name in post_list:
-        m = re.search('\d+', element_id)
+        m = re.search('email_set-\d+', element_id)
         if m:
             row_id = m.group(0)
             if not row_id in email_dict:
@@ -45,7 +46,7 @@ def post_emails(post_list):
 
             address_match = re.search('\d+-address', element_id)
             type_match = re.search('\d+-type', element_id)
-            email_id = re.search('\d+-id', element_id)
+            email_id = re.search('\d+-pk', element_id)
 
             if address_match:
                 address_dict = {'address': name[0]}
@@ -54,8 +55,8 @@ def post_emails(post_list):
                 type_dict = {'email_type': name[0]}
                 email_dict[row_id].update(type_dict)
             elif email_id:
-                id_dict = {'id': name[0]}
-                email_dict[row_id].update(id_dict)
+                pk_dict = {'id': name[0]}
+                email_dict[row_id].update(pk_dict)
 
     emails_valid = True
     unsorted_email_dict = {}
@@ -69,6 +70,7 @@ def post_emails(post_list):
             emails_valid = False
 
     email_dict = sorted(unsorted_email_dict.items())
+    print email_dict
 
     # Validate emails to True if none entered
     if not email_dict:
@@ -90,3 +92,17 @@ def create_emails(customer, email_dict):
         else:
             Email.objects.create(customer=customer, address=address, \
                 email_type=email_type)
+
+
+def ajax_add_phone(request):
+    last_id = int(request.GET.get('last_id', 0))
+    last_id += 1
+    data = {
+        'i': last_id,
+    }
+
+    return render_to_response(
+        'contacts/ajax_add_phone.html',
+        data,
+        context_instance=RequestContext(request),
+    )

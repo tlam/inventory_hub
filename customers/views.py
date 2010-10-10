@@ -6,6 +6,7 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render_to_response
 from django.template import RequestContext
 
+from contacts.models import Email, Phone
 from contacts.views import create_emails, post_emails
 from customers.forms import CustomerForm
 from customers.models import Customer
@@ -42,7 +43,9 @@ def create(request):
         form = CustomerForm()
 
     data = {
+        'email_choices': Email.EMAIL_CHOICES,
         'email_dict': email_dict,
+        'phone_choices': Phone.PHONE_CHOICES,
         'form': form,
     }
 
@@ -85,9 +88,11 @@ def update(request, customer_id):
         form = CustomerForm(initial=initial_data, instance=customer)
 
     data = {
+        'email_choices': Email.EMAIL_CHOICES,
         'email_dict': email_dict,
         'emails': emails,
         'form': form,
+        'phone_choices': Phone.PHONE_CHOICES,
     }
 
     return render_to_response(
@@ -100,7 +105,6 @@ def update(request, customer_id):
 def customer_number_ajax(request):
     first_name = request.GET.get('first_name', '')
     last_name = request.GET.get('last_name', '')
-    # TODO: need pass customer id or 0
     try:
         customer = Customer.objects.get(first_name=first_name, \
             last_name=last_name)

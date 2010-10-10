@@ -1,5 +1,5 @@
-<table id="emails">
-{% if email_dict %}
+<table id="phones">
+{% if phone_dict %}
   {% for i, email in email_dict %}
   <tr id="email_set-{{ i }}">
     <td class="address">
@@ -26,12 +26,12 @@
   </tr>
   {% endfor %}
 {% else %}
-  {% include "contacts/ajax_add_email.html" %}
+  {% include "contacts/ajax_add_phone.html" %}
 {% endif %}
 </table>
 
   <div>
     <input type="hidden" id="ajax-add-email-url" value="{% url contacts:ajax-add-email %}" />
     <input type="hidden" id="ajax-remove-email-url" value="{% url contacts:ajax-remove-email %}" />
-    <input type="button" id="add-email" value="Add Another Email" />
+    <input type="button" id="add-email" value="Add Another Phone" />
   </div>

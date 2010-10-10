@@ -85,6 +85,11 @@
   {{ form.cell_phone.errors }}
 </div>
 
+<fieldset class="phones">
+  <legend>Phones</legend>
+  {#% include "contacts/phones.html" %#}
+</fieldset>
+
 <fieldset class="emails">
   <legend>Emails</legend>
   {% include "contacts/emails.html" %}

@@ -1,9 +1,9 @@
-fieldset.emails {
+fieldset.emails, fieldset.phones {
   margin-bottom: 1em;
-  width: 29em;
+  width: 34em;
 }
 
-.emails td.address input {
+.emails td.address input, .phones td.phone-number input {
   width: 17em;
 }
 
