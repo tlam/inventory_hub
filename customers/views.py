@@ -7,7 +7,7 @@ from django.shortcuts import get_object_or_404, redirect, render_to_response
 from django.template import RequestContext
 
 from contacts.models import Email, Phone
-from contacts.views import create_emails, post_emails
+from contacts.views import create_emails, create_phones, post_emails, post_phones
 from customers.forms import CustomerForm
 from customers.models import Customer
 from histories.models import History
@@ -31,6 +31,7 @@ def create(request):
     if request.method == 'POST':
         post_list = request.POST.lists()
         emails_valid, email_dict = post_emails(post_list)
+        phones_valid, phone_dict = post_phones(post_list)
         form = CustomerForm(request.POST)
         if form.is_valid() and emails_valid:
             customer = form.save()
@@ -40,13 +41,15 @@ def create(request):
             return redirect('customers:update', customer.pk)
     else:
         email_dict = {}
+        phone_dict = {}
         form = CustomerForm()
 
     data = {
         'email_choices': Email.EMAIL_CHOICES,
         'email_dict': email_dict,
-        'phone_choices': Phone.PHONE_CHOICES,
         'form': form,
+        'phone_choices': Phone.PHONE_CHOICES,
+        'phone_dict': phone_dict,
     }
 
     return render_to_response(
@@ -59,14 +62,8 @@ def create(request):
 def update(request, customer_id):
     customer = get_object_or_404(Customer, pk=customer_id)
     emails = customer.customer_email.order_by('address')
-    email_dict = {}
-    i = 0
-    for email in emails:
-        email_dict[i] = email
-        i += 1
+    phones = customer.phone_set.all()
 
-    if email_dict:
-        email_dict = email_dict.items()
 
     # translate QueryObject to Python dict?
     initial_data = {
@@ -76,16 +73,36 @@ def update(request, customer_id):
     if request.method == 'POST':
         post_list = request.POST.lists()
         emails_valid, email_dict = post_emails(post_list)
+        phones_valid, phone_dict = post_phones(post_list)
         form = CustomerForm(request.POST, instance=customer)
-        if form.is_valid() and emails_valid:
-            past_customer = Customer.objects.get(id=customer_id)
+        if form.is_valid() and emails_valid and phones_valid:
+            past_customer = Customer.objects.get(pk=customer_id)
             updated_customer = form.save()
             History.updated_history(past_customer, updated_customer, \
                 request.user)
             messages.success(request, 'Customer updated.')
             create_emails(past_customer, email_dict)
+            create_phones(past_customer, phone_dict)
     else:
         form = CustomerForm(initial=initial_data, instance=customer)
+
+        email_dict = {}
+        i = 0
+        for email in emails:
+            email_dict[i] = email
+            i += 1
+
+        if email_dict:
+            email_dict = email_dict.items()
+
+        phone_dict = {}
+        i = 0
+        for phone in phones:
+            phone_dict[i] = phone
+            i += 1
+
+        if phone_dict:
+            phone_dict = phone_dict.items()
 
     data = {
         'email_choices': Email.EMAIL_CHOICES,
@@ -93,6 +110,8 @@ def update(request, customer_id):
         'emails': emails,
         'form': form,
         'phone_choices': Phone.PHONE_CHOICES,
+        'phone_dict': phone_dict,
+        'phones': phones,
     }
 
     return render_to_response(

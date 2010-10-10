@@ -1,27 +1,27 @@
 <table id="phones">
 {% if phone_dict %}
-  {% for i, email in email_dict %}
-  <tr id="email_set-{{ i }}">
-    <td class="address">
-      <input id="id_email_set-{{ i }}-address" type="text" name="email_set-{{ i }}-address" maxlength="75" value="{{ email.address }}"/>
+  {% for i, phone in phone_dict %}
+  <tr id="phone_set-{{ i }}">
+    <td class="phone-number">
+      <input id="id_phone_set-{{ i }}-number" type="text" name="phone_set-{{ i }}-number" maxlength="75" value="{{ phone.number }}"/>
     </td>
     <td class="type">
-      <select name="email_set-{{ i }}-type" id="id_email_set-{{ i }}-type">
+      <select name="phone_set-{{ i }}-type" id="id_phone_set-{{ i }}-type">
         <option value="" selected="selected">---</option>
-        {% for value, label in email_choices %}
-        <option value="{{ value }}" {% if email.email_type == value %}selected{% endif %}>{{ label }}</option>
+        {% for value, label in phone_choices %}
+        <option value="{{ value }}" {% if phone.phone_type == value %}selected{% endif %}>{{ label }}</option>
         {% endfor %}
       </select>
     </td>
     <td class="delete">
       {% if not forloop.first %}
-      <input type="button" value="Remove" id="id_email_set-{{ i }}-remove" class="remove-email" />
+      <input type="button" value="Remove" id="id_phone_set-{{ i }}-remove" class="remove-phone" />
       {% endif %}
     </td>
     <td class="warning">
-      {% if not email.address %}Email address required{% endif %}
-      {% if not email.email_type %}Email type required{% endif %}
-      <input type="hidden" name="email_set-{{ i }}-pk" id="customer_email-{{ i }}-id" value="{{ email.id }}" />
+      {% if not phone.number %}Phone number required{% endif %}
+      {% if not phone.phone_type %}Phone type required{% endif %}
+      <input type="hidden" name="phone_set-{{ i }}-pk" id="customer_phone-{{ i }}-id" value="{{ phone.id }}" />
     </td>
   </tr>
   {% endfor %}
@@ -31,7 +31,7 @@
 </table>
 
   <div>
-    <input type="hidden" id="ajax-add-email-url" value="{% url contacts:ajax-add-email %}" />
-    <input type="hidden" id="ajax-remove-email-url" value="{% url contacts:ajax-remove-email %}" />
-    <input type="button" id="add-email" value="Add Another Phone" />
+    <input type="hidden" id="ajax-add-phone-url" value="{% url contacts:ajax-add-phone %}" />
+    <input type="hidden" id="ajax-remove-phone-url" value="{% url contacts:ajax-remove-phone %}" />
+    <input type="button" id="add-phone" value="Add Another Phone" />
   </div>

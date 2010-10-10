@@ -1,6 +1,6 @@
 fieldset.emails, fieldset.phones {
   margin-bottom: 1em;
-  width: 34em;
+  width: 36em;
 }
 
 .emails td.address input, .phones td.phone-number input {

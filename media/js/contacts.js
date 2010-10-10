@@ -37,9 +37,9 @@ $(document).ready(function() {
     $(".remove-phone").live("click", function() {
         var removed_id = $(this).attr("id");
         removed_id = removed_id.match(/(\d+)/)[1];
-        var ajax_remove_phone_url = $("#ajax-phone-email-url").val();
+        var ajax_remove_phone_url = $("#ajax-remove-phone-url").val();
         var phone_id = $("#customer_phone-" + removed_id + "-id").val();
-        var input_data = {"phone_id": email_id};
+        var input_data = {"phone_id": phone_id};
         $.get(ajax_remove_phone_url, input_data, function(data) {
             $("#phone_set-" + removed_id).remove();
         });
