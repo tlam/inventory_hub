@@ -12,10 +12,15 @@
         <option value="W" {% if email.email_type == 'W' %}selected{% endif %}>Work</option>
       </select>
     </td>
+    <td class="delete">
+      {% if not forloop.first %}
+      <input type="button" value="Remove" id="id_email_set-{{ i }}-remove" class="remove-email" />
+      {% endif %}
+    </td>
     <td class="warning">
       {% if not email.address %}Email address required{% endif %}
       {% if not email.email_type %}Email type required{% endif %}
-      <input type="hidden" name="customer_email-{{ forloop.revcounter0 }}-id" value="{{ email.id }}" />
+      <input type="hidden" name="customer_email-{{ i }}-id" id="customer_email-{{ i }}-id" value="{{ email.id }}" />
     </td>
   </tr>
   {% endfor %}
@@ -60,7 +65,6 @@
 
   <div>
     <input type="hidden" id="ajax-add-email-url" value="{% url contacts:ajax-add-email %}" />
-    <input type="hidden" id="ajax-email-url" value="{% url contacts:ajax-email %}" />
     <input type="hidden" id="ajax-remove-email-url" value="{% url contacts:ajax-remove-email %}" />
     <input type="button" id="add-email" value="Add Another Email" />
   </div>

@@ -5,7 +5,7 @@ from customers.models import Customer
 
 
 class EmailInline(admin.TabularInline):
-    model = Email 
+    model = Email
 
 
 class CustomerAdmin(admin.ModelAdmin):

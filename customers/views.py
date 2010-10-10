@@ -64,7 +64,7 @@ def update(request, customer_id):
 
     if email_dict:
         email_dict = email_dict.items()
-    
+
     # translate QueryObject to Python dict?
     initial_data = {
         'city': customer.city.name,
@@ -77,7 +77,8 @@ def update(request, customer_id):
         if form.is_valid() and emails_valid:
             past_customer = Customer.objects.get(id=customer_id)
             updated_customer = form.save()
-            History.updated_history(past_customer, updated_customer, request.user)
+            History.updated_history(past_customer, updated_customer, \
+                request.user)
             messages.success(request, 'Customer updated.')
             create_emails(past_customer, email_dict)
     else:
@@ -101,7 +102,8 @@ def customer_number_ajax(request):
     last_name = request.GET.get('last_name', '')
     # TODO: need pass customer id or 0
     try:
-        customer = Customer.objects.get(first_name=first_name, last_name=last_name)
+        customer = Customer.objects.get(first_name=first_name, \
+            last_name=last_name)
         customer_id = customer.pk
     except Customer.DoesNotExist:
         max_id = Customer.objects.aggregate(Max('id'))
@@ -109,6 +111,7 @@ def customer_number_ajax(request):
         if not max_id:
             max_id = 0
         customer_id = max_id + 1
-    value = '%s/%s/%i' %  (first_name[:3].upper(), last_name[:3].upper(), customer_id)
+    value = '%s/%s/%i' % (first_name[:3].upper(), last_name[:3].upper(), \
+        customer_id)
     data = json.dumps(value)
     return HttpResponse(data, mimetype="application/javascript")
