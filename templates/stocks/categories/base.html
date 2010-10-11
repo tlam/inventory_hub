@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block sub-title %} - Categories{% endblock %}
+
+{% block content %}
+
+<a href="{% url home:index %}">Home</a> &gt; 
+{% block categories-breadcrumb %}
+<a href="{% url stocks:categories:index %}">Categories</a>
+{% endblock %}
+{% block categories-breadcrumb-extra %}
+{% endblock %}
+
+<div class="title-combo">
+  <h3 class="title">Categories</h3>
+  <div class="create-link">
+    <a href="{% url stocks:categories:create %}">Create</a>
+  </div>
+</div>
+
+{% block categories-content %}
+{% endblock %}
+
+{% endblock %}

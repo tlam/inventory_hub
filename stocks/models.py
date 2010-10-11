@@ -7,6 +7,7 @@ from suppliers.models import ForeignSupplier, LocalSupplier
 
 class Category(models.Model):
     name = models.CharField(max_length=100, default='', unique=True)
+    code = models.CharField(max_length=10, default='')
     description = models.CharField(max_length=255, blank=True)
 
     class Meta:
@@ -14,7 +15,7 @@ class Category(models.Model):
         verbose_name_plural = 'Categories'
 
     def __unicode__(self):
-        return self.name
+        return u'%s - %s' % (self.code, self.name)
 
 
 class Stock(models.Model):

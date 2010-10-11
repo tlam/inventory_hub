@@ -1,10 +1,10 @@
-{% extends "stocks/base.html" %}
+{% extends "stocks/categories/base.html" %}
 
-{% block stocks-breadcrumb-extra %}
-&gt; <a href="{% url stocks:categories:index %}">Categories</a> &gt; Create
+{% block categories-breadcrumb-extra %}
+&gt; Create
 {% endblock %}
 
-{% block stocks-content %}
+{% block categories-content %}
 <form action="" method="post">
   {% include "stocks/categories/_form.html" %}
   <p>

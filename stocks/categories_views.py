@@ -1,4 +1,5 @@
-from django.shortcuts import render_to_response
+from django.contrib import messages
+from django.shortcuts import get_object_or_404, render_to_response
 from django.template import RequestContext
 
 from stocks.forms import CategoryForm
@@ -7,7 +8,11 @@ from utils.tools import capwords
 
 
 def index(request):
-    data = {}
+    categories = Category.objects.all()
+
+    data = {
+        'categories': categories,
+    }
 
     return render_to_response(
         'stocks/categories/index.html',
@@ -19,6 +24,9 @@ def index(request):
 def create(request):
     if request.method == 'POST':
         form = CategoryForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Category created')
     else:
         form = CategoryForm()
 
@@ -33,8 +41,20 @@ def create(request):
     )
 
 
-def update(request):
-    data = {}
+def update(request, category_id):
+    category = get_object_or_404(Category, pk=category_id)
+
+    if request.method == 'POST':
+        form = CategoryForm(request.POST, instance=category)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Category updated')
+    else:
+        form = CategoryForm(instance=category)
+
+    data = {
+        'form': form,
+    }
 
     return render_to_response(
         'stocks/categories/update.html',

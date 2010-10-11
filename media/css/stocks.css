@@ -10,3 +10,11 @@
   margin-left: 1em;
   margin-top: 1.3em;
 }
+
+table#categories, table#stocks {
+  text-align: left;
+}
+
+table#categories th, table#stocks th {
+  padding-right: 2em;
+}

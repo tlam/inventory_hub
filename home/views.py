@@ -3,7 +3,8 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 
 from customers.models import Customer
-from utils.constants import CUSTOMERS_APP
+from stocks.models import Stock
+from utils.constants import CUSTOMERS_APP, STOCKS_APP
 
 
 def index(request):
@@ -25,6 +26,20 @@ def search(request):
             Q(first_name__icontains=q) |
             Q(last_name__icontains=q) |
             Q(company_name__icontains=q)
+        )
+    elif current_app == STOCKS_APP:
+        stocks = Stock.objects.filter(
+            Q(category__code__istartswith=q)
+        )
+
+        data = {
+            'stocks': stocks,
+        }
+
+        return render_to_response(
+            'stocks/index.html',
+            data,
+            context_instance=RequestContext(request),
         )
     else:
         results = []

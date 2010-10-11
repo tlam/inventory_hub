@@ -1,6 +1,15 @@
-{% extends "base.html" %}
+{% extends "stocks/categories/base.html" %}
 
-{% block content %}
-<h3>Update</h3>
+{% block categories-breadcrumb-extra %}
+&gt; Update
+{% endblock %}
+
+{% block categories-content %}
+<form action="" method="post">
+  {% include "stocks/categories/_form.html" %}
+  <p>
+    <input type="submit" value="Update" />
+  </p>
+</form>
 
 {% endblock %}

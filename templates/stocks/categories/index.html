@@ -1,9 +1,20 @@
-{% extends "stocks/base.html" %}
+{% extends "stocks/categories/base.html" %}
 
-{% block stocks-breadcrumb-extra %}
-&gt; Categories
+{% block categories-breadcrumb %}
+Categories
 {% endblock %}
 
-{% block stocks-content %}
-<h3>All Stocks</h3>
+{% block categories-content %}
+<table id="categories">
+  <tr>
+    <th>Code</th>
+    <th>Name</th>
+  </tr>
+  {% for category in categories %}
+  <tr>
+    <td>{{ category.code }}</td>
+    <td><a href="{% url stocks:categories:update category.id %}">{{ category }}</a></td>
+  </tr>
+  {% endfor %}
+</table>
 {% endblock %}

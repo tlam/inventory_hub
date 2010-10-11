@@ -8,11 +8,20 @@ Stocks
 
 <h3>All Stocks</h3>
 {% if stocks %}
-<ol>
-{% for stock in stocks %}
-  <li><a href="{% url stocks:update stock.pk %}">{{ stock }}</a></li>
-{% endfor %}
-</ol>
+<table id="stocks">
+  <tr>
+    <th>Item Code</th>
+    <th>Description</th>
+    <th>Category Code</th>
+  </tr>
+  {% for stock in stocks %}
+  <tr>
+    <td>{{ stock.item_code }}</td>
+    <td><a href="{% url stocks:update stock.pk %}">{{ stock }}</a></td>
+    <td>{{ stock.category.code }}</td>
+  </tr>
+  {% endfor %}
+</table>
 {% endif %}
 
 {% endblock %}

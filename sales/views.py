@@ -83,7 +83,7 @@ def update(request, sale_type, sale_id):
     else:
         instance = CreditSale
 
-    sale = get_object_or_404(instance, id=sale_id)
+    sale = get_object_or_404(instance, pk=sale_id)
     StockItemFormSet = inlineformset_factory(instance, StockItem, extra=1, fields = ('stock', 'quantity', 'discount',))
 
     if request.method == 'POST':
@@ -110,6 +110,7 @@ def update(request, sale_type, sale_id):
     data = {
         'form': form,
         'formset': formset,
+        'sale_type': sale_type,
     }
 
     return render_to_response(
