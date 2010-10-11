@@ -18,3 +18,7 @@ table#categories, table#stocks {
 table#categories th, table#stocks th {
   padding-right: 2em;
 }
+
+table#stock-items {
+  text-align: left;
+}
