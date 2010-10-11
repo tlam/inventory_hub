@@ -19,9 +19,6 @@ class Customer(models.Model):
     street = models.CharField(max_length=255, blank=True)
     city = models.ForeignKey(City, null=True, blank=True)
     country = models.ForeignKey(Country, null=True, blank=True)
-    home_phone = models.CharField(max_length=50, blank=True)
-    work_phone = models.CharField(max_length=50, blank=True)
-    cell_phone = models.CharField(max_length=50, blank=True)
     vat_registration_number = models.IntegerField(default=0, blank=True)
     business_registration_number = models.CharField(max_length=9, blank=True)
     discount_percent = models.FloatField(default=0, blank=True)
@@ -58,9 +55,6 @@ class Customer(models.Model):
             'street': self.street,
             'city': city,
             'country': country,
-            'home_phone': self.home_phone,
-            'work_phone': self.work_phone,
-            'cell_phone': self.cell_phone,
             'vat_registration_number': self.vat_registration_number,
             'business_registration_number': self.business_registration_number,
             'discount_percent': self.discount_percent,

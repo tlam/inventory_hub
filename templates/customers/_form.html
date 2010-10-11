@@ -64,27 +64,6 @@
   {{ form.country.errors }}
 </div>
 
-<div class="fieldWrapper">
-  <label for="id_{{ form.home_phone.html_name }}">{{ form.home_phone.label }}:</label>
-  {{ form.home_phone }}
-  {% required_field form.home_phone %}
-  {{ form.home_phone.errors }}
-</div>
-
-<div class="fieldWrapper">
-  <label for="id_{{ form.work_phone.html_name }}">{{ form.work_phone.label }}:</label>
-  {{ form.work_phone }}
-  {% required_field form.work_phone %}
-  {{ form.work_phone.errors }}
-</div>
-
-<div class="fieldWrapper">
-  <label for="id_{{ form.cell_phone.html_name }}">{{ form.cell_phone.label }}:</label>
-  {{ form.cell_phone }}
-  {% required_field form.cell_phone %}
-  {{ form.cell_phone.errors }}
-</div>
-
 <fieldset class="phones">
   <legend>Phones</legend>
   {% include "contacts/phones.html" %}

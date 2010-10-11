@@ -124,6 +124,20 @@ def update(request, customer_id):
 def customer_number_ajax(request):
     first_name = request.GET.get('first_name', '')
     last_name = request.GET.get('last_name', '')
+
+    first_name_prefix = first_name[:3].upper()
+    last_name_prefix = last_name[:3].upper()
+
+    customers = Customer.objects.filter(
+        first_name__istartswith=first_name_prefix,
+        last_name__istartswith=last_name_prefix,
+    )
+
+    max_id = customers.count() + 1
+
+    value = '%s/%s/%03d' % (first_name_prefix, last_name_prefix, max_id)
+
+    '''
     try:
         customer = Customer.objects.get(first_name=first_name, \
             last_name=last_name)
@@ -136,5 +150,6 @@ def customer_number_ajax(request):
         customer_id = max_id + 1
     value = '%s/%s/%i' % (first_name[:3].upper(), last_name[:3].upper(), \
         customer_id)
+    '''
     data = json.dumps(value)
     return HttpResponse(data, mimetype="application/javascript")
