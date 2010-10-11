@@ -75,7 +75,10 @@ def create(request, customer_id):
 
 def update(request, quotation_id):
     quotation = get_object_or_404(Quotation, pk=quotation_id)
-    StockItemFormSet = inlineformset_factory(Quotation, StockItem, extra=1, fields = ('stock', 'quantity', 'discount',))
+    #StockItemFormSet = inlineformset_factory(Quotation, StockItem, extra=1, fields = ('stock', 'quantity', 'discount',))
+
+    from stocks.forms import BaseStockFormset
+    StockItemFormSet = inlineformset_factory(Quotation, StockItem, formset=BaseStockFormset, extra=1, fields = ('stock', 'quantity', 'discount',))
 
     if request.method == 'POST':
         form = QuotationForm(request.POST, instance=quotation)

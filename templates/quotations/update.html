@@ -10,21 +10,7 @@
 <form action="" method="post">
   {{ formset.management_form }}
   {% include "quotations/_form.html" %}
-  <table>
-    <tr>
-      <th>Stock</th>
-      <th>Quantity</th>
-      <th>Discount</th>
-      <th>Delete</th>
-    </tr>
-  {% for form in formset.forms %}
-    <tr>
-    {% for field in form %}
-      <td>{{ field }}</td>
-    {% endfor %}
-    </tr>
-  {% endfor %}
-  </table>
+  {% include "stocks/stock_items.html" %}
   <p>
     <input type="submit" value="Update" />
   </p>
