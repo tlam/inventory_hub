@@ -17,7 +17,7 @@ Stocks
   {% for stock in stocks %}
   <tr>
     <td>{{ stock.item_code }}</td>
-    <td><a href="{% url stocks:update stock.pk %}">{{ stock }}</a></td>
+    <td><a href="{% url stocks:update stock.pk %}">{{ stock.description }}</a></td>
     <td>{{ stock.category.code }}</td>
   </tr>
   {% endfor %}

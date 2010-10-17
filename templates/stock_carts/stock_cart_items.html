@@ -11,7 +11,7 @@
 {% for item in stock_items %}
   <tr>
     <td>{{ item.stock.category }}</td>
-    <td>{{ item.stock.item_code }}</td>
+    <td><a href="{% url stocks:update item.stock.pk %}">{{ item.stock.item_code }}</a></td>
     <td>{{ item.stock.description }}</td>
     <td>
       <input type="text" name="stock-cart-item-quantity-{{ item.pk }}" value="{{ item.quantity }}" />

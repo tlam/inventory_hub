@@ -5,7 +5,13 @@ $(document).ready(function() {
 
     $(".stock-item-code").autocomplete({
         source: "/stocks/search-stock/"
-    });
+    })
+    .data("autocomplete")._renderItem = function(ul, item) {
+        return $( "<li></li>" )
+                .data( "item.autocomplete", item )
+                .append( "<a>" + item.desc + " - <span>" + item.label + "</span></a>" )
+                .appendTo( ul );
+    };
 
     $("#add-category").click(function() {
         var value = prompt("Category:");

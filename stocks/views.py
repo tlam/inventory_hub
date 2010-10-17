@@ -79,8 +79,16 @@ def search_category(request):
 
 
 def search_stock(request):
-    item_code = request.GET.get('term', '')
-    stocks = Stock.objects.filter(item_code__istartswith=item_code)
-    stocks = stocks.values_list('item_code', flat=True).order_by('item_code')
-    data = simplejson.dumps(list(stocks))
+    description = request.GET.get('term', '')
+    stocks = Stock.objects.filter(description__istartswith=description)
+    stock_list = []
+    for stock in stocks:
+        stock_list.append({
+            'label': stock.item_code,
+            'desc': stock.description,
+        })
+    #stocks = stocks.values_list('item_code', flat=True).order_by('item_code')
+    #data = simplejson.dumps(list(stocks))
+    data = simplejson.dumps(stock_list)
+    print data
     return HttpResponse(data, mimetype="application/javascript")
