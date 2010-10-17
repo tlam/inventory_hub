@@ -1,0 +1,104 @@
+<div class="fieldWrapper">
+  <label for="id_{{ form.supplier_no.html_name }}">{{ form.supplier_no.label }}:</label>
+  {{ form.supplier_no }}
+  {% required_field form.supplier_no %}
+  {{ form.supplier_no.errors }}
+</div>
+
+<div class="fieldWrapper">
+  <label for="id_{{ form.company_name.html_name }}">{{ form.company_name.label }}:</label>
+  {{ form.company_name }}
+  {% required_field form.company_name %}
+  {{ form.company_name.errors }}
+</div>
+
+<div class="fieldWrapper">
+  <label for="id_{{ form.creditors_code.html_name }}">{{ form.creditors_code.label }}:</label>
+  {{ form.creditors_code }}
+  {% required_field form.creditors_code %}
+  {{ form.creditors_code.errors }}
+</div>
+
+<div class="fieldWrapper">
+  <label for="id_{{ form.price_type.html_name }}">{{ form.price_type.label }}:</label>
+  {{ form.price_type }}
+  {% required_field form.price_type %}
+  {{ form.price_type.errors }}
+</div>
+
+<div class="fieldWrapper">
+  <label for="id_{{ form.address.html_name }}">{{ form.address.label }}:</label>
+  {{ form.address }}
+  {% required_field form.address %}
+  {{ form.address.errors }}
+</div>
+
+<div class="fieldWrapper">
+  <label for="id_{{ form.town.html_name }}">{{ form.town.label }}:</label>
+  <span id="towns-ajax-output">{{ form.town }}</span>
+  {% required_field form.town %}
+  <span id="add-town" class="link">Add Town</span>
+</div>
+
+<div class="fieldWrapper">
+  <label for="id_{{ form.city.html_name }}">{{ form.city.label }}:</label>
+  {{ form.city }}
+  {% required_field form.city %}
+  {{ form.city.errors }}
+</div>
+
+<div class="fieldWrapper">
+  <label for="id_{{ form.country.html_name }}">{{ form.country.label }}:</label>
+  <span id="countries-ajax-output">{{ form.country }}</span>
+  {% required_field form.country %}
+  <span id="add-country" class="link">Add Country</span>
+</div>
+
+<div class="fieldWrapper">
+  <label for="id_{{ form.postal_code.html_name }}">{{ form.postal_code.label }}:</label>
+  {{ form.postal_code }}
+  {% required_field form.postal_code %}
+  {{ form.postal_code.errors }}
+</div>
+
+<div class="fieldWrapper">
+  <label for="id_{{ form.phone.html_name }}">{{ form.phone.label }}:</label>
+  {{ form.phone }}
+  {% required_field form.phone %}
+  {{ form.phone.errors }}
+</div>
+
+<div class="fieldWrapper">
+  <label for="id_{{ form.first_name.html_name }}">{{ form.first_name.label }}:</label>
+  {{ form.first_name }}
+  {% required_field form.first_name %}
+  {{ form.first_name.errors }}
+</div>
+
+<div class="fieldWrapper">
+  <label for="id_{{ form.last_name.html_name }}">{{ form.last_name.label }}:</label>
+  {{ form.last_name }}
+  {% required_field form.last_name %}
+  {{ form.last_name.errors }}
+</div>
+
+<div class="fieldWrapper">
+  <label for="id_{{ form.vat_flag.html_name }}">{{ form.vat_flag.label }}:</label>
+  {{ form.vat_flag }}
+  {% required_field form.vat_flag %}
+  {{ form.vat_flag.errors }}
+</div>
+
+<div class="fieldWrapper">
+  <label for="id_{{ form.vat_registration_number.html_name }}">{{ form.vat_registration_number.label }}:</label>
+  {{ form.vat_registration_number }}
+  {% required_field form.vat_registration_number %}
+  {{ form.vat_registration_number.errors }}
+</div>
+
+<div class="fieldWrapper">
+  <label for="id_{{ form.business_registration_number.html_name }}">{{ form.business_registration_number.label }}:</label>
+  {{ form.business_registration_number }}
+  {% required_field form.business_registration_number %}
+  {{ form.business_registration_number.errors }}
+</div>

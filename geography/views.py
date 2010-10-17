@@ -3,7 +3,7 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.utils import simplejson
 
-from geography.models import City, Country
+from geography.models import City, Country, Town
 from utils.tools import capwords
 
 
@@ -20,6 +20,24 @@ def add_country_ajax(request):
 
     return render_to_response(
         'geography/countries.html',
+        data,
+        context_instance=RequestContext(request),
+    )
+
+
+def add_town_ajax(request):
+    new_town = request.POST.get('new_town', '')
+    new_town = capwords(new_town)
+    if new_town:
+        Town.objects.get_or_create(name=new_town)
+
+    data = {
+        'towns': Town.objects.order_by('name'),
+        'new_town': new_town,
+    }
+
+    return render_to_response(
+        'geography/towns.html',
         data,
         context_instance=RequestContext(request),
     )

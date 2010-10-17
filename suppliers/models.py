@@ -40,6 +40,7 @@ class BaseSupplier(models.Model):
 
 
 class LocalSupplier(BaseSupplier):
+    town = models.ForeignKey('geography.Town', blank=True, null=True)
     vat_flag = models.BooleanField(default=False)
     vat_registration_number = models.IntegerField(default=0, blank=True)  # 8 digit max
     business_registration_number = models.CharField(max_length=9, blank=True)

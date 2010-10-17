@@ -21,3 +21,13 @@ class Country(models.Model):
 
     def __unicode__(self):
         return u'%s' % self.name
+
+
+class Town(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+
+    class Meta:
+        ordering = ['name']
+
+    def __unicode__(self):
+        return u'%s' % self.name

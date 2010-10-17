@@ -17,4 +17,15 @@ $(document).ready(function() {
 
         }
     });
+
+    /* Adds a new town */
+    $("#add-town").click(function() {
+        var value = prompt("Town:");
+        if (value) {
+            var input_data = {new_town: value};
+            $("#towns-ajax-output").load("/geography/add-town-ajax/", input_data, function() {
+            });
+
+        }
+    });
 });
