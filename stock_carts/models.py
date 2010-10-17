@@ -29,6 +29,11 @@ class StockCart(models.Model):
             item.discount = post.get(discount_key, 0)
             item.save()
 
+        for item in cart_items:
+            delete_key = 'stock-cart-item-delete-%i' % item.pk
+            if post.get(delete_key, 0):
+                item.delete()
+
 
 class StockCartItem(models.Model):
     cart = models.ForeignKey(StockCart)

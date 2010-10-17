@@ -74,7 +74,6 @@ def create(request, customer_id):
 
 def update(request, quotation_id):
     quotation = get_object_or_404(Quotation, pk=quotation_id)
-    stock_items = quotation.cart.stockcartitem_set.all()
 
     if request.method == 'POST':
         form = QuotationForm(request.POST, instance=quotation)
@@ -82,7 +81,6 @@ def update(request, quotation_id):
             stock_item_code = request.POST.get('stock-item-code', '')
             msg = quotation.cart.add_item(stock_item_code)
             if msg.get('success', ''):
-                stock_items = quotation.cart.stockcartitem_set.all()
                 messages.success(request, msg.get('success', ''))
             else:
                 messages.warning(request, msg.get('warning', ''))
@@ -93,6 +91,8 @@ def update(request, quotation_id):
                 messages.success(request, 'Quotation updated.')
     else:
         form = QuotationForm(instance=quotation)
+
+    stock_items = quotation.cart.stockcartitem_set.all()
 
     data = {
         'form': form,

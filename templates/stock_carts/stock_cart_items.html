@@ -7,6 +7,7 @@
     <th>Discount</th>
     <th>Price</th>
     <th>Total</th>
+    <th></th>
   </tr>
 {% for item in stock_items %}
   <tr>
@@ -20,6 +21,12 @@
       <input type="text" name="stock-cart-item-discount-{{ item.pk }}" value="{{ item.discount }}"</td>
     <td>{{ item.stock.retail_price }}</td>
     <td>{{ item.total }}</td>
+    <td><input type="submit" name="stock-cart-item-delete-{{ item.pk }}" value="Delete" /></td>
   </tr>
 {% endfor %}
 </table>
+
+<div>
+  Stock Item Code: <input type="text" name="stock-item-code" class="stock-item-code" />
+  <input type="submit" name="add-stock-item" value="Add Stock" />
+</div>
