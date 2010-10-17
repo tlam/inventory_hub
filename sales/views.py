@@ -9,7 +9,6 @@ from customers.models import Customer
 from histories.models import History
 from sales.forms import sale_form
 from sales.models import CashSale, CreditSale
-from stocks.models import StockItem
 
 
 def index(request):
@@ -78,6 +77,37 @@ def create(request, sale_type, customer_id):
     
 
 def update(request, sale_type, sale_id):
+    if sale_type == 'cash':
+        instance = CashSale
+    else:
+        instance = CreditSale
+
+    sale = get_object_or_404(instance, pk=sale_id)
+
+    if request.method == 'POST':
+        form = sale_form(sale_type, request.POST, instance=sale)
+        if form.is_valid():
+            past_sale = instance.objects.get(id=sale_id)
+            updated_sale = form.save()
+            History.updated_history(past_sale, updated_sale, request.user)
+
+            messages.success(request, '%s sale updated' % sale_type)
+    else:
+        form = sale_form(sale_type, instance=sale)
+
+    data = {
+        'form': form,
+        'sale_type': sale_type,
+    }
+
+    return render_to_response(
+        'sales/update.html',
+        data,
+        context_instance=RequestContext(request),
+    )
+
+
+def update2(request, sale_type, sale_id):
     if sale_type == 'cash':
         instance = CashSale
     else:

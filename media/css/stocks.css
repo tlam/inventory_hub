@@ -22,3 +22,11 @@ table#categories th, table#stocks th {
 table#stock-items {
   text-align: left;
 }
+
+table#stock-items th, table#stock-items td {
+  padding-right: 1em;
+}
+
+.inline-stock-item {
+  display: none;
+}

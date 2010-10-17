@@ -28,7 +28,7 @@ class Stock(models.Model):
         (UNIT, 'Unit'),
     )
 
-    item_code = models.CharField(max_length=50, default='')
+    item_code = models.CharField(max_length=50, unique=True)
     description = models.CharField(max_length=255, default='')
     category = models.ForeignKey(Category)
     retail_price = models.DecimalField(max_digits=20, decimal_places=2, default=0)
@@ -86,6 +86,7 @@ class Stock(models.Model):
         }
 
 
+'''
 class StockItemManager(models.Manager):
     def items_for(self, generic_object):
         if isinstance(generic_object, CashSale):
@@ -101,7 +102,6 @@ class StockItemManager(models.Manager):
         for item in stock_items:
             history_dict[item.id] = item.info()
         return history_dict
-
 
 class StockItem(models.Model):
     stock = models.ForeignKey('stocks.Stock')
@@ -129,3 +129,4 @@ class StockItem(models.Model):
             data['credit_sale'] = self.credit_sale.__unicode__()
 
         return data
+'''

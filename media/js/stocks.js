@@ -3,6 +3,10 @@ $(document).ready(function() {
         source: "/stocks/search-category/"
     });
 
+    $(".stock-item-code").autocomplete({
+        source: "/stocks/search-stock/"
+    });
+
     $("#add-category").click(function() {
         var value = prompt("Category:");
         if (value) {

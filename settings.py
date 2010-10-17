@@ -117,6 +117,7 @@ INSTALLED_APPS = (
     'histories',
     'hub_users',
     'contacts',
+    'stock_carts',
     'south',
     'utils',
 )

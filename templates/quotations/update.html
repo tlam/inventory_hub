@@ -8,11 +8,14 @@
 <h3>Update</h3>
 
 <form action="" method="post">
-  {{ formset.management_form }}
   {% include "quotations/_form.html" %}
-  {% include "stocks/stock_items.html" %}
+  {% include "stock_carts/stock_cart_items.html" %}
+  <div>
+    Stock Item Code: <input type="text" name="stock-item-code" class="stock-item-code" />
+    <input type="submit" name="add-stock-item" value="Add Stock" />
+  </div>
   <p>
-    <input type="submit" value="Update" />
+    <input type="submit" name="update" value="Update" />
   </p>
 </form>
 

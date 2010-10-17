@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from stocks.models import Category, Stock, StockItem
+from stocks.models import Category, Stock
 
 
 class StockAdmin(admin.ModelAdmin):
@@ -8,4 +8,3 @@ class StockAdmin(admin.ModelAdmin):
 
 admin.site.register(Category)
 admin.site.register(Stock, StockAdmin)
-admin.site.register(StockItem)

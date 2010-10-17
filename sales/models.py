@@ -4,7 +4,6 @@ from django.contrib.auth.models import User
 from django.db import models
 
 from customers.models import Customer
-from quotations.models import Quotation
 from warehouses.models import Warehouse
 
 class Sale(models.Model):

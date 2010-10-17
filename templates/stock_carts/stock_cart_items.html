@@ -1,0 +1,25 @@
+<table id="stock-items">
+  <tr>
+    <th>Category</th>
+    <th>Item Code</th>
+    <th>Description</th>
+    <th>Quantity</th>
+    <th>Discount</th>
+    <th>Price</th>
+    <th>Total</th>
+  </tr>
+{% for item in stock_items %}
+  <tr>
+    <td>{{ item.stock.category }}</td>
+    <td>{{ item.stock.item_code }}</td>
+    <td>{{ item.stock.description }}</td>
+    <td>
+      <input type="text" name="stock-cart-item-quantity-{{ item.pk }}" value="{{ item.quantity }}" />
+    </td>
+    <td>
+      <input type="text" name="stock-cart-item-discount-{{ item.pk }}" value="{{ item.discount }}"</td>
+    <td>{{ item.stock.retail_price }}</td>
+    <td>{{ item.total }}</td>
+  </tr>
+{% endfor %}
+</table>
