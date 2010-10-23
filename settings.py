@@ -118,6 +118,7 @@ INSTALLED_APPS = (
     'hub_users',
     'contacts',
     'stock_carts',
+    'companies',
     'south',
     'utils',
 )

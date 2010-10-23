@@ -1,13 +1,23 @@
 {% extends "stocks/base.html" %}
 
 {% block stocks-breadcrumb %}
-Stocks
+File Commodity Datas
 {% endblock %}
 
 {% block stocks-content %}
 
+<ul>
+  <li><a href="{% url companies:index %}">Company's Profile</a></li>
+  <li><a href="">File Commodity Datas</a></li>
+  <li><a href="{% url stocks:categories:index %}">Categories</a></li>
+  <li><a href="{% url customers:index %}">Customers</a></li>
+  <li><a href="{% url suppliers:index %}">Suppliers</a></li>
+  <li><a href="">Salesman</a></li>
+  <li><a href="">User ID</a></li>
+</ul>
+
 <div class="title-combo">
-  <h3 class="title">Stocks</h3>
+  <h3 class="title">File Commodity Datas</h3>
   <div class="create-link">
     <a href="{% url stocks:create %}">Create</a>
   </div>

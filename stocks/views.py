@@ -45,12 +45,12 @@ def create(request):
     )
 
 def update(request, stock_id):
-    stock = get_object_or_404(Stock, id=stock_id)
+    stock = get_object_or_404(Stock, pk=stock_id)
 
     if request.method == 'POST':
         form = StockForm(request.POST, instance=stock)
         if form.is_valid():
-            past_stock = Stock.objects.get(id=stock_id)
+            past_stock = Stock.objects.get(pk=stock_id)
             updated_stock = form.save()
             History.updated_history(past_stock, updated_stock, request.user)
             messages.success(request, 'Stock updated.')

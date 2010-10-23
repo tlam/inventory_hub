@@ -1,0 +1,21 @@
+{% extends "companies/base.html" %}
+
+{% block companies-breadcrumb %}
+Companies
+{% endblock %}
+
+{% block companies-content %}
+<div class="title-combo">
+  <h3 class="title">Companies</h3>
+  <div class="create-link">
+    <a href="{% url companies:create %}">Create</a>
+  </div>
+</div>
+
+<ol>
+{% for company in companies %}
+  <li><a href="{% url companies:update company.pk %}">{{ company }}</a></li>
+{% endfor %}
+</ol>
+
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block sub-title %} - Companies {% endblock %}
+
+{% block content %}
+
+<a href="{% url home:index %}">Home</a> &gt; 
+{% block companies-breadcrumb %}
+<a href="{% url companies:index %}">Companies</a>
+{% endblock %}
+{% block companies-breadcrumb-extra %}
+{% endblock %}
+
+{% block companies-content %}
+{% endblock %}
+
+{% endblock %}

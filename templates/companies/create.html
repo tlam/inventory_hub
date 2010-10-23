@@ -1,0 +1,16 @@
+{% extends "companies/base.html" %}
+
+{% block companies-breadcrumb-extra %}
+&gt; Create Company
+{% endblock %}
+
+{% block companies-content %}
+<h3>Create Company</h3>
+
+<form action="" method="post">
+  {% include "companies/_form.html" %}
+  <p>
+    <input type="submit" value="Create" />
+  </p>
+</form>
+{% endblock %}
