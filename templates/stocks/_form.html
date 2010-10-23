@@ -1,15 +1,51 @@
 <div class="fieldWrapper">
-  <label for="id_item_code">Item Code:</label>
+  <label for="id_{{ form.item_code.html_name }}">Item Code:</label>
   {{ form.item_code }}
   {% required_field form.item_code %}
   {{ form.item_code.errors }}
 </div>
 
 <div class="fieldWrapper">
-  <label for="id_description">Description:</label>
+  <label for="id_{{ form.description.html_name }}">Description:</label>
   {{ form.description }}
   {% required_field form.description %}
   {{ form.description.errors }}
+</div>
+
+<div class="fieldWrapper">
+  <label for="id_{{ form.item_name.html_name }}">Item Name:</label>
+  {{ form.item_name }}
+  {% required_field form.item_name %}
+  {{ form.item_name.errors }}
+</div>
+
+<div class="fieldWrapper">
+  <label for="id_{{ form.colour.html_name }}">Colour:</label>
+  <span id="colours-ajax-output">{{ form.colour }}</span>
+  {% required_field form.colour %}
+  <span id="add-colour" class="link">Add</span>
+  {{ form.colour.errors }}
+</div>
+
+<div class="fieldWrapper">
+  <label for="id_{{ form.size.html_name }}">Size:</label>
+  {{ form.size }}
+  {% required_field form.size %}
+  {{ form.size.errors }}
+</div>
+
+<div class="fieldWrapper">
+  <label for="id_{{ form.tonality.html_name }}">Tonality:</label>
+  {{ form.tonality }}
+  {% required_field form.tonality %}
+  {{ form.tonality.errors }}
+</div>
+
+<div class="fieldWrapper">
+  <label for="id_{{ form.caliber.html_name }}">Caliber:</label>
+  {{ form.caliber }}
+  {% required_field form.caliber %}
+  {{ form.caliber.errors }}
 </div>
 
 <div class="fieldWrapper">
@@ -80,18 +116,4 @@
   {% required_field form.country %}
   <span id="add-country" class="link">Add Country</span>
   {{ form.country.errors }}
-</div>
-
-<div class="fieldWrapper">
-  <label for="id_foreign_supplier">Foreign Supplier:</label>
-  {{ form.foreign_supplier }}
-  <a href="{% url suppliers:create-foreign %}" id="add_id_foreign_supplier" class="popup-add">Add</a>
-  {{ form.foreign_supplier.errors }}
-</div>
-
-<div class="fieldWrapper">
-  <label for="id_local_supplier">Local Supplier:</label>
-  {{ form.local_supplier }}
-  <a href="{% url suppliers:create-local %}" id="add_id_local_supplier" class="popup-add">Add</a>
-  {{ form.local_supplier.errors }}
 </div>

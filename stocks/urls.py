@@ -8,5 +8,6 @@ urlpatterns = patterns('stocks.views',
     url(r'^search-stock/$', 'search_stock', name='search-stock'),
     url(r'^update/(?P<stock_id>\d+)/$', 'update', name='update'),
     url(r'^categories/', include('stocks.categories_urls', namespace='categories'), name='categories'),
+    url(r'^colours/add-ajax/', 'add_colour_ajax', name='add-colour-ajax'),
 )
 

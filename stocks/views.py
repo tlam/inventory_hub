@@ -7,7 +7,8 @@ from django.utils import simplejson
 
 from histories.models import History
 from stocks.forms import StockForm
-from stocks.models import Category, Stock
+from stocks.models import Category, Colour, Stock
+from utils.tools import capwords
 
 
 def index(request):
@@ -106,3 +107,21 @@ def search_stock(request):
     data = simplejson.dumps(stock_list)
     print data
     return HttpResponse(data, mimetype="application/javascript")
+
+
+def add_colour_ajax(request):
+    new_colour = request.POST.get('new_colour', '')
+    new_colour = capwords(new_colour)
+    if new_colour:
+        Colour.objects.get_or_create(name=new_colour)
+
+    data = {
+        'colours': Colour.objects.order_by('name'),
+        'new_colour': new_colour,
+    }
+
+    return render_to_response(
+        'stocks/colours/all.html',
+        data,
+        context_instance=RequestContext(request),
+    )

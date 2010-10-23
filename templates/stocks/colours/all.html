@@ -1,0 +1,5 @@
+<select name="colour" id="id_colour">
+{% for colour in colours %}
+  <option value="{{ colour.pk }}" {% if colour.name == new_colour %}selected{% endif %}>{{ colour }}</option>
+{% endfor %}
+</select>
