@@ -1,6 +1,7 @@
 body {
   font-family: Helvetica, Arial, sans-serif;
   font-size: 0.95em;
+  margin-top: 0;
   text-align: center;
 }
 
@@ -20,20 +21,22 @@ a:hover {
   width: 1000px;
 }
 
+#header {
+  margin-bottom: 0.8em;
+}
+
 #home {
   float: left;
 }
 
-#account-nav {
-  border: 1px solid #CCC;
-  float: right;
-  padding: 0.3em;
+#home h2 {
+  margin-bottom: 0;
 }
 
-#navigation {
-  clear: right;
+#account-nav {
   float: right;
-  margin: 0.5em;
+  font-size: 0.8em;
+  padding: 0.3em;
 }
 
 #message-box {
@@ -78,8 +81,12 @@ ul.ui-autocomplete {
 
 #search-bar {
   float: left;
-  margin-left: 6em;
+  margin-left: 3em;
   margin-top: 2em;
+}
+
+#search-bar form {
+  margin-bottom: 0;
 }
 
 .actions {

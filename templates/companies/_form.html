@@ -1,8 +1,71 @@
-{% for field in form %}
-  <div class="fieldWrapper">
-    <label for="id_{{ field.html_name }}">{{ field.label }}:</label>
-      {{ field }}
-      {% required_field field %}
-    {{ field.errors }}
-  </div>
-{% endfor %}
+<div class="fieldWrapper">
+  <label for="id_{{ form.code.html_name }}">{{ form.code.label }}:</label>
+  {{ form.code }}
+  {% required_field form.code %}
+  {{ form.code.errors }}
+</div>
+
+<div class="fieldWrapper">
+  <label for="id_{{ form.name.html_name }}">{{ form.name.label }}:</label>
+  {{ form.name }}
+  {% required_field form.name %}
+  {{ form.name.errors }}
+</div>
+
+<div class="fieldWrapper">
+  <label for="id_{{ form.unit_number.html_name }}">{{ form.unit_number.label }}:</label>
+  {{ form.unit_number }}
+  {% required_field form.unit_number %}
+  {{ form.unit_number.errors }}
+</div>
+
+<div class="fieldWrapper">
+  <label for="id_{{ form.street.html_name }}">{{ form.street.label }}:</label>
+  {{ form.street }}
+  {% required_field form.street %}
+  {{ form.street.errors }}
+</div>
+
+<div class="fieldWrapper">
+  <label for="id_{{ form.town.html_name }}">{{ form.town.label }}:</label>
+  <span id="towns-ajax-output">{{ form.town }}</span>
+  {% required_field form.town %}
+  <span id="add-town" class="link">Add Town</span>
+  {{ form.town.errors }}
+</div>
+
+<div class="fieldWrapper">
+  <label for="id_{{ form.country.html_name }}">{{ form.country.label }}:</label>
+  <span id="countries-ajax-output">{{ form.country }}</span>
+  {% required_field form.country %}
+  <span id="add-country" class="link">Add Country</span>
+  {{ form.country.errors }}
+</div>
+
+<div class="fieldWrapper">
+  <label for="id_{{ form.vat_number.html_name }}">{{ form.vat_number.label }}:</label>
+  {{ form.vat_number }}
+  {% required_field form.vat_number %}
+  {{ form.vat_number.errors }}
+</div>
+
+<div class="fieldWrapper">
+  <label for="id_{{ form.business_number.html_name }}">{{ form.business_number.label }}:</label>
+  {{ form.business_number }}
+  {% required_field form.business_number %}
+  {{ form.business_number.errors }}
+</div>
+
+<div class="fieldWrapper">
+  <label for="id_{{ form.vat_percentage.html_name }}">{{ form.vat_percentage.label }}:</label>
+  {{ form.vat_percentage }}
+  {% required_field form.vat_percentage %}
+  {{ form.vat_percentage.errors }}
+</div>
+
+<div class="fieldWrapper">
+  <label for="id_{{ form.logo.html_name }}">{{ form.logo.label }}:</label>
+  {{ form.logo }}
+  {% required_field form.logo %}
+  {{ form.logo.errors }}
+</div>

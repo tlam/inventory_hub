@@ -1,0 +1,33 @@
+ul#navigation-tabs {
+  float: right;
+  padding-left: 0;
+  margin: 0;
+  margin-top: 0.5em;
+}
+
+ul#navigation-tabs li {
+  border: 1px solid #CCC;
+  border-right: none;
+  float: left;
+  list-style: none;
+  text-align: center;
+  width: 10.3em;
+}
+
+ul#navigation-tabs li:last-child {
+  border-right: 1px solid #CCC;
+}
+
+ul#navigation-tabs li.selected {
+  border-bottom: none;
+}
+
+ul#navigation-tabs li a {
+  display: block;
+  padding: 0.3em;
+  text-decoration: none;
+}
+
+ul#navigation-tabs li a:hover {
+  background-color: #EEE;
+}
