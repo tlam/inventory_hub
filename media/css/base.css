@@ -81,12 +81,16 @@ ul.ui-autocomplete {
 
 #search-bar {
   float: left;
-  margin-left: 3em;
+  margin-left: 2em;
   margin-top: 2em;
 }
 
 #search-bar form {
   margin-bottom: 0;
+}
+
+#search-bar input[type=text] {
+  width: 11em;
 }
 
 .actions {
