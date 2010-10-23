@@ -29,7 +29,8 @@ def search(request):
         )
     elif current_app == STOCKS_APP:
         stocks = Stock.objects.filter(
-            Q(category__code__istartswith=q)
+            Q(category__code__istartswith=q) |
+            Q(description__istartswith=q)
         )
 
         data = {
