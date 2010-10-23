@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.core.urlresolvers import reverse
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render_to_response
 from django.template import RequestContext
@@ -93,6 +94,18 @@ def update_foreign(request, supplier_id):
     )
 
 
+def delete_foreign(request):
+    supplier_id = int(request.POST.get('entry_id', 0))
+    try:
+        supplier = ForeignSupplier.objects.get(pk=supplier_id)
+        supplier.delete() 
+        messages.success(request, 'Foreign Supplier deleted')
+    except ForeignSupplier.DoesNotExist:
+        messages.error(request, 'Foreign Supplier with id %i does not exist' % supplier_id)
+    data = reverse('suppliers:index-foreign')
+    return HttpResponse(data, mimetype="application/javascript")
+
+
 def index_local(request):
     local_suppliers = LocalSupplier.objects.all()
     data = {
@@ -164,3 +177,15 @@ def update_local(request, supplier_id):
         data,
         context_instance=RequestContext(request),
     )
+
+
+def delete_local(request):
+    supplier_id = int(request.POST.get('entry_id', 0))
+    try:
+        supplier = LocalSupplier.objects.get(pk=supplier_id)
+        supplier.delete() 
+        messages.success(request, 'Local Supplier deleted')
+    except LocalSupplier.DoesNotExist:
+        messages.error(request, 'Local Supplier with id %i does not exist' % supplier_id)
+    data = reverse('suppliers:index-local')
+    return HttpResponse(data, mimetype="application/javascript")

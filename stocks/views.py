@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.core.urlresolvers import reverse
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render_to_response
 from django.template import RequestContext
@@ -66,6 +67,18 @@ def update(request, stock_id):
         data,
         context_instance=RequestContext(request),
     )
+
+
+def delete(request):
+    stock_id = int(request.POST.get('entry_id', 0))
+    try:
+        stock = Stock.objects.get(pk=stock_id)
+        stock.delete() 
+        messages.success(request, 'Stock deleted')
+    except Stock.DoesNotExist:
+        messages.error(request, 'Stock with id %i does not exist' % customer_id)
+    data = reverse('stocks:index')
+    return HttpResponse(data, mimetype="application/javascript")
 
 
 def search_category(request):

@@ -1,6 +1,7 @@
 import json
 
 from django.contrib import messages
+from django.core.urlresolvers import reverse
 from django.db.models import Max
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render_to_response
@@ -120,6 +121,18 @@ def update(request, customer_id):
         data,
         context_instance=RequestContext(request),
     )
+
+
+def delete(request):
+    customer_id = int(request.POST.get('entry_id', 0))
+    try:
+        customer = Customer.objects.get(pk=customer_id)
+        customer.delete() 
+        messages.success(request, 'Customer deleted')
+    except Customer.DoesNotExist:
+        messages.error(request, 'Customer with id %i does not exist' % customer_id)
+    data = reverse('customers:index')
+    return HttpResponse(data, mimetype="application/javascript")
 
 
 def customer_number_ajax(request):

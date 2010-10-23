@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.core.urlresolvers import reverse
 from django.forms.models import inlineformset_factory
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render_to_response
@@ -60,6 +61,7 @@ def create(request, sale_type, customer_id):
         if form.is_valid():
             sale = form.save()
             History.created_history(sale, request.user)
+            messages.success(request, 'Sale created')
             return redirect('sales:update', sale_type, sale.pk)
     else:
         form = sale_form(sale_type, initial={'customer': customer.pk})
@@ -117,6 +119,22 @@ def update(request, sale_type, sale_id):
         data,
         context_instance=RequestContext(request),
     )
+
+
+def delete(request, sale_type):
+    sale_id = int(request.POST.get('entry_id', 0))
+    try:
+        if sale_type == 'cash':
+            sale = CashSale.objects.get(pk=sale_id)
+        else:
+            sale = CreditSale.objects.get(pk=sale_id)
+        sale.delete() 
+        messages.success(request, 'Sale deleted')
+    except:
+        messages.error(request, 'Sale with id %i does not exist' % sale_id)
+
+    data = reverse('sales:index')
+    return HttpResponse(data, mimetype="application/javascript")
 
 
 def update2(request, sale_type, sale_id):

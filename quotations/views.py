@@ -1,5 +1,7 @@
 from django.contrib import messages
+from django.core.urlresolvers import reverse
 from django.forms.models import inlineformset_factory
+from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render_to_response
 from django.template import RequestContext
 
@@ -105,6 +107,18 @@ def update(request, quotation_id):
         data,
         context_instance=RequestContext(request),
     )
+
+
+def delete(request):
+    quotation_id = int(request.POST.get('entry_id', 0))
+    try:
+        quotation = Quotation.objects.get(pk=quotation_id)
+        quotation.delete() 
+        messages.success(request, 'Quotation deleted')
+    except Quotation.DoesNotExist:
+        messages.error(request, 'Quotation with id %i does not exist' % quotation_id)
+    data = reverse('quotations:index')
+    return HttpResponse(data, mimetype="application/javascript")
 
 
 def update2(request, quotation_id):

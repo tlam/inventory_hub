@@ -52,8 +52,12 @@ a:hover {
   padding: 0.2em 0.8em;
 }
 
-.messages .warning {
+.messages .error {
   color: red;
+}
+
+.messages .warning {
+  color: #FFD700;
 }
 
 .messages .success {
@@ -76,4 +80,14 @@ ul.ui-autocomplete {
   float: left;
   margin-left: 6em;
   margin-top: 2em;
+}
+
+.actions {
+  border-top: 1px solid black;
+  margin-top: 1.5em;
+  padding-top: 1em;
+}
+
+.actions .update-button {
+  float: right;
 }
