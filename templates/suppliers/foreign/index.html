@@ -5,6 +5,13 @@ Foreign Suppliers
 {% endblock %}
 
 {% block foreign-suppliers-content %}
+<div class="title-combo">
+  <h3 class="title">Foreign Suppliers</h3>
+  <div class="create-link">
+    <a href="{% url suppliers:create-foreign %}">Create</a>
+  </div>
+</div>
+
 {% if foreign_suppliers %}
 <ol>
 {% for supplier in foreign_suppliers %}

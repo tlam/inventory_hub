@@ -6,7 +6,13 @@ Stocks
 
 {% block stocks-content %}
 
-<h3>All Stocks</h3>
+<div class="title-combo">
+  <h3 class="title">Stocks</h3>
+  <div class="create-link">
+    <a href="{% url stocks:create %}">Create</a>
+  </div>
+</div>
+
 {% if stocks %}
 <table id="stocks">
   <tr>

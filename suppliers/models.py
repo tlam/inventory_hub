@@ -7,8 +7,6 @@ from utils.constants import PRICE_CHOICES
 class BaseSupplier(models.Model):
     supplier_no = models.CharField(max_length=100)  # CCCCCC-N,
     company_name = models.CharField(max_length=100)
-    creditors_code = models.CharField(max_length=20, blank=True)  # Local creditors or Foreign creditors
-    price_type = models.CharField(max_length=1, choices=PRICE_CHOICES)
     address = models.CharField(max_length=255, blank=True)
     city = models.ForeignKey(City)
     country = models.ForeignKey(Country)
@@ -27,8 +25,6 @@ class BaseSupplier(models.Model):
         return {
             'supplier_no': self.supplier_no,
             'company_name': self.company_name,
-            'creditors_code': self.creditors_code,
-            'price_type': self.price_type,
             'address': self.address,
             'city': self.city.name,
             'country': self.country.name,
@@ -40,6 +36,8 @@ class BaseSupplier(models.Model):
 
 
 class LocalSupplier(BaseSupplier):
+    creditors_code = models.CharField(max_length=20, blank=True)  # Local creditors or Foreign creditors
+    price_type = models.CharField(max_length=1, choices=PRICE_CHOICES)
     town = models.ForeignKey('geography.Town', blank=True, null=True)
     vat_flag = models.BooleanField(default=False)
     vat_registration_number = models.IntegerField(default=0, blank=True)  # 8 digit max

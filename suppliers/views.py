@@ -82,6 +82,7 @@ def update_foreign(request, supplier_id):
         form = ForeignSupplierForm(initial=initial_data, instance=foreign_supplier)
     
     data = {
+        'foreign_supplier': foreign_supplier,
         'form': form,
     }
 
@@ -155,6 +156,7 @@ def update_local(request, supplier_id):
     
     data = {
         'form': form,
+        'local_supplier': local_supplier,
     }
 
     return render_to_response(

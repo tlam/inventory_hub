@@ -5,6 +5,13 @@ Local Suppliers
 {% endblock %}
 
 {% block local-suppliers-content %}
+<div class="title-combo">
+  <h3 class="title">Local Suppliers</h3>
+  <div class="create-link">
+    <a href="{% url suppliers:create-local %}">Create</a>
+  </div>
+</div>
+
 {% if local_suppliers %}
 <ol>
 {% for supplier in local_suppliers %}

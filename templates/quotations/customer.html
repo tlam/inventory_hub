@@ -5,9 +5,8 @@
 {% endblock %}
 
 {% block quotations-content %}
-<h3>Find existing cutomer</h3>
+<h3>Select existing cutomer</h3>
 
-AJAX search and generate link for the following
 <ol>
 {% for customer in customers %}
   <li><a href="{% url quotations:create customer.pk %}">{{ customer }}</a></li>

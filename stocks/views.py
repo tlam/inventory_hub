@@ -58,6 +58,7 @@ def update(request, stock_id):
 
     data = {
         'form': form,
+        'stock': stock,
     }
 
     return render_to_response(

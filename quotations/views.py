@@ -96,6 +96,7 @@ def update(request, quotation_id):
 
     data = {
         'form': form,
+        'quotation': quotation,
         'stock_items': stock_items,
     }
 

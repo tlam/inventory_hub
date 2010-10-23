@@ -105,6 +105,7 @@ def update(request, customer_id):
             phone_dict = phone_dict.items()
 
     data = {
+        'customer': customer,
         'email_choices': Email.EMAIL_CHOICES,
         'email_dict': email_dict,
         'emails': emails,

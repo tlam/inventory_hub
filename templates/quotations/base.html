@@ -5,18 +5,11 @@
 {% block content %}
 
 <a href="{% url home:index %}">Home</a> &gt; 
-{% block sales-breadcrumb %}
+{% block quotations-breadcrumb %}
 <a href="{% url quotations:index %}">Quotations</a>
 {% endblock %}
 {% block quotations-breadcrumb-extra %}
 {% endblock %}
-
-<div class="title-combo">
-  <h3 class="title">Quotations</h3>
-  <div class="create-link">
-    <a href="{% url quotations:customer %}">Create</a>
-  </div>
-</div>
 
 {% block quotations-content %}
 {% endblock %}
