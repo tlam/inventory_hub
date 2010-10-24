@@ -41,10 +41,12 @@ a:hover {
 
 #message-box {
   clear: both;
+  padding-top: 0.5em;
 }
 
 .messages {
   list-style-type: none;
+  margin: 0;
   padding-left: 0;
 }
 

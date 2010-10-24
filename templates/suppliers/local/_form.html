@@ -102,3 +102,5 @@
   {% required_field form.business_registration_number %}
   {{ form.business_registration_number.errors }}
 </div>
+
+<input type="hidden" id="supplier-number-ajax-url" value="{% url suppliers:supplier-number-ajax 'local' %}" />

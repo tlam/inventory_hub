@@ -11,5 +11,6 @@ urlpatterns = patterns('suppliers.views',
     url(r'^local/create/$', 'create_local', name='create-local'),
     url(r'^local/delete/$', 'delete_local', name='delete-local'),
     url(r'^local/update/(?P<supplier_id>\d+)/$', 'update_local', name='update-local'),
+    url(r'(?P<supplier_type>(foreign|local))/supplier-number-ajax/$', 'supplier_number_ajax', name='supplier-number-ajax'),
 )
 

@@ -12,3 +12,5 @@
     {{ field.errors }}
   </div>
 {% endfor %}
+
+<input type="hidden" id="supplier-number-ajax-url" value="{% url suppliers:supplier-number-ajax 'local' %}" />

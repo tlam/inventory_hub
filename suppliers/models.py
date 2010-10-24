@@ -5,7 +5,7 @@ from utils.constants import PRICE_CHOICES
 
 
 class BaseSupplier(models.Model):
-    supplier_no = models.CharField(max_length=100)  # CCCCCC-N,
+    supplier_no = models.CharField(max_length=100, unique=True)
     company_name = models.CharField(max_length=100)
     address = models.CharField(max_length=255, blank=True)
     city = models.ForeignKey(City)
@@ -56,3 +56,12 @@ class LocalSupplier(BaseSupplier):
 
 class ForeignSupplier(BaseSupplier):
     pass
+
+
+class SupplierFactory:
+    @staticmethod
+    def create(supplier_type):
+        if supplier_type == 'foreign':
+            return ForeignSupplier
+        else:
+            return LocalSupplier

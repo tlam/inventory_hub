@@ -1,3 +1,5 @@
+import json
+
 from django.contrib import messages
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse
@@ -5,9 +7,10 @@ from django.shortcuts import get_object_or_404, redirect, render_to_response
 from django.template import RequestContext
 from django.utils.html import escape
 
+from geography.models import Country
 from histories.models import History
 from suppliers.forms import ForeignSupplierForm, LocalSupplierForm
-from suppliers.models import LocalSupplier, ForeignSupplier
+from suppliers.models import LocalSupplier, ForeignSupplier, SupplierFactory
 
 
 def index(request):
@@ -67,7 +70,7 @@ def create_foreign(request):
 
 
 def update_foreign(request, supplier_id):
-    foreign_supplier = get_object_or_404(ForeignSupplier, id=supplier_id)
+    foreign_supplier = get_object_or_404(ForeignSupplier, pk=supplier_id)
     initial_data = {
         'city': foreign_supplier.city.name,
     }
@@ -75,7 +78,7 @@ def update_foreign(request, supplier_id):
     if request.method == 'POST':
         form = ForeignSupplierForm(request.POST, instance=foreign_supplier)
         if form.is_valid():
-            past_supplier = ForeignSupplier.objects.get(id=supplier_id)
+            past_supplier = ForeignSupplier.objects.get(pk=supplier_id)
             updated_supplier = form.save()
             History.updated_history(past_supplier, updated_supplier, request.user)
             messages.success(request, 'Foreign Supplier updated')
@@ -152,7 +155,7 @@ def create_local(request):
 
 
 def update_local(request, supplier_id):
-    local_supplier = get_object_or_404(LocalSupplier, id=supplier_id)
+    local_supplier = get_object_or_404(LocalSupplier, pk=supplier_id)
     initial_data = {
         'city': local_supplier.city.name,
     }
@@ -160,7 +163,7 @@ def update_local(request, supplier_id):
     if request.method == 'POST':
         form = LocalSupplierForm(request.POST, instance=local_supplier)
         if form.is_valid():
-            past_supplier = LocalSupplier.objects.get(id=supplier_id)
+            past_supplier = LocalSupplier.objects.get(pk=supplier_id)
             updated_supplier = form.save()
             History.updated_history(past_supplier, updated_supplier, request.user)
             messages.success(request, 'Local Supplier updated')
@@ -189,3 +192,27 @@ def delete_local(request):
         messages.error(request, 'Local Supplier with id %i does not exist' % supplier_id)
     data = reverse('suppliers:index-local')
     return HttpResponse(data, mimetype="application/javascript")
+
+
+def supplier_number_ajax(request, supplier_type):
+    company_name = request.GET.get('company_name', '')
+    country_id = int(request.GET.get('country_id', 0))
+
+    company_name_prefix = company_name[:2].upper()
+
+    suppliers = SupplierFactory.create(supplier_type).objects.filter(
+        country=country_id,
+        company_name__istartswith=company_name_prefix,
+    )
+
+    try:
+        country_name = Country.objects.get(pk=country_id).name
+    except Country.DoesNotExist:
+        country_name = ''
+
+    country_name_prefix = country_name[:3].upper()
+    max_id = suppliers.count() + 1
+    value = '%s/%s/%03d' % (company_name_prefix, country_name_prefix, max_id)
+    print value
+    data = json.dumps(value)
+    return HttpResponse(data, mimetype='application/javascript')

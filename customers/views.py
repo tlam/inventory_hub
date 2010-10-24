@@ -151,19 +151,5 @@ def customer_number_ajax(request):
 
     value = '%s/%s/%03d' % (first_name_prefix, last_name_prefix, max_id)
 
-    '''
-    try:
-        customer = Customer.objects.get(first_name=first_name, \
-            last_name=last_name)
-        customer_id = customer.pk
-    except Customer.DoesNotExist:
-        max_id = Customer.objects.aggregate(Max('id'))
-        max_id = max_id.get('id__max', 0)
-        if not max_id:
-            max_id = 0
-        customer_id = max_id + 1
-    value = '%s/%s/%i' % (first_name[:3].upper(), last_name[:3].upper(), \
-        customer_id)
-    '''
     data = json.dumps(value)
-    return HttpResponse(data, mimetype="application/javascript")
+    return HttpResponse(data, mimetype='application/javascript')
