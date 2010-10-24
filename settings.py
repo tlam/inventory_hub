@@ -119,6 +119,7 @@ INSTALLED_APPS = (
     'contacts',
     'stock_carts',
     'companies',
+    'fcds',
     'south',
     'utils',
 )

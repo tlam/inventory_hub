@@ -7,9 +7,11 @@
 {% block categories-content %}
 <form action="" method="post">
   {% include "stocks/categories/_form.html" %}
-  <p>
-    <input type="submit" value="Update" />
-  </p>
+  <div class="actions">
+    <input type="hidden" class="delete-entry-url" value="{% url stocks:categories:delete %}" />
+    <input type="button" id="delete-category-{{ category.pk }}" class="delete-button" value="Delete" />
+    <input type="submit" class="update-button" value="Update" />
+  </div>
 </form>
 
 {% endblock %}

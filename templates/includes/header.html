@@ -22,7 +22,7 @@
 </div>
 
 <ul id="navigation-tabs">
-  <li {% if app_name == 'stocks' %}class="selected"{% endif %}><a href="{% url stocks:index %}">File Commodity Datas</a></li>
+  <li {% if app_name == 'fcds' or app_name == 'stocks' %}class="selected"{% endif %}><a href="{% url fcds:index %}">File Commodity Datas</a></li>
   <li {% if app_name == 'sales' %}class="selected"{% endif %}><a href="{% url sales:index %}">Sales</a></li>
   <li {% if app_name == 'quotations' %}class="selected"{% endif %}><a href="{% url quotations:index %}">Purchases</a></li>
 </ul>

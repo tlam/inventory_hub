@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block sub-title %} - FCDs{% endblock %}
+
+{% block content %}
+
+<a href="{% url home:index %}">Home</a> &gt;
+{% block fcds-breadcrumb %}
+<a href="{% url fcds:index %}">File Commodity Datas</a>
+{% endblock %}
+{% block fcds-breadcrumb-extra %}
+{% endblock %}
+
+{% block fcds-content %}
+{% endblock %}
+
+{% endblock %}

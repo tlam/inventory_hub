@@ -1,4 +1,6 @@
 from django.contrib import messages
+from django.core.urlresolvers import reverse
+from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render_to_response
 from django.template import RequestContext
 
@@ -53,6 +55,7 @@ def update(request, category_id):
         form = CategoryForm(instance=category)
 
     data = {
+        'category': category,
         'form': form,
     }
 
@@ -61,6 +64,18 @@ def update(request, category_id):
         data,
         context_instance=RequestContext(request),
     )
+
+
+def delete(request):
+    category_id = int(request.POST.get('entry_id', 0))
+    try:
+        category = Category.objects.get(pk=category_id)
+        category.delete()
+        messages.success(request, 'Category deleted')
+    except Category.DoesNotExist:
+        messages.error(request, 'Category with id %i does not exist' % category_id)
+    data = reverse('stocks:categories:index')
+    return HttpResponse(data, mimetype="application/javascript")
 
 
 def add_ajax(request):
