@@ -23,6 +23,7 @@ a:hover {
 
 #header {
   margin-bottom: 0.8em;
+  border-bottom: 1px solid #EEE;
 }
 
 #home {
@@ -41,7 +42,7 @@ a:hover {
 
 #message-box {
   clear: both;
-  padding-top: 0.5em;
+  margin-bottom: 0.5em;
 }
 
 .messages {

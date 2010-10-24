@@ -27,6 +27,9 @@
     {% include "includes/header.html" %}
   </div>
   <div id="content">
+    <div id="message-box">
+      {% include "includes/messages.html" %}
+    </div>
     {% block content %}{% endblock %}
   </div>
   <div id="footer">

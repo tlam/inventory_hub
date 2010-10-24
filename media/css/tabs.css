@@ -2,12 +2,13 @@ ul#navigation-tabs {
   float: right;
   padding-left: 0;
   margin: 0;
-  margin-top: 0.5em;
+  margin-top: 0.6em;
 }
 
 ul#navigation-tabs li {
-  border: 1px solid #CCC;
+  border: 1px solid #EEE;
   border-right: none;
+  border-bottom: none;
   float: left;
   list-style: none;
   text-align: center;
@@ -15,11 +16,11 @@ ul#navigation-tabs li {
 }
 
 ul#navigation-tabs li:last-child {
-  border-right: 1px solid #CCC;
+  border-right: 1px solid #EEE;
 }
 
 ul#navigation-tabs li.selected {
-  border-bottom: none;
+  background-color: #EEE;
 }
 
 ul#navigation-tabs li a {
@@ -29,5 +30,5 @@ ul#navigation-tabs li a {
 }
 
 ul#navigation-tabs li a:hover {
-  background-color: #EEE;
+  color: #CCC;
 }
