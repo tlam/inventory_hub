@@ -22,6 +22,7 @@ urlpatterns = patterns('',
 )
 
 # Load custom template tags and filters in all templates
+template.add_to_builtins('stocks.templatetags.stock_extras')
 template.add_to_builtins('utils.templatetags.extras')
 
 if settings.DEBUG:

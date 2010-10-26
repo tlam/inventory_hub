@@ -12,9 +12,9 @@ Foreign Suppliers
   </div>
 </div>
 
-{% if foreign_suppliers %}
+{% if suppliers %}
 <ol>
-{% for supplier in foreign_suppliers %}
+{% for supplier in suppliers %}
   <li><a href="{% url suppliers:update-foreign supplier.pk %}">{{ supplier }}</a></li>
 {% endfor %}
 </ol>

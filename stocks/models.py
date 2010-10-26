@@ -82,3 +82,13 @@ class Stock(models.Model):
             'nonstock_flag': self.nonstock_flag,
             'country': country_name,
         }
+
+    def customer_price(self, price_type):
+        if price_type == 'R':
+            return self.retail_price
+        elif price_type == 'W':
+            return self.wholesale_price
+        elif price_type == 'D':
+            return self.dealer_price
+        else:
+            return self.special_price

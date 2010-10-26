@@ -12,9 +12,9 @@ Local Suppliers
   </div>
 </div>
 
-{% if local_suppliers %}
+{% if suppliers %}
 <ol>
-{% for supplier in local_suppliers %}
+{% for supplier in suppliers %}
   <li><a href="{% url suppliers:update-local supplier.pk %}">{{ supplier }}</a></li>
 {% endfor %}
 </ol>

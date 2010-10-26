@@ -11,9 +11,10 @@ from geography.models import Country
 from histories.models import History
 from suppliers.forms import ForeignSupplierForm, LocalSupplierForm
 from suppliers.models import LocalSupplier, ForeignSupplier, SupplierFactory
+from utils.tools import capwords
 
 
-def index(request):
+def base_index(request):
     data = {}
 
     return render_to_response(
@@ -23,14 +24,15 @@ def index(request):
     )
 
 
-def index_foreign(request):
-    foreign_suppliers = ForeignSupplier.objects.all()
+def index(request, supplier_type):
+    instance = SupplierFactory.create(supplier_type)
+    suppliers = instance.objects.all()
     data = {
-        'foreign_suppliers': foreign_suppliers,
+        'suppliers': suppliers,
     }
 
     return render_to_response(
-        'suppliers/foreign/index.html',
+        'suppliers/%s/index.html' % supplier_type,
         data,
         context_instance=RequestContext(request),
     )
@@ -97,31 +99,6 @@ def update_foreign(request, supplier_id):
     )
 
 
-def delete_foreign(request):
-    supplier_id = int(request.POST.get('entry_id', 0))
-    try:
-        supplier = ForeignSupplier.objects.get(pk=supplier_id)
-        supplier.delete() 
-        messages.success(request, 'Foreign Supplier deleted')
-    except ForeignSupplier.DoesNotExist:
-        messages.error(request, 'Foreign Supplier with id %i does not exist' % supplier_id)
-    data = reverse('suppliers:index-foreign')
-    return HttpResponse(data, mimetype="application/javascript")
-
-
-def index_local(request):
-    local_suppliers = LocalSupplier.objects.all()
-    data = {
-        'local_suppliers': local_suppliers,
-    }
-
-    return render_to_response(
-        'suppliers/local/index.html',
-        data,
-        context_instance=RequestContext(request),
-    )
-
-
 def create_local(request):
     if request.method == 'POST':
         form = LocalSupplierForm(request.POST)
@@ -182,15 +159,22 @@ def update_local(request, supplier_id):
     )
 
 
-def delete_local(request):
+def delete(request, supplier_type):
     supplier_id = int(request.POST.get('entry_id', 0))
+    instance = SupplierFactory.create(supplier_type)
+    label = capwords(supplier_type)
+
     try:
-        supplier = LocalSupplier.objects.get(pk=supplier_id)
-        supplier.delete() 
-        messages.success(request, 'Local Supplier deleted')
-    except LocalSupplier.DoesNotExist:
-        messages.error(request, 'Local Supplier with id %i does not exist' % supplier_id)
-    data = reverse('suppliers:index-local')
+        supplier = instance.objects.get(pk=supplier_id)
+        supplier.delete()
+        messages.success(request, '%s Supplier deleted' % label)
+    except instance.DoesNotExist:
+        messages.error(request, '%s Supplier with id %i does not exist' % (label, supplier_id))
+
+    if supplier_type == 'foreign':
+        data = reverse('suppliers:index-foreign')
+    else:
+        data = reverse('suppliers:index-local')
     return HttpResponse(data, mimetype="application/javascript")
 
 
@@ -213,6 +197,5 @@ def supplier_number_ajax(request, supplier_type):
     country_name_prefix = country_name[:3].upper()
     max_id = suppliers.count() + 1
     value = '%s/%s/%03d' % (company_name_prefix, country_name_prefix, max_id)
-    print value
     data = json.dumps(value)
     return HttpResponse(data, mimetype='application/javascript')

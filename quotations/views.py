@@ -98,6 +98,7 @@ def update(request, quotation_id):
 
     data = {
         'form': form,
+        'price_type': quotation.customer.price_type,
         'quotation': quotation,
         'stock_items': stock_items,
     }

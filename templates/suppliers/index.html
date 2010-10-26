@@ -7,8 +7,8 @@ Suppliers
 {% block suppliers-content %}
 <h3>Suppliers</h3>
 <ol>
-  <li><a href="{% url suppliers:index-foreign %}">Foreign Suppliers</a></li>
-  <li><a href="{% url suppliers:index-local %}">Local Suppliers</a></li>
+  <li><a href="{% url suppliers:index 'foreign' %}">Foreign Suppliers</a></li>
+  <li><a href="{% url suppliers:index 'local' %}">Local Suppliers</a></li>
 </ol>
 
 {% endblock %}
