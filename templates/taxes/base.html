@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block sub-title %} - Taxes {% endblock %}
+
+{% block content %}
+
+<a href="{% url home:index %}">Home</a> &gt; 
+{% block taxes-breadcrumb %}
+<a href="{% url taxes:index %}">Taxes</a>
+{% endblock %}
+{% block taxes-breadcrumb-extra %}
+{% endblock %}
+
+{% block taxes-content %}
+{% endblock %}
+
+{% endblock %}

@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from django.db import models
 
 from stocks.models import Stock
@@ -25,8 +27,10 @@ class StockCart(models.Model):
         for item in cart_items:
             quantity_key = 'stock-cart-item-quantity-%i' % item.pk
             discount_key = 'stock-cart-item-discount-%i' % item.pk
+            tax_key = 'stock-cart-item-tax-%i' % item.pk
             item.quantity = post.get(quantity_key, 0)
             item.discount = post.get(discount_key, 0)
+            item.tax = post.get(tax_key, 0)
             item.save()
 
         for item in cart_items:
@@ -34,12 +38,30 @@ class StockCart(models.Model):
             if post.get(delete_key, 0):
                 item.delete()
 
+    def sub_total(self):
+        cart_items = self.stockcartitem_set.all()
+        total_amount = 0
+        for item in cart_items:
+            total_amount += item.total()
+        return total_amount
+
+    def total(self):
+        cart_items = self.stockcartitem_set.all()
+        total_amount = 0
+        for item in cart_items:
+            total_amount += item.total_and_tax()
+        return total_amount
+
 
 class StockCartItem(models.Model):
     cart = models.ForeignKey(StockCart)
     stock = models.ForeignKey('stocks.Stock')
     quantity = models.IntegerField(default=0, blank=True)
     discount = models.FloatField(default=0, blank=True)
+    tax = models.DecimalField(max_digits=4, decimal_places=2, default=0)
 
     def total(self):
         return self.quantity * self.stock.retail_price
+
+    def total_and_tax(self):
+        return self.total() * (100 + self.tax) * Decimal('0.01')

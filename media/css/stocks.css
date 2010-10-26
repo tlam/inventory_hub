@@ -27,6 +27,28 @@ table#stock-items th, table#stock-items td {
   padding-right: 1em;
 }
 
+table#stock-items td.quantity input, table#stock-items td.discount input, table#stock-items td.tax input {
+  width: 4em;
+}
+
+table#stock-items td.price, table#stock-items td.total {
+  text-align: right;
+}
+
+table#stock-items-total {
+  float: right;
+  margin-right: 5.8em;
+  width: 18.9em;
+}
+
+table#stock-items-total td.amount {
+  text-align: right;
+}
+
+#total-section {
+  overflow: auto;
+}
+
 .inline-stock-item {
   display: none;
 }

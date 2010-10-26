@@ -1,0 +1,13 @@
+<div class="fieldWrapper">
+  <label for="id_{{ form.name.html_name }}">{{ form.name.label }}:</label>
+  {{ form.name }}
+  {% required_field form.name %}
+  {{ form.name.errors }}
+</div>
+
+<div class="fieldWrapper">
+  <label for="id_{{ form.percent.html_name }}">{{ form.percent.label }}:</label>
+  {{ form.percent }}
+  {% required_field form.percent %}
+  {{ form.percent.errors }}
+</div>

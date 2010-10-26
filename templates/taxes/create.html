@@ -1,0 +1,16 @@
+{% extends "taxes/base.html" %}
+
+{% block taxes-breadcrumb-extra %}
+&gt; Create Tax
+{% endblock %}
+
+{% block taxes-content %}
+<h3>Create Tax</h3>
+
+<form action="" method="post">
+  {% include "taxes/_form.html" %}
+  <p>
+    <input type="submit" value="Create" />
+  </p>
+</form>
+{% endblock %}

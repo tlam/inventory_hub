@@ -73,6 +73,6 @@ def delete(request):
         company.delete()
         messages.success(request, 'Company deleted')
     except Company.DoesNotExist:
-        messages.error(request, 'Company with id %i does not exist' % customer_id)
+        messages.error(request, 'Company with id %i does not exist' % company_id)
     data = reverse('companies:index')
     return HttpResponse(data, mimetype="application/javascript")

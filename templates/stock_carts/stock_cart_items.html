@@ -1,30 +1,54 @@
+{% if stock_items %}
 <table id="stock-items">
   <tr>
     <th>Category</th>
     <th>Item Code</th>
     <th>Description</th>
-    <th>Quantity</th>
+    <th>Qty</th>
     <th>Discount</th>
-    <th>Price</th>
+    <th>Tax</th>
+    <th>Unit Cost</th>
     <th>Total</th>
     <th></th>
   </tr>
 {% for item in stock_items %}
   <tr>
-    <td>{{ item.stock.category }}</td>
+    <td>{{ item.stock.category.code }}</td>
     <td><a href="{% url stocks:update item.stock.pk %}">{{ item.stock.item_code }}</a></td>
     <td>{{ item.stock.description }}</td>
-    <td>
+    <td class="quantity">
       <input type="text" name="stock-cart-item-quantity-{{ item.pk }}" value="{{ item.quantity }}" />
     </td>
-    <td>
-      <input type="text" name="stock-cart-item-discount-{{ item.pk }}" value="{{ item.discount }}"</td>
-    <td>{{ item.stock|customer_price:price_type }}</td>
-    <td>{{ item.total }}</td>
+    <td class="discount">
+      <input type="text" name="stock-cart-item-discount-{{ item.pk }}" value="{{ item.discount }}" />
+    </td>
+    <td class="tax">
+      <input type="text" name="stock-cart-item-tax-{{ item.pk }}" value="{{ item.tax }}" />
+    </td>
+    <td class="price">{{ item.stock|customer_price:price_type }}</td>
+    <td class="total">{{ item.total }}</td>
     <td><input type="submit" name="stock-cart-item-delete-{{ item.pk }}" value="Delete" /></td>
   </tr>
 {% endfor %}
 </table>
+
+<div id="total-section">
+  <table id="stock-items-total">
+    <tr>
+      <td class="label">Subtotal</td>
+      <td class="amount">{{ cart.sub_total }}</td>
+    </tr>
+    <tr>
+      <td class="label">Tax</td>
+      <td class="amount"></td>
+    </tr>
+    <tr>
+      <td class="label">Quotation Total</td>
+      <td class="amount">{{ cart.total|floatformat:2 }}</td>
+    </tr>
+  </table>
+</div>
+{% endif %}
 
 <div>
   Stock Item Code: <input type="text" name="stock-item-code" class="stock-item-code" />

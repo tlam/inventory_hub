@@ -1,0 +1,21 @@
+{% extends "taxes/base.html" %}
+
+{% block taxes-breadcrumb %}
+Taxes
+{% endblock %}
+
+{% block taxes-content %}
+<div class="title-combo">
+  <h3 class="title">Taxes</h3>
+  <div class="create-link">
+    <a href="{% url taxes:create %}">Create</a>
+  </div>
+</div>
+
+<ol>
+{% for tax in taxes %}
+  <li><a href="{% url taxes:update tax.pk %}">{{ tax }}</a></li>
+{% endfor %}
+</ol>
+
+{% endblock %}

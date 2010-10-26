@@ -120,6 +120,7 @@ INSTALLED_APPS = (
     'stock_carts',
     'companies',
     'fcds',
+    'taxes',
     'south',
     'utils',
 )

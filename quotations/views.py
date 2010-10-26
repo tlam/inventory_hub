@@ -95,8 +95,9 @@ def update(request, quotation_id):
         form = QuotationForm(instance=quotation)
 
     stock_items = quotation.cart.stockcartitem_set.all()
-
+    print quotation.cart.total()
     data = {
+        'cart': quotation.cart,
         'form': form,
         'price_type': quotation.customer.price_type,
         'quotation': quotation,
