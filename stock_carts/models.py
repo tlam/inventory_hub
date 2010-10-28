@@ -2,6 +2,7 @@ from decimal import Decimal
 
 from django.db import models
 
+from home.models import Home
 from stocks.models import Stock
 
 
@@ -21,6 +22,13 @@ class StockCart(models.Model):
             msg['warning'] = 'Stock Item Code "%s" does not exist' % item_code
 
         return msg
+
+    def has_taxable_items(self):
+        cart_items = self.stockcartitem_set.all()
+        for item in cart_items:
+            if not item.stock.exempt_flag:
+                return True
+        return False
 
     def update_items(self, post):
         cart_items = self.stockcartitem_set.all()
@@ -52,6 +60,13 @@ class StockCart(models.Model):
             total_amount += item.total_and_tax()
         return total_amount
 
+    def tax_total(self):
+        cart_items = self.stockcartitem_set.all()
+        total_amount = 0
+        for item in cart_items:
+            total_amount += item.tax_amount()
+        return total_amount
+
 
 class StockCartItem(models.Model):
     cart = models.ForeignKey(StockCart)
@@ -60,8 +75,23 @@ class StockCartItem(models.Model):
     discount = models.FloatField(default=0, blank=True)
     tax = models.DecimalField(max_digits=4, decimal_places=2, default=0)
 
+    def tax_amount(self):
+        return self.total() * self.tax * Decimal('0.01')
+
     def total(self):
         return self.quantity * self.stock.retail_price
 
     def total_and_tax(self):
         return self.total() * (100 + self.tax) * Decimal('0.01')
+
+    def calculate_tax(self):
+        if self.stock.exempt_flag:
+            return Decimal('0.00')
+        else:
+            if self.tax:
+                return self.tax
+            else:
+                try:
+                    return Home.objects.get().tax.percent
+                except Home.DoesNotExist:
+                    return Decimal('0.00')

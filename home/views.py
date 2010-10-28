@@ -3,6 +3,8 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 
 from customers.models import Customer
+from home.forms import HomeForm
+from home.models import Home
 from stocks.models import Stock
 from utils.constants import CUSTOMERS_APP, STOCKS_APP
 
@@ -51,6 +53,30 @@ def search(request):
 
     return render_to_response(
         'home/search.html',
+        data,
+        context_instance=RequestContext(request),
+    )
+
+
+def inventory_settings(request):
+    try:
+        home = Home.objects.get()
+    except Home.DoesNotExist:
+        home = None
+
+    if request.method == 'POST':
+        form = HomeForm(request.POST, instance=home)
+        if form.is_valid():
+            form.save()
+    else:
+        form = HomeForm(instance=home)
+
+    data = {
+        'form': form,
+    }
+
+    return render_to_response(
+        'home/inventory_settings.html',
         data,
         context_instance=RequestContext(request),
     )

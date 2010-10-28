@@ -23,7 +23,7 @@
       <input type="text" name="stock-cart-item-discount-{{ item.pk }}" value="{{ item.discount }}" />
     </td>
     <td class="tax">
-      <input type="text" name="stock-cart-item-tax-{{ item.pk }}" value="{{ item.tax }}" />
+      <input type="text" name="stock-cart-item-tax-{{ item.pk }}" value="{{ item.calculate_tax }}" />%
     </td>
     <td class="price">{{ item.stock|customer_price:price_type }}</td>
     <td class="total">{{ item.total }}</td>
@@ -38,10 +38,12 @@
       <td class="label">Subtotal</td>
       <td class="amount">{{ cart.sub_total }}</td>
     </tr>
+    {% if cart.has_taxable_items %}
     <tr>
-      <td class="label">Tax</td>
-      <td class="amount"></td>
+      <td class="label">{{ tax }} ({{ tax.percent }}%)</td>
+      <td class="amount">{{ cart.tax_total|floatformat:2 }}</td>
     </tr>
+    {% endif %}
     <tr>
       <td class="label">Quotation Total</td>
       <td class="amount">{{ cart.total|floatformat:2 }}</td>

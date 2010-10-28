@@ -121,6 +121,7 @@ INSTALLED_APPS = (
     'companies',
     'fcds',
     'taxes',
+    'home',
     'south',
     'utils',
 )

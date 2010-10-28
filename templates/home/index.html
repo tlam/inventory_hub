@@ -3,6 +3,9 @@
 {% block content %}
 <h3>Home</h3>
 
-<a href="{% url taxes:index %}">Taxes</a>
+<ol>
+  <li><a href="{% url home:inventory-settings %}">Settings</a></li>
+  <li><a href="{% url taxes:index %}">Taxes</a></li>
+</ol>
 
 {% endblock %}

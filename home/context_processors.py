@@ -1,7 +1,13 @@
+from home.models import Home
 from utils.constants import APP_CHOICES
 
 
 def site_wide(request):
+    try:
+        tax = Home.objects.get().tax
+    except:
+        tax = None
+
     app_name = request.GET.get('current-app', '')
     if not app_name:
         full_path = request.get_full_path()
@@ -14,4 +20,5 @@ def site_wide(request):
     return {
         'app_choices': APP_CHOICES,
         'app_name': app_name,
+        'tax': tax,
     }
