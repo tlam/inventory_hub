@@ -9,7 +9,7 @@
     <th>Tax</th>
     <th>Unit Cost</th>
     <th>Total</th>
-    <th></th>
+    <th class="actions"></th>
   </tr>
 {% for item in stock_items %}
   <tr>
@@ -27,7 +27,11 @@
     </td>
     <td class="price">{{ item.stock|customer_price:price_type }}</td>
     <td class="total">{{ item.total }}</td>
-    <td><input type="submit" name="stock-cart-item-delete-{{ item.pk }}" value="Delete" /></td>
+    <td class="actions">
+      <div class="delete">
+      <input type="submit" name="stock-cart-item-delete-{{ item.pk }}" value="Delete" />
+      </div>
+    </th>
   </tr>
 {% endfor %}
 </table>

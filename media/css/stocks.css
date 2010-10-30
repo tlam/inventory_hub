@@ -20,11 +20,21 @@ table#categories th, table#stocks th {
 }
 
 table#stock-items {
+  border-collapse: collapse;
   text-align: left;
+  width: 100%;
 }
 
 table#stock-items th, table#stock-items td {
-  padding-right: 1em;
+  border: 1px solid black;
+  padding: 0.4em 0.4em 0 0.4em;
+}
+
+table#stock-items th.actions, table#stock-items td.actions {
+  border: none;
+  margin: 0 0 0 1em;
+  padding: 0;
+  position: absolute;
 }
 
 table#stock-items td.quantity input, table#stock-items td.discount input, table#stock-items td.tax input {
@@ -36,13 +46,30 @@ table#stock-items td.price, table#stock-items td.total {
 }
 
 table#stock-items-total {
+  border-collapse: collapse;
   float: right;
-  margin-right: 5.8em;
-  width: 18.9em;
+  width: 18.2em;
+}
+
+table#stock-items-total td {
+  border: 1px solid black;
+}
+
+table#stock-items-total tr:first-child td {
+  border-top: none;
 }
 
 table#stock-items-total td.amount {
   text-align: right;
+}
+
+table#stock-items td.total {
+  padding-right: 0;
+  width: 5em;
+}
+
+table#stock-items-total td.amount {
+  width: 5.7em;
 }
 
 #total-section {
