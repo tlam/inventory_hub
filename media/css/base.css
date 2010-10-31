@@ -63,7 +63,7 @@ a:hover {
 }
 
 .messages .warning {
-  color: #FFD700;
+  color: orange;
 }
 
 .messages .success {
@@ -104,4 +104,8 @@ ul.ui-autocomplete {
 
 .actions .update-button {
   float: right;
+}
+
+.table-row-colour {
+  background-color: #EEE;
 }

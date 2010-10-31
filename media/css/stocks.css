@@ -25,16 +25,32 @@ table#stock-items {
   width: 100%;
 }
 
-table#stock-items th, table#stock-items td {
-  border: 1px solid black;
-  padding: 0.4em 0.4em 0 0.4em;
+table#stock-items th {
+  color: #4183C4;
 }
 
-table#stock-items th.actions, table#stock-items td.actions {
+table#stock-items th.price, table#stock-items th.total {
+  text-align: right;
+}
+
+table#stock-items tr {
+  border-bottom: 1px solid #CCC;
+}
+
+table#stock-items th, table#stock-items td {
+  padding: 0.4em 0.4em 0 0;
+  vertical-align: top;
+}
+
+table#stock-items td.actions {
   border: none;
-  margin: 0 0 0 1em;
+  margin: 0.2em 0 0 1em;
   padding: 0;
   position: absolute;
+}
+
+table#stock-items td.tax {
+  width: 4.5em;
 }
 
 table#stock-items td.quantity input, table#stock-items td.discount input, table#stock-items td.tax input {
@@ -45,28 +61,25 @@ table#stock-items td.price, table#stock-items td.total {
   text-align: right;
 }
 
-table#stock-items-total {
-  border-collapse: collapse;
-  float: right;
-  width: 18.2em;
-}
-
-table#stock-items-total td {
-  border: 1px solid black;
-}
-
-table#stock-items-total tr:first-child td {
-  border-top: none;
-}
-
-table#stock-items-total td.amount {
-  text-align: right;
+table#stock-items td.price {
+  width: 4.5em;
 }
 
 table#stock-items td.total {
   padding-right: 0;
   width: 5em;
 }
+
+table#stock-items-total {
+  border-collapse: collapse;
+  float: right;
+  width: 15em;
+}
+
+table#stock-items-total td.amount {
+  text-align: right;
+}
+
 
 table#stock-items-total td.amount {
   width: 5.7em;

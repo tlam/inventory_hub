@@ -18,4 +18,6 @@ $(document).ready(function() {
 	    });
         }   
     });
+
+    $("table#stock-items tr:odd").addClass("table-row-colour");
 });
