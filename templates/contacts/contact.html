@@ -1,0 +1,46 @@
+<div id="contact-{{ i|default:0 }}" class="contact">
+  <input type="hidden" name="contact-index" value="{{ i|default:0 }}" />
+  <input type="hidden" name="contact-pk-{{ i|default:0 }}" value="{{ contact.pk|default:0 }}" />
+  <table>
+    <tr>
+      <td><input type="text" name="first-name-{{ i|default:0 }}" value="{{ contact.first_name }}" /></td>
+      <td><input type="text" name="last-name-{{ i|default:0 }}" value="{{ contact.last_name }}" /></td>
+    </tr>
+    <tr>
+      <td>First Name</td>
+      <td>Last Name</td>
+    </tr>
+  </table>
+
+  <div class="emails">
+  {% if contact.emails %}
+    {% for email in contact.emails %}
+      {% with forloop.counter0 as j %}
+        {% include "contacts/email.html" %}
+      {% endwith %}
+    {% endfor %}
+  {% else %}
+    {% include "contacts/email.html" %}
+  {% endif %}
+  </div>
+  <input type="button" value="Add Another Email" id="add-email-{{ i|default:0 }}" class="add-email" />
+
+  <div class="phones">
+  {% if contact.phones %}
+    {% for phone in contact.phones %}
+      {% with forloop.counter0 as j %}
+        {% include "contacts/phone.html" %}
+      {% endwith %}
+    {% endfor %}
+  {% else %}
+    {% include "contacts/phone.html" %}
+  {% endif %}
+  </div>
+  <input type="button" value="Add Another Phone" id="add-phone-{{ i|default:0 }}" class="add-phone" />
+
+  {% if i > 0 %}
+  <input type="button" value="Remove Contact" id="remove-contact-{{ i|default:0 }}" class="remove-contact" />
+  {% endif %}
+
+  <hr />
+</div>

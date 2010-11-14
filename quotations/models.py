@@ -3,6 +3,7 @@ from datetime import datetime
 from django.db import models
 from django.db.models.signals import post_save
 
+from contacts.models import ContactList
 from customers.models import Customer
 from stock_carts.models import StockCart
 from warehouses.models import Warehouse
@@ -15,11 +16,18 @@ class Quotation(models.Model):
     customer = models.ForeignKey(Customer)
     remarks = models.CharField(max_length=255, blank=True)
     cart = models.ForeignKey('stock_carts.StockCart', blank=True, null=True)
+    contact_list = models.ForeignKey(ContactList, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True, default=datetime.now())
     updated_at = models.DateTimeField(auto_now=True, default=datetime.now())
 
     def __unicode__(self):
         return u'%s' % self.invoice_no
+
+    def save(self, *args, **kwargs):
+        if not self.contact_list:
+            description = 'Quotation:%i' % self.invoice_no
+            self.contact_list = ContactList.objects.create(description=description[:10])
+        super(Quotation, self).save(*args, **kwargs)
 
     def info(self):
         return {

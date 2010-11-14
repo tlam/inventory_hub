@@ -1,0 +1,12 @@
+<div id="phone_set-{{ i|default:0 }}-{{ j|default:0 }}" class="phone">
+  <input type="hidden" name="phone-pk-{{ i|default:0 }}-{{ j|default:0 }}" value="{{ phone.pk|default:0 }}" />
+  Phone: <input type="text" name="phone-input-{{ i|default:0 }}-{{ j|default:0 }}" value="{{ phone.number }}" />
+  <select name="phone-type-{{ i|default:0 }}-{{ j|default:0 }}">
+  {% for k, v in phone_choices %}
+    <option value="{{ k }}" {% if phone.phone_type == k %}selected="selected"{% endif %}>{{ v }}</option>
+  {% endfor %}
+  </select>
+  {% if j and j > 0 %}
+    <input type="button" value="Delete" id="phone-delete-{{ i|default:0 }}-{{ j|default:0 }}" class="remove-phone" />
+  {% endif %}
+</div>

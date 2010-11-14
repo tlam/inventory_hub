@@ -1,0 +1,18 @@
+<div id="email_set-{{ i|default:0 }}-{{ j|default:0 }}" class="email">
+  <input type="hidden" name="email-pk-{{ i|default:0 }}-{{ j|default:0 }}" value="{{ email.pk|default:0 }}" />
+  Email: <input type="text" name="email-input-{{ i|default:0 }}-{{ j|default:0 }}" value="{{ email.address }}" />
+  <select name="email-type-{{ i|default:0 }}-{{ j|default:0 }}">
+  {% for k, v in email_choices %}
+    <option value="{{ k }}" {% if email.email_type == k %}selected="selected"{% endif %}>{{ v }}</option>
+  {% endfor %}
+  </select>
+  {% if j and j > 0 %}
+    <input type="button" value="Delete" id="email-delete-{{ i|default:0 }}-{{ j|default:0 }}" class="remove-email" />
+  {% endif %}
+</div>
+
+<!--
+2 kind of name:
+name="new-contact-{{ i|default:0 }}-{{ j|default:0 }}"
+name="update-contact-{{ contact.pk }}-{{ email.pk }}"
+-->

@@ -8,7 +8,7 @@ from django.template import RequestContext
 from contacts.forms import ContactForm
 from contacts.models import Email, Phone
 
-
+'''
 def ajax_add_email(request):
     last_id = int(request.GET.get('last_id', 0))
     last_id += 1
@@ -19,6 +19,23 @@ def ajax_add_email(request):
 
     return render_to_response(
         'contacts/ajax_add_email.html',
+        data,
+        context_instance=RequestContext(request),
+    )
+'''
+
+def add_email(request):
+    contact_index = int(request.GET.get('contact_index', 0))
+    email_index = int(request.GET.get('email_index', 0))
+    email_index += 1
+    data = {
+        'i': contact_index,
+        'j': email_index,
+        'email_choices': Email.EMAIL_CHOICES,
+    }
+
+    return render_to_response(
+        'contacts/email.html',
         data,
         context_instance=RequestContext(request),
     )
@@ -92,6 +109,23 @@ def create_emails(customer, email_dict):
         else:
             Email.objects.create(customer=customer, address=address, \
                 email_type=email_type)
+
+
+def add_phone(request):
+    contact_index = int(request.GET.get('contact_index', 0))
+    phone_index = int(request.GET.get('phone_index', 0))
+    phone_index += 1
+    data = {
+        'i': contact_index,
+        'j': phone_index,
+        'phone_choices': Phone.PHONE_CHOICES,
+    }
+
+    return render_to_response(
+        'contacts/phone.html',
+        data,
+        context_instance=RequestContext(request),
+    )
 
 
 def ajax_add_phone(request):
@@ -176,3 +210,20 @@ def create_phones(customer, phone_dict):
         else:
             Phone.objects.create(customer=customer, number=number, \
                 phone_type=phone_type)
+
+
+def add_contact(request):
+    last_id = int(request.GET.get('last_id', 0))
+    last_id += 1
+    data = {
+        'i': last_id,
+        'email_choices': Email.EMAIL_CHOICES,
+        'phone_choices': Phone.PHONE_CHOICES,
+    }
+
+    return render_to_response(
+        'contacts/contact.html',
+        data,
+        context_instance=RequestContext(request),
+    )
+

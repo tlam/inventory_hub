@@ -127,6 +127,7 @@ INSTALLED_APPS = (
 )
 
 AUTH_PROFILE_MODULE = 'hub_users.HubUser'
+SESSION_COOKIE_NAME = 'inventory_hub_sessionid'
 
 try:
     from production_settings import *

@@ -5,6 +5,7 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render_to_response
 from django.template import RequestContext
 
+from contacts.models import ContactList, Email, Phone
 from customers.forms import CustomerForm
 from customers.models import Customer
 from histories.models import History
@@ -54,17 +55,28 @@ def create(request, customer_id):
     customer = get_object_or_404(Customer, pk=customer_id)
 
     if request.method == 'POST':
+        contacts = ContactList.post_dict(request.POST)
         form = QuotationForm(request.POST)
         if form.is_valid():
             quotation = form.save()
+            msg = quotation.contact_list.update_contacts(contacts)
+            if msg:
+                messages.warning(request, msg)
+            else:
+                messages.success(request, 'Customer created')
+
             History.created_history(quotation, request.user)
             messages.success(request, 'Quotation created.')
             return redirect('quotations:update', quotation.pk)
     else:
+        contacts = {}
         form = QuotationForm(initial={'customer': customer_id})
 
     data = {
+        'contacts': contacts,
+        'email_choices': Email.EMAIL_CHOICES,
         'form': form,
+        'phone_choices': Phone.PHONE_CHOICES,
     }
 
     return render_to_response(
@@ -78,9 +90,11 @@ def update(request, quotation_id):
     quotation = get_object_or_404(Quotation, pk=quotation_id)
 
     if request.method == 'POST':
+        contacts = quotation.contact_list.post_dict(request.POST)
         form = QuotationForm(request.POST, instance=quotation)
         if 'add-stock-item' in request.POST:
             stock_item_code = request.POST.get('stock-item-code', '')
+
             msg = quotation.cart.add_item(stock_item_code)
             if msg.get('success', ''):
                 messages.success(request, msg.get('success', ''))
@@ -91,14 +105,22 @@ def update(request, quotation_id):
                 form.save()
                 quotation.cart.update_items(request.POST)
                 messages.success(request, 'Quotation updated.')
+
+        msg = quotation.contact_list.update_contacts(contacts)
+        if msg:
+            messages.warning(request, msg)
     else:
+        contacts = quotation.contact_list.get_dict()
         form = QuotationForm(instance=quotation)
 
     stock_items = quotation.cart.stockcartitem_set.all()
-    print quotation.cart.total()
+
     data = {
         'cart': quotation.cart,
+        'contacts': contacts,
+        'email_choices': Email.EMAIL_CHOICES,
         'form': form,
+        'phone_choices': Phone.PHONE_CHOICES,
         'price_type': quotation.customer.price_type,
         'quotation': quotation,
         'stock_items': stock_items,

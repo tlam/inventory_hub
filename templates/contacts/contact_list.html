@@ -1,0 +1,14 @@
+  <h3>Contacts</h3>
+  <div id="contacts">
+  {% if contacts %}
+    {% for i, contact in contacts.items %}
+      {% include "contacts/contact.html" %}
+    {% endfor %}
+  {% else %}
+    {% include "contacts/contact.html" %}
+  {% endif %}
+  </div>
+  <input type="hidden" value="{% url contacts:add-contact %}" id="ajax-add-contact-url" />
+  <input type="hidden" value="{% url contacts:add-email %}" id="ajax-add-email-url" />
+  <input type="hidden" value="{% url contacts:add-phone %}" id="ajax-add-phone-url" />
+  <input type="button" value="Add Another Contact" id="add-contact" />

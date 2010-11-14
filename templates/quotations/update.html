@@ -9,6 +9,7 @@
 
 <form action="" method="post">
   {% include "quotations/_form.html" %}
+  {% include "contacts/contact_list.html" %}
   {% include "stock_carts/stock_cart_items.html" %}
   <div class="actions">
     <input type="hidden" class="delete-entry-url" value="{% url quotations:delete %}" />
