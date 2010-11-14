@@ -1,5 +1,6 @@
 from django.db import models
 
+from contacts.models import ContactList
 from geography.models import City, Country
 from utils.constants import PRICE_CHOICES
 
@@ -14,12 +15,19 @@ class BaseSupplier(models.Model):
     phone = models.CharField(max_length=50, blank=True)
     first_name = models.CharField(max_length=50, blank=True)
     last_name = models.CharField(max_length=100, blank=True)
+    contact_list = models.ForeignKey(ContactList, blank=True, null=True)
 
     class Meta:
         abstract = True
 
     def __unicode__(self):
         return u'%s' % self.company_name
+
+    def save(self, *args, **kwargs):
+        if not self.contact_list:
+            description = self.supplier_no
+            self.contact_list = ContactList.objects.create(description=description[:10])
+        super(BaseSupplier, self).save(*args, **kwargs)
 
     def info(self):
         return {

@@ -7,6 +7,7 @@ from django.shortcuts import get_object_or_404, redirect, render_to_response
 from django.template import RequestContext
 from django.utils.html import escape
 
+from contacts.models import ContactList
 from geography.models import Country
 from histories.models import History
 from suppliers.forms import ForeignSupplierForm, LocalSupplierForm
@@ -40,9 +41,13 @@ def index(request, supplier_type):
 
 def create_foreign(request):
     if request.method == 'POST':
+        contacts = ContactList.post_dict(request.POST)
         form = ForeignSupplierForm(request.POST)
         if form.is_valid():
             foreign_supplier = form.save()
+            msg = foreign_supplier.contact_list.update_contacts(contacts)
+            if msg:
+                messages.warning(request, msg)
             History.created_history(foreign_supplier, request.user)
             messages.success(request, 'Foreign Supplier created.')
             if '_popup' in request.GET:
@@ -58,9 +63,11 @@ def create_foreign(request):
 
             return redirect('suppliers:update-foreign', foreign_supplier.pk)
     else:
+        contacts = {}
         form = ForeignSupplierForm()
 
     data = {
+        'contacts': contacts,
         'form': form,
     }
 
@@ -78,16 +85,22 @@ def update_foreign(request, supplier_id):
     }
 
     if request.method == 'POST':
+        contacts = foreign_supplier.contact_list.post_dict(request.POST)
         form = ForeignSupplierForm(request.POST, instance=foreign_supplier)
         if form.is_valid():
             past_supplier = ForeignSupplier.objects.get(pk=supplier_id)
             updated_supplier = form.save()
+            msg = updated_supplier.contact_list.update_contacts(contacts)
+            if msg:
+                messages.warning(request, msg)
             History.updated_history(past_supplier, updated_supplier, request.user)
             messages.success(request, 'Foreign Supplier updated')
     else:
+        contacts = foreign_supplier.contact_list.get_dict()
         form = ForeignSupplierForm(initial=initial_data, instance=foreign_supplier)
     
     data = {
+        'contacts': contacts,
         'foreign_supplier': foreign_supplier,
         'form': form,
     }
@@ -101,9 +114,13 @@ def update_foreign(request, supplier_id):
 
 def create_local(request):
     if request.method == 'POST':
+        contacts = ContactList.post_dict(request.POST)
         form = LocalSupplierForm(request.POST)
         if form.is_valid():
             local_supplier = form.save()
+            msg = local_supplier.contact_list.update_contacts(contacts)
+            if msg:
+                messages.warning(request, msg)
             History.created_history(local_supplier, request.user)
             messages.success(request, 'Local Supplier created.')
             if '_popup' in request.GET:
@@ -118,9 +135,11 @@ def create_local(request):
                 )
             return redirect('suppliers:update-local', local_supplier.pk)
     else:
+        contacts = {}
         form = LocalSupplierForm()
 
     data = {
+        'contacts': contacts,
         'form': form,
     }
 
@@ -138,16 +157,22 @@ def update_local(request, supplier_id):
     }
 
     if request.method == 'POST':
+        contacts = local_supplier.contact_list.post_dict(request.POST)
         form = LocalSupplierForm(request.POST, instance=local_supplier)
         if form.is_valid():
             past_supplier = LocalSupplier.objects.get(pk=supplier_id)
             updated_supplier = form.save()
+            msg = updated_supplier.contact_list.update_contacts(contacts)
+            if msg:
+                messages.warning(request, msg)
             History.updated_history(past_supplier, updated_supplier, request.user)
             messages.success(request, 'Local Supplier updated')
     else:
+        contacts = local_supplier.contact_list.get_dict()
         form = LocalSupplierForm(initial=initial_data, instance=local_supplier)
     
     data = {
+        'contacts': contacts,
         'form': form,
         'local_supplier': local_supplier,
     }

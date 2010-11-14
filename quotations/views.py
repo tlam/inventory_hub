@@ -110,7 +110,11 @@ def update(request, quotation_id):
         if msg:
             messages.warning(request, msg)
     else:
-        contacts = quotation.contact_list.get_dict()
+        try:
+            contacts = quotation.contact_list.get_dict()
+        except AttributeError:
+            quotation.save()
+            contacts = {}
         form = QuotationForm(instance=quotation)
 
     stock_items = quotation.cart.stockcartitem_set.all()

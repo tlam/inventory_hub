@@ -7,7 +7,7 @@
 <a href="{% url home:index %}">Home</a> &gt; 
 <a href="{% url suppliers:index %}">Suppliers</a> &gt;
 {% block foreign-suppliers-breadcrumb %}
-<a href="{% url suppliers:index-foreign %}">Foreign Suppliers</a>
+<a href="{% url suppliers:index 'foreign' %}">Foreign Suppliers</a>
 {% endblock %}
 {% block foreign-suppliers-breadcrumb-extra %}
 {% endblock %}
