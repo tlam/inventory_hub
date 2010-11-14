@@ -64,16 +64,6 @@
   {{ form.country.errors }}
 </div>
 
-<fieldset class="phones">
-  <legend>Phones</legend>
-  {% include "contacts/phones.html" %}
-</fieldset>
-
-<fieldset class="emails">
-  <legend>Emails</legend>
-  {% include "contacts/emails.html" %}
-</fieldset>
-
 <div class="fieldWrapper">
   <label for="id_{{ form.vat_registration_number.html_name }}">{{ form.vat_registration_number.label }}:</label>
   {{ form.vat_registration_number }}

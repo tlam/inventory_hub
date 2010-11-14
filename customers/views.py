@@ -7,7 +7,7 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render_to_response
 from django.template import RequestContext
 
-from contacts.models import Email, Phone
+from contacts.models import ContactList
 from contacts.views import create_emails, create_phones, post_emails, post_phones
 from customers.forms import CustomerForm
 from customers.models import Customer
@@ -30,6 +30,17 @@ def index(request):
 
 def create(request):
     if request.method == 'POST':
+        contacts = ContactList.post_dict(request.POST)
+        form = CustomerForm(request.POST)
+        if form.is_valid():
+            customer = form.save()
+            msg = customer.contact_list.update_contacts(contacts)
+            if msg:
+                messages.warning(request, msg)
+            History.created_history(customer, request.user)
+            messages.success(request, 'Customer created.')
+            return redirect('customers:update', customer.pk)
+        '''
         post_list = request.POST.lists()
         emails_valid, email_dict = post_emails(post_list)
         phones_valid, phone_dict = post_phones(post_list)
@@ -40,17 +51,14 @@ def create(request):
             messages.success(request, 'Customer created.')
             create_emails(customer, email_dict)
             return redirect('customers:update', customer.pk)
+        '''
     else:
-        email_dict = {}
-        phone_dict = {}
+        contacts = {}
         form = CustomerForm()
 
     data = {
-        'email_choices': Email.EMAIL_CHOICES,
-        'email_dict': email_dict,
+        'contacts': contacts,
         'form': form,
-        'phone_choices': Phone.PHONE_CHOICES,
-        'phone_dict': phone_dict,
     }
 
     return render_to_response(
@@ -59,7 +67,7 @@ def create(request):
         context_instance=RequestContext(request),
     )
 
-
+'''
 def update(request, customer_id):
     customer = get_object_or_404(Customer, pk=customer_id)
     emails = customer.customer_email.order_by('address')
@@ -107,11 +115,9 @@ def update(request, customer_id):
 
     data = {
         'customer': customer,
-        'email_choices': Email.EMAIL_CHOICES,
         'email_dict': email_dict,
         'emails': emails,
         'form': form,
-        'phone_choices': Phone.PHONE_CHOICES,
         'phone_dict': phone_dict,
         'phones': phones,
     }
@@ -120,6 +126,35 @@ def update(request, customer_id):
         'customers/update.html',
         data,
         context_instance=RequestContext(request),
+    )
+'''
+
+def update(request, customer_id):
+    customer = get_object_or_404(Customer, pk=customer_id)
+    if request.method == 'POST':
+        contacts = customer.contact_list.post_dict(request.POST)
+        form = CustomerForm(request.POST, instance=customer)
+        if form.is_valid():
+            customer = form.save()
+            msg = customer.contact_list.update_contacts(contacts)
+            if msg:
+                messages.warning(request, msg)
+            else:
+                messages.success(request, 'Customer updated')
+    else:
+        contacts = customer.contact_list.get_dict()
+        form = CustomerForm(instance=customer)
+
+    data = {
+        'contacts': contacts,
+        'customer': customer,
+        'form': form,
+    }
+
+    return render_to_response(
+        'customers/update.html',
+        data,
+        context_instance=RequestContext(request)
     )
 
 

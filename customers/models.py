@@ -2,6 +2,7 @@ from datetime import datetime
 
 from django.db import models
 
+from contacts.models import ContactList
 from geography.models import City, Country
 from utils.constants import PRICE_CHOICES
 
@@ -22,6 +23,7 @@ class Customer(models.Model):
     vat_registration_number = models.IntegerField(default=0, blank=True)
     business_registration_number = models.CharField(max_length=9, blank=True)
     discount_percent = models.FloatField(default=0, blank=True)
+    contact_list = models.ForeignKey('contacts.ContactList', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True, default=now)
     updated_at = models.DateTimeField(auto_now=True, default=now)
 
@@ -30,6 +32,12 @@ class Customer(models.Model):
 
     def __unicode__(self):
         return u'%s %s' % (self.first_name, self.last_name)
+
+    def save(self, *args, **kwargs):
+        if not self.contact_list:
+            description = self.customer_no
+            self.contact_list = ContactList.objects.create(description=description[:10])    
+        super(Customer, self).save(*args, **kwargs)
 
     @models.permalink
     def get_absolute_url(self):

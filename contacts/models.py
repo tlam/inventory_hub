@@ -2,8 +2,6 @@ import re
 
 from django.db import models
 
-from customers.models import Customer
-
 
 class ContactList(models.Model):
     description = models.CharField(max_length=10, blank=True, null=True)
