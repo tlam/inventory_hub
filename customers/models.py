@@ -1,6 +1,7 @@
 from datetime import datetime
 
 from django.db import models
+from django.db.models.signals import post_save
 
 from contacts.models import ContactList
 from geography.models import City, Country
@@ -23,7 +24,7 @@ class Customer(models.Model):
     vat_registration_number = models.IntegerField(default=0, blank=True)
     business_registration_number = models.CharField(max_length=9, blank=True)
     discount_percent = models.FloatField(default=0, blank=True)
-    contact_list = models.ForeignKey('contacts.ContactList', blank=True, null=True)
+    contact_list = models.ForeignKey(ContactList, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True, default=now)
     updated_at = models.DateTimeField(auto_now=True, default=now)
 

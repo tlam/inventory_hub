@@ -9,4 +9,4 @@ class QuotationForm(ModelForm):
 
     class Meta:
         model = Quotation
-        exclude = ('cart',)
+        exclude = ('cart', 'contact_list',)

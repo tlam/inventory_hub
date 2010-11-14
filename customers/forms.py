@@ -10,6 +10,7 @@ class CustomerForm(ModelForm):
 
     class Meta:
         model = Customer
+        exclude = ('contact_list',)
 
     def clean_city(self):
         data = self.cleaned_data['city']

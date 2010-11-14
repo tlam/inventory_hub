@@ -8,7 +8,6 @@ from django.shortcuts import get_object_or_404, redirect, render_to_response
 from django.template import RequestContext
 
 from contacts.models import ContactList
-from contacts.views import create_emails, create_phones, post_emails, post_phones
 from customers.forms import CustomerForm
 from customers.models import Customer
 from histories.models import History
@@ -40,18 +39,6 @@ def create(request):
             History.created_history(customer, request.user)
             messages.success(request, 'Customer created.')
             return redirect('customers:update', customer.pk)
-        '''
-        post_list = request.POST.lists()
-        emails_valid, email_dict = post_emails(post_list)
-        phones_valid, phone_dict = post_phones(post_list)
-        form = CustomerForm(request.POST)
-        if form.is_valid() and emails_valid:
-            customer = form.save()
-            History.created_history(customer, request.user)
-            messages.success(request, 'Customer created.')
-            create_emails(customer, email_dict)
-            return redirect('customers:update', customer.pk)
-        '''
     else:
         contacts = {}
         form = CustomerForm()
@@ -131,19 +118,26 @@ def update(request, customer_id):
 
 def update(request, customer_id):
     customer = get_object_or_404(Customer, pk=customer_id)
+    initial_data = {
+        'city': customer.city.name,
+    }
+
     if request.method == 'POST':
         contacts = customer.contact_list.post_dict(request.POST)
         form = CustomerForm(request.POST, instance=customer)
         if form.is_valid():
-            customer = form.save()
-            msg = customer.contact_list.update_contacts(contacts)
+            updated_customer = form.save()
+            msg = updated_customer.contact_list.update_contacts(contacts)
             if msg:
                 messages.warning(request, msg)
-            else:
-                messages.success(request, 'Customer updated')
+            messages.success(request, 'Customer updated')
     else:
-        contacts = customer.contact_list.get_dict()
-        form = CustomerForm(instance=customer)
+        try:
+            contacts = customer.contact_list.get_dict()
+        except AttributeError:
+            customer.save()
+            contacts = {}
+        form = CustomerForm(initial=initial_data, instance=customer)
 
     data = {
         'contacts': contacts,

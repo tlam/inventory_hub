@@ -88,12 +88,14 @@ def update_foreign(request, supplier_id):
         contacts = foreign_supplier.contact_list.post_dict(request.POST)
         form = ForeignSupplierForm(request.POST, instance=foreign_supplier)
         if form.is_valid():
-            past_supplier = ForeignSupplier.objects.get(pk=supplier_id)
-            updated_supplier = form.save()
-            msg = updated_supplier.contact_list.update_contacts(contacts)
+            #past_supplier = ForeignSupplier.objects.get(pk=supplier_id)
+            #updated_supplier = form.save()
+            form.save()
+            msg = foreign_supplier.contact_list.update_contacts(contacts)
             if msg:
                 messages.warning(request, msg)
-            History.updated_history(past_supplier, updated_supplier, request.user)
+            
+            #History.updated_history(past_supplier, updated_supplier, request.user)
             messages.success(request, 'Foreign Supplier updated')
     else:
         contacts = foreign_supplier.contact_list.get_dict()

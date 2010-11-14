@@ -11,4 +11,6 @@
   <input type="hidden" value="{% url contacts:add-contact %}" id="ajax-add-contact-url" />
   <input type="hidden" value="{% url contacts:add-email %}" id="ajax-add-email-url" />
   <input type="hidden" value="{% url contacts:add-phone %}" id="ajax-add-phone-url" />
+  <input type="hidden" id="ajax-remove-email-url" value="{% url contacts:ajax-remove-email %}" />
+  <input type="hidden" id="ajax-remove-phone-url" value="{% url contacts:ajax-remove-phone %}" />
   <input type="button" value="Add Another Contact" id="add-contact" />

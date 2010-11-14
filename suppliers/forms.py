@@ -8,6 +8,9 @@ from suppliers.models import ForeignSupplier, LocalSupplier
 class BaseSupplierForm(ModelForm):
     city = forms.CharField(max_length=100)
 
+    class Meta:
+        exclude = ('contact_list',)
+
     def clean_city(self):
         data = self.cleaned_data['city']
         if data.isdigit():
