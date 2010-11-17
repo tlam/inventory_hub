@@ -11,3 +11,17 @@ table td.warning {
   color: red;
   font-size: 0.8em;
 }
+
+table tr.contact-names {
+  font-size: 0.8em;
+  text-align: center;
+}
+
+.emails-phones {
+  overflow: auto;
+}
+
+.emails, .phones {
+  float: left;
+  width: 44%;
+}

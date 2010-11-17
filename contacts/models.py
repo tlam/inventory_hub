@@ -85,6 +85,9 @@ class ContactList(models.Model):
             emails = contact.get('emails', [])
             phones = contact.get('phones', [])
 
+            if self.is_empty(first_name, last_name, emails, phones):
+                continue
+
             if not first_name and not last_name:
                 return 'Please enter both a first and last name'
 
@@ -109,6 +112,18 @@ class ContactList(models.Model):
                 return phones_msg
 
         return ''
+
+    def is_empty(self, first_name, last_name, emails, phones):
+        email_empty = False
+        phone_empty = False
+
+        for email in emails:
+            email_empty = not email['pk'] and not email['address']
+
+        for phone in phones:
+            phone_empty = not phone['pk'] and not phone['number']
+
+        return not first_name and not last_name and email_empty and phone_empty
 
 
 class Contact(models.Model):
