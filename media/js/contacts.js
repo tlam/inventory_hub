@@ -18,7 +18,7 @@ $(document).ready(function() {
         var removed_id = $(this).attr("id");
         removed_id = removed_id.match(/(\d+)-(\d+)/);
         var ajax_remove_email_url = $("#ajax-remove-email-url").val();
-        var email_id = $("#customer_email-" + removed_id + "-id").val();
+        var email_id = $("input[name=email-pk-" + removed_id[0] + "]").val();
         var input_data = {"email_id": email_id};
         $.get(ajax_remove_email_url, input_data, function(data) {
             $("#email_set-" + removed_id).remove();
@@ -44,7 +44,7 @@ $(document).ready(function() {
         var removed_id = $(this).attr("id");
         removed_id = removed_id.match(/(\d+)-(\d+)/);
         var ajax_remove_phone_url = $("#ajax-remove-phone-url").val();
-        var phone_id = $("#customer_phone-" + removed_id + "-id").val();
+        var phone_id = $("input[name=phone-pk-" + removed_id[0] + "]").val();
         var input_data = {"phone_id": phone_id};
         $.get(ajax_remove_phone_url, input_data, function(data) {
             $("#phone_set-" + removed_id).remove();
@@ -66,6 +66,11 @@ $(document).ready(function() {
     $(".remove-contact").live("click", function() {
         var contact_index = $(this).attr("id").match(/(\d+)/)[1];
         var contact_id = "#contact-" + contact_index;
-        $(contact_id).remove();
+        var contact_pk = $("input[name=contact-pk-" + contact_index + "]").val();
+        var ajax_remove_contact_url = $("#ajax-remove-contact-url").val();
+        var input_data = {"contact_id": contact_pk};
+        $.get(ajax_remove_contact_url, input_data, function(data) {
+            $(contact_id).remove();
+        });
     });
 });

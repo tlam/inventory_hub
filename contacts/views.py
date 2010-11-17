@@ -6,7 +6,7 @@ from django.shortcuts import redirect, render_to_response
 from django.template import RequestContext
 
 from contacts.forms import ContactForm
-from contacts.models import Email, Phone
+from contacts.models import Contact, Email, Phone
 
 
 def add_email(request):
@@ -79,4 +79,15 @@ def add_contact(request):
         data,
         context_instance=RequestContext(request),
     )
+
+
+def ajax_remove_contact(request):
+    contact_id = int(request.GET.get('contact_id', 0))
+    if contact_id:
+        try:
+            Contact.objects.get(pk=contact_id).delete()
+        except Contact.DoesNotExist:
+            pass
+    data = json.dumps({})
+    return HttpResponse(data, mimetype='application/javascript')
 
