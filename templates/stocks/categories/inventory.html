@@ -21,5 +21,12 @@
 {% endblock %}
 
 {% block categories-content %}
-{% include "stocks/pagination.html" %}
+<form action="" method="post">
+  <div id="batch-update">
+    <h4>Batch Modify - <em>in progress</em></h4>
+    {% include "stocks/categories/batch_update_form.html" %}
+    <input type="submit" value="Batch Update" />
+  </div>
+  {% include "stocks/pagination.html" %}
+</form>
 {% endblock %}

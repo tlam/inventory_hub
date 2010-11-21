@@ -1,5 +1,7 @@
 from django.db import models
 
+from contacts.models import ContactList
+
 
 class Company(models.Model):
     code = models.IntegerField()
@@ -16,6 +18,13 @@ class Company(models.Model):
     vat_percentage = models.DecimalField(max_digits=4, decimal_places=2, \
         default=0, blank=True)
     logo = models.ImageField(upload_to='company_logos', blank=True, null=True)
+    contact_list = models.ForeignKey(ContactList, blank=True, null=True)
    
     def __unicode__(self):
         return u'%s' % self.name
+
+    def save(self, *args, **kwargs):
+        if not self.contact_list:
+            description = self.name
+            self.contact_list = ContactList.objects.create(description=description[:10])    
+        super(Company, self).save(*args, **kwargs)

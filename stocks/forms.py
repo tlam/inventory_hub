@@ -111,3 +111,10 @@ class BaseStockFormset(BaseInlineFormSet):
  
             for nested in form.nested:
                 nested.save(commit=commit)
+
+
+class BatchUpdateForm(forms.Form):
+    retail_price = forms.DecimalField(max_digits=20, decimal_places=2, required=False)
+    wholesale_price = forms.DecimalField(max_digits=20, decimal_places=2, required=False)
+    dealer_price = forms.DecimalField(max_digits=20, decimal_places=2, required=False)
+    special_price = forms.DecimalField(max_digits=20, decimal_places=2, required=False)

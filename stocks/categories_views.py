@@ -6,7 +6,7 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render_to_response
 from django.template import RequestContext
 
-from stocks.forms import CategoryForm
+from stocks.forms import BatchUpdateForm, CategoryForm
 from stocks.models import Category, Stock
 from utils.tools import capwords
 
@@ -119,8 +119,17 @@ def inventory(request, category_id):
     except (EmptyPage, InvalidPage):
         stocks = paginator.page(paginator.num_pages)
 
+    if request.method == 'POST':
+        form = BatchUpdateForm(request.POST)
+        if form.is_valid():
+            print request.POST.getlist('checked-stocks')
+            print form.cleaned_data['retail_price']
+    else:
+        form = BatchUpdateForm()   
+
     data = {
         'category': category,
+        'form': form,
         'q': q,
         'stocks': stocks,
     }

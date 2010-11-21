@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render_to_response
 from django.template import RequestContext
 
+from contacts.models import ContactList
 from companies.forms import CompanyForm
 from companies.models import Company
 
@@ -24,15 +25,21 @@ def index(request):
 
 def create(request):
     if request.method == 'POST':
+        contacts = ContactList.post_dict(request.POST)
         form = CompanyForm(request.POST)
         if form.is_valid():
             company = form.save()
+            msg = company.contact_list.update_contacts(contacts)
+            if msg:
+                messages.warning(request, msg)
             messages.success(request, 'Company created')
             return redirect('companies:update', company.pk)
     else:
+        contacts = {}
         form = CompanyForm()
 
     data = {
+        'contacts': contacts,
         'form': form,
     }
 
@@ -47,14 +54,24 @@ def update(request, company_id):
     company = get_object_or_404(Company, pk=company_id)
 
     if request.method == 'POST':
+        contacts = customer.contact_list.post_dict(request.POST)
         form = CompanyForm(request.POST, instance=company)
         if form.is_valid():
             updated_company = form.save()
+            msg = updated_company.contact_list.update_contacts(contacts)
+            if msg:
+                messages.warning(request, msg)
             messages.success(request, 'Company updated.')
     else:
+        try:
+            contacts = company.contact_list.get_dict()
+        except AttributeError:
+            company.save()
+            contacts = {}
         form = CompanyForm(instance=company)
 
     data = {
+        'contacts': contacts,
         'company': company,
         'form': form,
     }

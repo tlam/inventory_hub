@@ -54,67 +54,6 @@ def create(request):
         context_instance=RequestContext(request),
     )
 
-'''
-def update(request, customer_id):
-    customer = get_object_or_404(Customer, pk=customer_id)
-    emails = customer.customer_email.order_by('address')
-    phones = customer.phone_set.all()
-
-
-    # translate QueryObject to Python dict?
-    initial_data = {
-        'city': customer.city.name,
-    }
-
-    if request.method == 'POST':
-        post_list = request.POST.lists()
-        emails_valid, email_dict = post_emails(post_list)
-        phones_valid, phone_dict = post_phones(post_list)
-        form = CustomerForm(request.POST, instance=customer)
-        if form.is_valid() and emails_valid and phones_valid:
-            past_customer = Customer.objects.get(pk=customer_id)
-            updated_customer = form.save()
-            History.updated_history(past_customer, updated_customer, \
-                request.user)
-            messages.success(request, 'Customer updated.')
-            create_emails(past_customer, email_dict)
-            create_phones(past_customer, phone_dict)
-    else:
-        form = CustomerForm(initial=initial_data, instance=customer)
-
-        email_dict = {}
-        i = 0
-        for email in emails:
-            email_dict[i] = email
-            i += 1
-
-        if email_dict:
-            email_dict = email_dict.items()
-
-        phone_dict = {}
-        i = 0
-        for phone in phones:
-            phone_dict[i] = phone
-            i += 1
-
-        if phone_dict:
-            phone_dict = phone_dict.items()
-
-    data = {
-        'customer': customer,
-        'email_dict': email_dict,
-        'emails': emails,
-        'form': form,
-        'phone_dict': phone_dict,
-        'phones': phones,
-    }
-
-    return render_to_response(
-        'customers/update.html',
-        data,
-        context_instance=RequestContext(request),
-    )
-'''
 
 def update(request, customer_id):
     customer = get_object_or_404(Customer, pk=customer_id)

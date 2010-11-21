@@ -1,6 +1,7 @@
 {% if stocks %}
 <table id="stocks">
   <tr>
+    <th><input type="checkbox" name="check-all" /></th>
     <th>Item Code</th>
     <th>Description</th>
     <th>Category Code</th>
@@ -10,6 +11,7 @@
   </tr>
   {% for stock in stocks.object_list %}
   <tr>
+    <td><input type="checkbox" name="checked-stocks" value="{{ stock.pk }}" /></td>
     <td>{{ stock.item_code }}</td>
     <td><a href="{% url stocks:update stock.pk %}">{{ stock.description }}</a></td>
     <td>{{ stock.category.code }}</td>
