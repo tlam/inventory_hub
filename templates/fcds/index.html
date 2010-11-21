@@ -17,4 +17,18 @@ File Commodity Datas
 
 <h4>Category & Code</h4>
 
+<table>
+{% for category in categories %}
+<form action="{% url stocks:categories:inventory category.pk %}" method="get">
+  <tr>
+    <td>{{ category.name }}</td>
+    <td>{{ category.code }}</td>
+    <td><input type="text" name="q" /></td>
+    <td><input type="submit" value="Search" /></td>
+    <td><a href="{% url stocks:categories:inventory category.id %}">Look-up</a></td>
+  </tr>
+</form>
+{% endfor %}
+</table>
+
 {% endblock %}

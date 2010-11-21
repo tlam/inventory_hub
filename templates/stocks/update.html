@@ -11,8 +11,8 @@
   {% include "stocks/_form.html" %}
   <div class="actions">
     <input type="hidden" class="delete-entry-url" value="{% url stocks:delete %}" />
-    <input type="button" id="delete-stock-{{ stock.pk }}" class="delete-button" value="Delete" />
     <input type="submit" class="update-button" value="Update" />
+    <input type="button" id="delete-stock-{{ stock.pk }}" class="delete-button" value="Delete" />
   </div>
 </form>
 

@@ -14,21 +14,6 @@ FCDs
   </div>
 </div>
 
-{% if stocks %}
-<table id="stocks">
-  <tr>
-    <th>Item Code</th>
-    <th>Description</th>
-    <th>Category Code</th>
-  </tr>
-  {% for stock in stocks %}
-  <tr>
-    <td>{{ stock.item_code }}</td>
-    <td><a href="{% url stocks:update stock.pk %}">{{ stock.description }}</a></td>
-    <td>{{ stock.category.code }}</td>
-  </tr>
-  {% endfor %}
-</table>
-{% endif %}
+{% include "stocks/table.html" %}
 
 {% endblock %}

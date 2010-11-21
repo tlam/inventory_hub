@@ -1,0 +1,25 @@
+{% extends "stocks/categories/base.html" %}
+
+{% block categories-breadcrumb-extra %}
+&gt; Inventory - {{ category.name }}
+{% endblock %}
+
+{% block categories-create %}
+<div class="title-combo">
+  <h3 class="title">{{ category.name }}</h3>
+  <div class="filter-box"> 
+    <form action="" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Filter" />
+      {% if q %}
+        by "{{ q }}"
+        <a href="{% url stocks:categories:inventory category.id %}">clear</a>
+      {% endif %}
+    </form>
+  </div>
+</div>
+{% endblock %}
+
+{% block categories-content %}
+{% include "stocks/pagination.html" %}
+{% endblock %}

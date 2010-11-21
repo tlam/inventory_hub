@@ -12,3 +12,15 @@
   margin-top: 1.6em;
   margin-left: 0.5em;
 }
+
+.pagination {
+  margin-top: 1em;
+}
+
+.title-combo .filter-box {
+  margin-top: 1em;
+}
+
+.filter-box form {
+  margin-bottom: 0;
+}

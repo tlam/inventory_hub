@@ -1,11 +1,13 @@
 from django.contrib import messages
+from django.core.paginator import EmptyPage, InvalidPage, Paginator
 from django.core.urlresolvers import reverse
+from django.db.models import Q
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render_to_response
 from django.template import RequestContext
 
 from stocks.forms import CategoryForm
-from stocks.models import Category
+from stocks.models import Category, Stock
 from utils.tools import capwords
 
 
@@ -91,6 +93,40 @@ def add_ajax(request):
 
     return render_to_response(
         'stocks/categories/all.html',
+        data,
+        context_instance=RequestContext(request),
+    )
+
+
+def inventory(request, category_id):
+    category = get_object_or_404(Category, pk=category_id)
+    q = request.GET.get('q', '')
+    stock_list = Stock.objects.filter(category=category)
+    stock_list = stock_list.filter(
+        Q(description__icontains=q) |
+        Q(item_code__icontains=q)
+    )
+
+    paginator = Paginator(stock_list, 20)
+
+    try:
+        page = int(request.GET.get('page', '1'))
+    except ValueError:
+        page = 1
+
+    try:
+        stocks = paginator.page(page)
+    except (EmptyPage, InvalidPage):
+        stocks = paginator.page(paginator.num_pages)
+
+    data = {
+        'category': category,
+        'q': q,
+        'stocks': stocks,
+    }
+
+    return render_to_response(
+        'stocks/categories/inventory.html',
         data,
         context_instance=RequestContext(request),
     )

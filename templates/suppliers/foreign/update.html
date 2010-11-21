@@ -12,8 +12,8 @@
   {% include "contacts/contact_list.html" %}
   <div class="actions">
     <input type="hidden" class="delete-entry-url" value="{% url suppliers:delete 'foreign' %}" />
-    <input type="button" id="delete-foreign-supplier-{{ foreign_supplier.pk }}" class="delete-button" value="Delete" />
     <input type="submit" class="update-button" value="Update" />
+    <input type="button" id="delete-foreign-supplier-{{ foreign_supplier.pk }}" class="delete-button" value="Delete" />
   </div>
 </form>
 

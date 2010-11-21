@@ -97,3 +97,7 @@ table#stock-items-total td.amount {
   font-size: 60%;
   font-style: italic;
 }
+
+table#stocks th.price {
+  width: 3.5em;
+}

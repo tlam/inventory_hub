@@ -98,7 +98,11 @@ def update_foreign(request, supplier_id):
             #History.updated_history(past_supplier, updated_supplier, request.user)
             messages.success(request, 'Foreign Supplier updated')
     else:
-        contacts = foreign_supplier.contact_list.get_dict()
+        try:
+            contacts = foreign_supplier.contact_list.get_dict()
+        except AttributeError:
+            foreign_supplier.save()
+            contacts = {}
         form = ForeignSupplierForm(initial=initial_data, instance=foreign_supplier)
     
     data = {
@@ -170,7 +174,11 @@ def update_local(request, supplier_id):
             History.updated_history(past_supplier, updated_supplier, request.user)
             messages.success(request, 'Local Supplier updated')
     else:
-        contacts = local_supplier.contact_list.get_dict()
+        try:
+            contacts = local_supplier.contact_list.get_dict()
+        except AttributeError:
+            local_supplier.save()
+            contacts = {}
         form = LocalSupplierForm(initial=initial_data, instance=local_supplier)
     
     data = {

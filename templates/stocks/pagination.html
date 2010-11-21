@@ -1,0 +1,38 @@
+{% if stocks %}
+<table id="stocks">
+  <tr>
+    <th>Item Code</th>
+    <th>Description</th>
+    <th>Category Code</th>
+    <th class="price">Retail</th>
+    <th class="price">Wholesale</th>
+    <th class="price">Dealer</th>
+  </tr>
+  {% for stock in stocks.object_list %}
+  <tr>
+    <td>{{ stock.item_code }}</td>
+    <td><a href="{% url stocks:update stock.pk %}">{{ stock.description }}</a></td>
+    <td>{{ stock.category.code }}</td>
+    <td>{{ stock.retail_price }}</td>
+    <td>{{ stock.wholesale_price }}</td>
+    <td>{{ stock.dealer_price }}</td>
+  </tr>
+  {% endfor %}
+</table>
+
+<div class="pagination">
+  <span class="step-links">
+    {% if stocks.has_previous %}
+      <a href="?page={{ stocks.previous_page_number }}">previous</a>
+    {% endif %}
+
+    <span class="current">
+      Page {{ stocks.number }} of {{ stocks.paginator.num_pages }}.
+    </span>
+
+    {% if stocks.has_next %}
+      <a href="?page={{ stocks.next_page_number }}">next</a>
+    {% endif %}
+  </span>
+</div>
+{% endif %}

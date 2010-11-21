@@ -12,12 +12,14 @@
 {% block categories-breadcrumb-extra %}
 {% endblock %}
 
+{% block categories-create %}
 <div class="title-combo">
   <h3 class="title">Categories</h3>
   <div class="create-link">
     <a href="{% url stocks:categories:create %}">Create</a>
   </div>
 </div>
+{% endblock %}
 
 {% block categories-content %}
 {% endblock %}
