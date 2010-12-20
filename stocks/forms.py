@@ -118,3 +118,16 @@ class BatchUpdateForm(forms.Form):
     wholesale_price = forms.DecimalField(max_digits=20, decimal_places=2, required=False)
     dealer_price = forms.DecimalField(max_digits=20, decimal_places=2, required=False)
     special_price = forms.DecimalField(max_digits=20, decimal_places=2, required=False)
+    pieces_per_box = forms.IntegerField(required=False)
+
+    def clean(self):
+        cleaned_data = self.cleaned_data
+        retail_price = cleaned_data['retail_price']
+        wholesale_price = cleaned_data['wholesale_price']
+        dealer_price = cleaned_data['dealer_price']
+        special_price = cleaned_data['special_price']
+        pieces_per_box = cleaned_data['pieces_per_box']
+
+        if not (retail_price or wholesale_price or dealer_price or special_price or pieces_per_box):
+            raise forms.ValidationError('Please enter at least one field to update')
+        return cleaned_data

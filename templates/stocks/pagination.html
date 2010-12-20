@@ -11,7 +11,9 @@
   </tr>
   {% for stock in stocks.object_list %}
   <tr>
-    <td><input type="checkbox" name="checked-stocks" value="{{ stock.pk }}" /></td>
+    <td>
+      <input type="checkbox" name="checked-stocks" value="{{ stock.pk }}" {% if stock.pk in checked_stocks %}checked{% endif %} />
+    </td>
     <td>{{ stock.item_code }}</td>
     <td><a href="{% url stocks:update stock.pk %}">{{ stock.description }}</a></td>
     <td>{{ stock.category.code }}</td>

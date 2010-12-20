@@ -119,16 +119,44 @@ def inventory(request, category_id):
     except (EmptyPage, InvalidPage):
         stocks = paginator.page(paginator.num_pages)
 
+    checked_stocks = []
+
     if request.method == 'POST':
         form = BatchUpdateForm(request.POST)
-        if form.is_valid():
-            print request.POST.getlist('checked-stocks')
-            print form.cleaned_data['retail_price']
+        checked_stocks = [int(x) for x in request.POST.getlist('checked-stocks')]
+        if checked_stocks:
+            if form.is_valid():
+                retail_price = form.cleaned_data['retail_price']
+                wholesale_price = form.cleaned_data['wholesale_price']
+                dealer_price = form.cleaned_data['dealer_price']
+                special_price = form.cleaned_data['special_price']
+                pieces_per_box = form.cleaned_data['pieces_per_box']
+                selected_stocks = Stock.objects.filter(pk__in=checked_stocks)
+
+                input_data = {}
+                if wholesale_price:
+                    input_data['wholesale_price'] = wholesale_price
+                if dealer_price:
+                    input_data['dealer_price'] = dealer_price
+                if special_price:
+                    input_data['special_price'] = special_price
+                if pieces_per_box:
+                    input_data['pieces_per_box'] = pieces_per_box
+
+                selected_stocks.update(**input_data)
+                #selected_stocks.update(wholesale_price=wholesale_price, pieces_per_box=pieces_per_box)
+                messages.success(request, 'Stocks updated')
+            else:
+                for error in form.non_field_errors():
+                     messages.warning(request, error)
+        else:
+            messages.warning(request, 'Please check at least one stock item')
     else:
         form = BatchUpdateForm()   
 
     data = {
         'category': category,
+        'checked_stocks': checked_stocks,
         'form': form,
         'q': q,
         'stocks': stocks,
