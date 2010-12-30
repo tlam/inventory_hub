@@ -21,10 +21,18 @@ class CustomerForm(ModelForm):
         obj, created = City.objects.get_or_create(name=data)
         return obj
 
+    def clean_vat_registration_number(self):
+        is_company = self.cleaned_data.get('is_company', '')
+        vat = self.cleaned_data['vat_registration_number']
+        if is_company and not vat:
+            raise forms.ValidationError('Please enter your VAT \
+                registration number')
+        return vat
+
     def clean_business_registration_number(self):
-        company = self.cleaned_data.get('company_name', '')
+        is_company = self.cleaned_data.get('is_company', '')
         brn = self.cleaned_data['business_registration_number']
-        if company and not brn:
+        if is_company and not brn:
             raise forms.ValidationError('Please enter your business \
-                registration number if you have a company')
+                registration number')
         return brn

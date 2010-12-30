@@ -15,7 +15,8 @@ class Customer(models.Model):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=100)
     company_name = models.CharField(max_length=100, blank=True)
-    price_type = models.CharField(max_length=2, choices=PRICE_CHOICES)
+    is_company = models.BooleanField()
+    price_type = models.CharField(max_length=2, choices=PRICE_CHOICES, default='R')
     unit_number = models.CharField(max_length=50, blank=True, \
         verbose_name='House/Appt No')
     street = models.CharField(max_length=255, blank=True)

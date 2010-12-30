@@ -109,6 +109,7 @@ def update(request, sale_type, sale_id):
 
     data = {
         'form': form,
+        'price_type': sale.customer.price_type,
         'sale': sale,
         'sale_type': sale_type,
         'stock_items': stock_items,

@@ -14,9 +14,9 @@
 
 <div class="fieldWrapper">
   <label for="id_warehouse">Warehouse:</label>
-  {{ form.warehouse }}
+  <span id="warehouses-ajax-output">{{ form.warehouse }}</span>
   {% required_field form.warehouse %}
-  <a href="">Add</a>
+  <span id="add-warehouse" class="link">Add</a>
   {{ form.warehouse.errors }}
 </div>
 

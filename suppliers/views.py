@@ -217,7 +217,7 @@ def supplier_number_ajax(request, supplier_type):
     company_name = request.GET.get('company_name', '')
     country_id = int(request.GET.get('country_id', 0))
 
-    company_name_prefix = company_name[:2].upper()
+    company_name_prefix = company_name[:3].upper()
 
     suppliers = SupplierFactory.create(supplier_type).objects.filter(
         country=country_id,
@@ -229,8 +229,8 @@ def supplier_number_ajax(request, supplier_type):
     except Country.DoesNotExist:
         country_name = ''
 
-    country_name_prefix = country_name[:3].upper()
+    country_name_prefix = country_name[:2].upper()
     max_id = suppliers.count() + 1
-    value = '%s/%s/%03d' % (company_name_prefix, country_name_prefix, max_id)
+    value = '%s/%s/%03d' % (country_name_prefix, company_name_prefix, max_id)
     data = json.dumps(value)
     return HttpResponse(data, mimetype='application/javascript')

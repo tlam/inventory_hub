@@ -24,6 +24,7 @@
 <div class="fieldWrapper">
   <label for="id_{{ form.company_name.html_name }}">{{ form.company_name.label }}:</label>
   {{ form.company_name }}
+  {{ form.is_company }}
   {% required_field form.company_name %}
   {{ form.company_name.errors }}
 </div>
