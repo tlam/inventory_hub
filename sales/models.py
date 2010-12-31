@@ -15,6 +15,7 @@ class Sale(models.Model):
     remarks = models.CharField(max_length=255, blank=True)
     requisition_number = models.CharField(max_length=255, blank=True)
     cart = models.ForeignKey('stock_carts.StockCart', blank=True, null=True)
+    contact_list = models.ForeignKey('contacts.ContactList', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True, default=datetime.now())
     updated_at = models.DateTimeField(auto_now=True, default=datetime.now())
 

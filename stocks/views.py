@@ -31,7 +31,10 @@ def create(request):
             stock = form.save()
             History.created_history(stock, request.user)
             messages.success(request, 'Stock created.')
-            return redirect('stocks:update', stock.pk)
+            if 'create' in request.POST:
+                return redirect('stocks:update', stock.pk)
+            else:
+                return redirect('stocks:create')
     else:
         form = StockForm()
 
@@ -93,9 +96,11 @@ def search_category(request):
     return HttpResponse(data, mimetype="application/javascript")
 
 
-def search_stock(request):
+def search_stock(request, category_id):
     description = request.GET.get('term', '')
     stocks = Stock.objects.filter(description__istartswith=description)
+    if int(category_id):
+        stocks = stocks.filter(category=category_id)
     stock_list = []
     for stock in stocks:
         stock_list.append({
@@ -105,7 +110,6 @@ def search_stock(request):
     #stocks = stocks.values_list('item_code', flat=True).order_by('item_code')
     #data = simplejson.dumps(list(stocks))
     data = simplejson.dumps(stock_list)
-    print data
     return HttpResponse(data, mimetype="application/javascript")
 
 

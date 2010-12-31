@@ -5,6 +5,7 @@ from django.db.models.signals import post_save
 
 from contacts.models import ContactList
 from customers.models import Customer
+from sales.models import CashSale, CreditSale
 from stock_carts.models import StockCart
 from warehouses.models import Warehouse
 
@@ -37,6 +38,28 @@ class Quotation(models.Model):
             'customer': self.customer.__unicode__(),
             'remarks': self.remarks,
         }
+
+    def to_cash_sale(self):
+        return CashSale.objects.create(
+            invoice_no=self.invoice_no,
+            date=self.date,
+            warehouse=self.warehouse,
+            customer=self.customer,
+            remarks=self.remarks,
+            cart=self.cart,
+            contact_list=self.contact_list
+        )
+
+    def to_credit_sale(self):
+        return CreditSale.objects.create(
+            invoice_no=self.invoice_no,
+            date=self.date,
+            warehouse=self.warehouse,
+            customer=self.customer,
+            remarks=self.remarks,
+            cart=self.cart,
+            contact_list=self.contact_list
+        )
 
 
 #@receiver(pre_init, sender=Quotation), IN FUTURE DJANGO RELEASE

@@ -3,9 +3,14 @@ $(document).ready(function() {
         source: "/stocks/search-category/"
     });
 
-
     var stock_item = $(".stock-item-code").autocomplete({
-        source: "/stocks/search-stock/",
+        source: "/stocks/search-stock/" + $("#stock-category").val() + "/",
+    });
+
+    $("#stock-category").change(function() {
+        var stock_item = $(".stock-item-code").autocomplete({
+            source: "/stocks/search-stock/" + $(this).val() + "/",
+        });
     });
 
     if (stock_item.data("autocomplete")) {

@@ -12,11 +12,13 @@ class BaseSaleForm(ModelForm):
 class CashSaleForm(BaseSaleForm):
     class Meta:
         model = CashSale
+        exclude = ('cart',)
 
 
 class CreditSaleForm(BaseSaleForm):
     class Meta:
         model = CreditSale
+        exclude = ('cart',)
 
 
 def sale_form(sale_type, *args, **kwargs):

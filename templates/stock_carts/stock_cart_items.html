@@ -61,6 +61,12 @@
 {% endif %}
 
 <div>
+  <select id="stock-category">
+    <option value="0">All Categories</option>
+    {% for category in categories %}
+    <option value="{{ category.pk }}">{{ category }}</option>
+    {% endfor %}
+  </select>
   Stock Item Code: <input type="text" name="stock-item-code" class="stock-item-code" />
   <input type="submit" name="add-stock-item" value="Add Stock" />
 </div>

@@ -90,11 +90,18 @@ def update(request, quotation_id):
     quotation = get_object_or_404(Quotation, pk=quotation_id)
 
     if request.method == 'POST':
+        if 'convert-to-cash-sale' in request.POST:
+           cash_sale = quotation.to_cash_sale()
+           return redirect('sales:update', 'cash', cash_sale.pk)
+        elif 'convert-to-credit-sale' in request.POST:
+           credit_sale = quotation.to_credit_sale()
+           return redirect('sales:update', 'credit', credit_sale.pk)
+
         contacts = quotation.contact_list.post_dict(request.POST)
         form = QuotationForm(request.POST, instance=quotation)
-        if 'add-stock-item' in request.POST:
-            stock_item_code = request.POST.get('stock-item-code', '')
-
+        stock_item_code = request.POST.get('stock-item-code', '')
+        
+        if stock_item_code:
             msg = quotation.cart.add_item(stock_item_code)
             if msg.get('success', ''):
                 messages.success(request, msg.get('success', ''))

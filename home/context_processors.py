@@ -1,5 +1,6 @@
 from contacts.models import Email, Phone
 from home.models import Home
+from stocks.models import Category
 from utils.constants import APP_CHOICES
 
 
@@ -21,6 +22,7 @@ def site_wide(request):
     return {
         'app_choices': APP_CHOICES,
         'app_name': app_name,
+        'categories': Category.objects.all(),
         'email_choices': Email.EMAIL_CHOICES,
         'phone_choices': Phone.PHONE_CHOICES,
         'tax': tax,

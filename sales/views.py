@@ -88,8 +88,9 @@ def update(request, sale_type, sale_id):
 
     if request.method == 'POST':
         form = sale_form(sale_type, request.POST, instance=sale)
-        if 'add-stock-item' in request.POST:
-            stock_item_code = request.POST.get('stock-item-code', '')
+        stock_item_code = request.POST.get('stock-item-code', '')
+
+        if stock_item_code:
             msg = sale.cart.add_item(stock_item_code)
             if msg.get('success', ''):
                 messages.success(request, msg.get('success', ''))
@@ -97,10 +98,8 @@ def update(request, sale_type, sale_id):
                 messages.warning(request, msg.get('warning', ''))
         else:
             if form.is_valid():
-                past_sale = instance.objects.get(pk=sale_id)
-                updated_sale = form.save()
-                updated_sale.cart.update_items(request.POST)
-                History.updated_history(past_sale, updated_sale, request.user)
+                form.save()
+                sale.cart.update_items(request.POST)
                 messages.success(request, '%s sale updated' % sale_type)
     else:
         form = sale_form(sale_type, instance=sale)

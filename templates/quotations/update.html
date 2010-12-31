@@ -14,7 +14,9 @@
   <div class="actions">
     <input type="hidden" class="delete-entry-url" value="{% url quotations:delete %}" />
     <input type="button" id="delete-quotation-{{ quotation.pk }}" class="delete-button" value="Delete" />
-    <input type="submit" class="update-button" value="Update" />
+    <input type="submit" class="update-button" name="update" value="Update" />
+    <input type="submit" class="update-button" name="convert-to-cash-sale" value="Convert to Cash Sale" />
+    <input type="submit" class="update-button" name="convert-to-credit-sale" value="Convert to Credit Sale" />
   </div>
 </form>
 
