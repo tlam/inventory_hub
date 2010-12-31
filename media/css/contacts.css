@@ -1,6 +1,9 @@
-fieldset.emails, fieldset.phones {
+#fieldset-contacts {
   margin-bottom: 1em;
-  width: 36em;
+}
+
+#fieldset-contacts legend {
+  font-weight: bold;
 }
 
 .emails td.address input, .phones td.phone-number input {

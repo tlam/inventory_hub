@@ -5,15 +5,17 @@
     <tr>
       <td><input type="text" name="first-name-{{ i|default:0 }}" value="{{ contact.first_name }}" /></td>
       <td><input type="text" name="last-name-{{ i|default:0 }}" value="{{ contact.last_name }}" /></td>
+  {% if i > 0 %}
+  <td>
+  <input type="button" value="Remove Contact" id="remove-contact-{{ i|default:0 }}" class="remove-contact" />
+  </td>
+  {% endif %}
     </tr>
     <tr class="contact-names">
       <td>First Name</td>
       <td>Last Name</td>
     </tr>
   </table>
-  {% if i > 0 %}
-  <input type="button" value="Remove Contact" id="remove-contact-{{ i|default:0 }}" class="remove-contact" />
-  {% endif %}
 
   <div class="emails-phones">
     <div class="emails">

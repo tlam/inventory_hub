@@ -6,7 +6,7 @@
     <th>Description</th>
     <th>Qty</th>
     <th>Discount</th>
-    <th>Tax</th>
+    {% if not is_quotation %}<th>Tax</th>{% endif %}
     <th class="price">Unit Cost</th>
     <th class="total">Total</th>
     <td class="actions"></td>
@@ -22,9 +22,11 @@
     <td class="discount">
       <input type="text" name="stock-cart-item-discount-{{ item.pk }}" value="{{ item.discount }}" />
     </td>
+    {% if not is_quotation %}
     <td class="tax">
       <input type="text" name="stock-cart-item-tax-{{ item.pk }}" value="{{ item.calculate_tax }}" />%
     </td>
+    {% endif %}
     <td class="price"><div>{{ item.stock|customer_price:price_type }}</div></td>
     <td class="total">
       <div>

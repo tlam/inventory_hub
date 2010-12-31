@@ -87,6 +87,7 @@ def update(request, sale_type, sale_id):
     sale = get_object_or_404(instance, pk=sale_id)
 
     if request.method == 'POST':
+        contacts = sale.contact_list.post_dict(request.POST)
         form = sale_form(sale_type, request.POST, instance=sale)
         stock_item_code = request.POST.get('stock-item-code', '')
 
@@ -100,13 +101,24 @@ def update(request, sale_type, sale_id):
             if form.is_valid():
                 form.save()
                 sale.cart.update_items(request.POST)
-                messages.success(request, '%s sale updated' % sale_type)
+                messages.success(request, 'Sale updated')
+
+        msg = sale.contact_list.update_contacts(contacts)
+        if msg:
+            messages.warning(request, msg)
     else:
+        try:
+            contacts = sale.contact_list.get_dict()
+        except AttributeError:
+            sales.save()
+            contacts = {}
         form = sale_form(sale_type, instance=sale)
 
     stock_items = sale.cart.stockcartitem_set.all()
 
     data = {
+        'cart': sale.cart,
+        'contacts': contacts,
         'form': form,
         'price_type': sale.customer.price_type,
         'sale': sale,
@@ -135,46 +147,3 @@ def delete(request, sale_type):
 
     data = reverse('sales:index')
     return HttpResponse(data, mimetype="application/javascript")
-
-
-def update2(request, sale_type, sale_id):
-    if sale_type == 'cash':
-        instance = CashSale
-    else:
-        instance = CreditSale
-
-    sale = get_object_or_404(instance, pk=sale_id)
-    StockItemFormSet = inlineformset_factory(instance, StockItem, extra=1, fields = ('stock', 'quantity', 'discount',))
-
-    if request.method == 'POST':
-        form = sale_form(sale_type, request.POST, instance=sale)
-        formset = StockItemFormSet(request.POST, instance=sale)
-        if form.is_valid() and formset.is_valid():
-            past_sale = instance.objects.get(id=sale_id)
-            past_items = StockItem.objects.items_info(past_sale)
-            updated_sale = form.save()
-            History.updated_history(past_sale, updated_sale, request.user)
-            formset.save()
-            updated_items = StockItem.objects.items_info(updated_sale)
-            History.updated_list_history(past_items, updated_items, request.user)
-            messages.success(request, '%s sale updated' % sale_type)
-            """
-            Redirecting will force an update of the current page and
-            add an extra row
-            """
-            return redirect('sales:update', sale_type, sale_id)
-    else:
-        formset = StockItemFormSet(instance=sale)
-        form = sale_form(sale_type, instance=sale)
-
-    data = {
-        'form': form,
-        'formset': formset,
-        'sale_type': sale_type,
-    }
-
-    return render_to_response(
-        'sales/update.html',
-        data,
-        context_instance=RequestContext(request),
-    )

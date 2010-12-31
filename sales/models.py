@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.db.models.signals import post_save
 
+from contacts.models import ContactList
 from customers.models import Customer
 from warehouses.models import Warehouse
 
@@ -24,6 +25,12 @@ class Sale(models.Model):
 
     def __unicode__(self):
         return u'%s' % self.customer
+
+    def save(self, *args, **kwargs):
+        if not self.contact_list:
+            description = 'Sale:%i' % self.invoice_no
+            self.contact_list = ContactList.objects.create(description=description[:10])
+        super(Sale, self).save(*args, **kwargs)
 
     def info(self):
         return {

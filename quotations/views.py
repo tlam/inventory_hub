@@ -5,7 +5,7 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render_to_response
 from django.template import RequestContext
 
-from contacts.models import ContactList, Email, Phone
+from contacts.models import ContactList
 from customers.forms import CustomerForm
 from customers.models import Customer
 from histories.models import History
@@ -74,9 +74,7 @@ def create(request, customer_id):
 
     data = {
         'contacts': contacts,
-        'email_choices': Email.EMAIL_CHOICES,
         'form': form,
-        'phone_choices': Phone.PHONE_CHOICES,
     }
 
     return render_to_response(
@@ -129,9 +127,7 @@ def update(request, quotation_id):
     data = {
         'cart': quotation.cart,
         'contacts': contacts,
-        'email_choices': Email.EMAIL_CHOICES,
         'form': form,
-        'phone_choices': Phone.PHONE_CHOICES,
         'price_type': quotation.customer.price_type,
         'quotation': quotation,
         'stock_items': stock_items,
@@ -154,47 +150,3 @@ def delete(request):
         messages.error(request, 'Quotation with id %i does not exist' % quotation_id)
     data = reverse('quotations:index')
     return HttpResponse(data, mimetype="application/javascript")
-
-
-def update2(request, quotation_id):
-    quotation = get_object_or_404(Quotation, pk=quotation_id)
-    #StockItemFormSet = inlineformset_factory(Quotation, StockItem, extra=1, fields = ('stock', 'quantity', 'discount',))
-
-    from stocks.forms import BaseStockFormset
-    StockItemFormSet = inlineformset_factory(Quotation, StockItem, formset=BaseStockFormset, extra=0, fields = ('stock', 'quantity', 'discount',))
-
-    if request.method == 'POST':
-        form = QuotationForm(request.POST, instance=quotation)
-        formset = StockItemFormSet(request.POST, instance=quotation)
-        print form.is_valid()
-        print formset.is_valid()
-        if form.is_valid() and formset.is_valid():
-            past_quotation = Quotation.objects.get(pk=quotation_id)
-            past_items = StockItem.objects.items_info(past_quotation)
-            updated_quotation = form.save()
-            History.updated_history(past_quotation, updated_quotation, request.user)
-            #formset.save()
-            formset.save_all()
-            updated_items = StockItem.objects.items_info(updated_quotation)
-            History.updated_list_history(past_items, updated_items, request.user)
-            messages.success(request, 'Quotation updated.')
-            """
-            Redirecting will force an update of the current page and
-            add an extra row
-            """
-        else:
-            messages.warning(request, 'Invalid')
-    else:
-        formset = StockItemFormSet(instance=quotation)
-        form = QuotationForm(instance=quotation)
-
-    data = {
-        'form': form,
-        'formset': formset,
-    }
-
-    return render_to_response(
-        'quotations/update.html',
-        data,
-        context_instance=RequestContext(request),
-    )

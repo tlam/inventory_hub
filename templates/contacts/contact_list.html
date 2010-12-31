@@ -1,4 +1,5 @@
-  <h3>Contacts</h3>
+<fieldset id="fieldset-contacts">
+  <legend>Contacts</legend>
   <div id="contacts">
   {% if contacts %}
     {% for i, contact in contacts.items %}
@@ -15,3 +16,4 @@
   <input type="hidden" id="ajax-remove-email-url" value="{% url contacts:ajax-remove-email %}" />
   <input type="hidden" id="ajax-remove-phone-url" value="{% url contacts:ajax-remove-phone %}" />
   <input type="button" value="Add Another Contact" id="add-contact" />
+</fieldset>

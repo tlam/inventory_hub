@@ -1,7 +1,7 @@
 from contacts.models import Email, Phone
 from home.models import Home
 from stocks.models import Category
-from utils.constants import APP_CHOICES
+from utils.constants import APP_CHOICES, QUOTATIONS_APP
 
 
 def site_wide(request):
@@ -19,11 +19,14 @@ def site_wide(request):
         else:
             app_name = ''
 
+    print app_name == QUOTATIONS_APP
+
     return {
         'app_choices': APP_CHOICES,
         'app_name': app_name,
         'categories': Category.objects.all(),
         'email_choices': Email.EMAIL_CHOICES,
+        'is_quotation': app_name == QUOTATIONS_APP,
         'phone_choices': Phone.PHONE_CHOICES,
         'tax': tax,
     }
