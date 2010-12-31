@@ -110,7 +110,7 @@ def update(request, sale_type, sale_id):
         try:
             contacts = sale.contact_list.get_dict()
         except AttributeError:
-            sales.save()
+            sale.save()
             contacts = {}
         form = sale_form(sale_type, instance=sale)
 
