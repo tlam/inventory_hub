@@ -13,6 +13,7 @@ from warehouses.models import Warehouse
 class Quotation(models.Model):
     invoice_no = models.IntegerField() # Starts at 1
     date = models.DateField()
+    sales_agent = models.ForeignKey('staffs.SalesAgent', blank=True, null=True)
     warehouse = models.ForeignKey(Warehouse)
     customer = models.ForeignKey(Customer)
     remarks = models.CharField(max_length=255, blank=True)
