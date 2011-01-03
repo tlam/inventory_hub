@@ -14,3 +14,46 @@
   float: left;
   margin: 1em 0.5em;
 }
+
+#company-info {
+  overflow: hidden;
+}
+
+#company-contact {
+  border: 1px solid #CCC;
+  border-bottom: none;
+  float: left;
+  width: 350px;
+}
+
+#company-contact div {
+  border-bottom: 1px solid #CCC;
+  padding: 0.3em 0.5em;
+}
+
+#company-logo {
+  float: right;
+}
+
+#invoice-sub-title {
+  margin-top: 1.5em;
+  overflow: hidden;
+}
+
+#invoice-sub-title #invoice-info {
+  float: left;
+  font-weight: bold;
+}
+
+#invoice-sub-title #customer-info {
+  float: right;
+}
+
+#customer-info table, #customer-info tr, #customer-info td {
+  border: 1px solid #CCC;
+  border-collapse: collapse;
+}
+
+#customer-info td {
+  padding: 0.3em 0.5em;
+}

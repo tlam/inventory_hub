@@ -5,6 +5,23 @@
 
 {% block invoice-content %}
 
-{{ quotation }}
+<div id="invoice-sub-title">
+  <div id="invoice-info">
+    Quotation Invoice
+  </div>
+  <div id="customer-info">
+    <table>
+      <tr>
+        <td>Date: {{ quotation.date }}</td>
+        <td>Invoice No: {{ quotation.invoice_no }}</td>
+      </tr>
+      <tr>
+        <td>Clerk's Name: {{ quotation.sales_agent }}</td>
+        <td>Customer Code: {{ quotation.customer }}</td>
+      </tr>
+    </table>
+  </div>
+</div>
+
 
 {% endblock %}

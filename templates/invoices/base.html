@@ -6,14 +6,30 @@
 
 <div id="print-sub-header">
   <h3>{% block invoice-sub-header %}{% endblock %}</h3>
-<div id="print-actions">
-  <div><a href="{% block invoice-edit-url %}{% endblock %}" class="button">Edit</a></div>
-  <div><a href="" class="button">PDF</a></div>
-  <div><a href="#" onclick="window.print(); return false;" class="button">Print</a></div>
-</div>
+  <div id="print-actions">
+    <div><a href="{% block invoice-edit-url %}{% endblock %}" class="button">Edit</a></div>
+    <div><a href="" class="button">PDF</a></div>
+    <div><a href="#" onclick="window.print(); return false;" class="button">Print</a></div>
+  </div>
 </div>
 
+<div id="invoice-content">
+  <div id="company-info">
+  <div id="company-contact">
+    <div>Jacob Edward</div>
+    <div>Phone: 123-4567</div>
+    <div>Fax: 123-4567</div>
+    <div>jacob.edward@somewhere.com</div>
+    <div>123 Anywhere St</div>
+    <div>Toronto, Canada</div>
+    <div>VAT: 123456 BRN: C123454</div>
+  </div>
+  <div id="company-logo">
+    <img src="{{ MEDIA_URL }}img/homemart_logo.jpg" />
+  </div>
+  </div>
 {% block invoice-content %}
 {% endblock %}
+</div>
 
 {% endblock %}
