@@ -109,3 +109,25 @@ ul.ui-autocomplete {
 .table-row-colour {
   background-color: #EEE;
 }
+
+.sub-header-section {
+  overflow: auto; 
+}
+
+.sub-header-section h3 {
+  float: left;
+}
+
+.sub-header-section .view-invoice {
+  float: right;
+  margin: 1em 0;
+}
+
+.button {
+  -moz-border-radius: 7px;
+  border-radius: 7px;
+  border: 1px solid #CCC;
+  padding: 0.3em 0.5em;
+  -moz-box-shadow: 0 1px 3px #888;
+  -webkit-box-shadow: 0 1px 3px #888;
+}

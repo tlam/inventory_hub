@@ -150,3 +150,27 @@ def delete(request):
         messages.error(request, 'Quotation with id %i does not exist' % quotation_id)
     data = reverse('quotations:index')
     return HttpResponse(data, mimetype="application/javascript")
+
+
+def invoice(request, quotation_id):
+    quotation = get_object_or_404(Quotation, pk=quotation_id)
+    try:
+        contacts = quotation.contact_list.get_dict()
+    except AttributeError:
+        quotation.save()
+        contacts = {}
+    stock_items = quotation.cart.stockcartitem_set.all()
+
+    data = {
+        'cart': quotation.cart,
+        'contacts': contacts,
+        'price_type': quotation.customer.price_type,
+        'quotation': quotation,
+        'stock_items': stock_items,
+    }
+
+    return render_to_response(
+        'invoices/quotation.html',
+        data,
+        context_instance=RequestContext(request),
+    )

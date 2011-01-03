@@ -5,7 +5,12 @@
 {% endblock %}
 
 {% block quotations-content %}
-<h3>Update Quotation: {{ quotation.customer }}</h3>
+<div class="sub-header-section">
+  <h3>Update Quotation: {{ quotation.customer }}</h3>
+  <div class="view-invoice">
+    <a href="{% url quotations:invoice quotation.pk %}" class="button">View Invoice</a>
+  </div>
+</div>
 
 <form action="" method="post">
   {% include "quotations/_form.html" %}

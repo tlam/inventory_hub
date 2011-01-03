@@ -1,0 +1,16 @@
+#print-sub-header {
+  overflow: hidden;
+}
+
+#print-sub-header h3 {
+  float: left;
+}
+
+#print-actions {
+  float: right;
+}
+
+#print-actions div {
+  float: left;
+  margin: 1em 0.5em;
+}

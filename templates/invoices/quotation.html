@@ -1,0 +1,10 @@
+{% extends "invoices/base.html" %}
+
+{% block invoice-sub-header %}Quotation Invoice{% endblock %}
+{% block invoice-edit-url %}{% url quotations:update quotation.pk %}{% endblock %}
+
+{% block invoice-content %}
+
+{{ quotation }}
+
+{% endblock %}

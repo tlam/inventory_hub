@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block sub-title %} - Invoices{% endblock %}
+
+{% block content %}
+
+<div id="print-sub-header">
+  <h3>{% block invoice-sub-header %}{% endblock %}</h3>
+<div id="print-actions">
+  <div><a href="{% block invoice-edit-url %}{% endblock %}" class="button">Edit</a></div>
+  <div><a href="" class="button">PDF</a></div>
+  <div><a href="#" onclick="window.print(); return false;" class="button">Print</a></div>
+</div>
+</div>
+
+{% block invoice-content %}
+{% endblock %}
+
+{% endblock %}
