@@ -111,7 +111,7 @@ ul.ui-autocomplete {
 }
 
 .sub-header-section {
-  overflow: auto; 
+  overflow: hidden; 
 }
 
 .sub-header-section h3 {
