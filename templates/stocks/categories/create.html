@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block categories-content %}
-<form action="" method="post">
+<form action="" method="post">{% csrf_token %}
   {% include "stocks/categories/_form.html" %}
   <p>
     <input type="submit" value="Create" />

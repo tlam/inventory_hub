@@ -19,8 +19,6 @@ def site_wide(request):
         else:
             app_name = ''
 
-    print app_name == QUOTATIONS_APP
-
     return {
         'app_choices': APP_CHOICES,
         'app_name': app_name,

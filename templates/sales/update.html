@@ -7,7 +7,7 @@
 {% block sales-content %}
 <h3>Update {{ sale_type|capfirst }} Sale: {{ sale.customer }}</h3>
 
-<form action="" method="post">
+<form action="" method="post">{% csrf_token %}
   {% include "sales/_form.html" %}
   {% include "contacts/contact_list.html" %}
   {% include "stock_carts/stock_cart_items.html" %}

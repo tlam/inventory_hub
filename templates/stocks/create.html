@@ -7,7 +7,7 @@
 {% block stocks-content %}
 <h3>Create File Commodity Data</h3>
 
-<form action="" method="post">
+<form action="" method="post">{% csrf_token %}
   {% include "stocks/_form.html" %}
   <p>
     <input type="submit" name="create" value="Create" />

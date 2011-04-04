@@ -17,7 +17,7 @@ AJAX search and generate link for the following
 <p>or</p>
 
 <h3>Create a new customer</h3>
-<form action="" method="post">
+<form action="" method="post">{% csrf_token %}
   {% include "customers/_form.html" %}
   <p>
     <input type="submit" value="Create" />

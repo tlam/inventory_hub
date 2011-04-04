@@ -11,6 +11,7 @@ from customers.models import Customer
 from histories.models import History
 from quotations.forms import QuotationForm
 from quotations.models import Quotation
+from utils.tools import render_to_pdf
 
 
 def index(request):
@@ -168,6 +169,9 @@ def invoice(request, quotation_id):
         'quotation': quotation,
         'stock_items': stock_items,
     }
+
+    if 'pdf' in request.GET:
+        return render_to_pdf('invoices/quotation.html', data, 'quotation')
 
     return render_to_response(
         'invoices/quotation.html',

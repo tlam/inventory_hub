@@ -8,7 +8,7 @@
 {% block sales-content %}
 <h3>Create {{ sale_type|capfirst }} Sale</h3>
 
-<form action="" method="post">
+<form action="" method="post">{% csrf_token %}
   {% include "sales/_form.html" %}
   <p>
     <input type="submit" value="Create" />

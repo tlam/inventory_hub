@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block categories-content %}
-<form action="" method="post">
+<form action="" method="post">{% csrf_token %}
   {% include "stocks/categories/_form.html" %}
   <div class="actions">
     <input type="hidden" class="delete-entry-url" value="{% url stocks:categories:delete %}" />

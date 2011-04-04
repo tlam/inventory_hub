@@ -12,7 +12,7 @@
   </div>
 </div>
 
-<form action="" method="post">
+<form action="" method="post">{% csrf_token %}
   {% include "quotations/_form.html" %}
   {% include "contacts/contact_list.html" %}
   {% include "stock_carts/stock_cart_items.html" %}

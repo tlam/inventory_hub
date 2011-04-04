@@ -7,7 +7,7 @@
 {% block customers-content %}
 <h3>Update Customer: {{ customer }}</h3>
 
-<form action="" method="post">
+<form action="" method="post">{% csrf_token %}
   {% include "customers/_form.html" %}
   {% include "contacts/contact_list.html" %}
   <div class="actions">

@@ -21,7 +21,7 @@
 {% endblock %}
 
 {% block categories-content %}
-<form action="" method="post">
+<form action="" method="post">{% csrf_token %}
   <div id="batch-update">
     <h4>Batch Modify - <em>in progress</em></h4>
     {% include "stocks/categories/batch_update_form.html" %}

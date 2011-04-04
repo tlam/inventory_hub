@@ -2,6 +2,7 @@
 
 {% block invoice-sub-header %}Quotation Invoice{% endblock %}
 {% block invoice-edit-url %}{% url quotations:update quotation.pk %}{% endblock %}
+{% block invoice-pdf-url %}{% url quotations:invoice quotation.pk %}?pdf{% endblock %}
 
 {% block invoice-content %}
 

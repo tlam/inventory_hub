@@ -7,7 +7,7 @@
 {% block companies-content %}
 <h3>Update Company: {{ company }}</h3>
 
-<form action="" method="post">
+<form action="" method="post">{% csrf_token %}
   {% include "companies/_form.html" %}
   {% include "contacts/contact_list.html" %}
   <div class="actions">
